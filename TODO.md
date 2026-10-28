@@ -7,11 +7,12 @@ Launch checklist for the Frontier Engineering site.
 ### 1. Make the forms deliver leads
 Both forms show a success message but only log to the server console.
 
-- [ ] Choose a destination: email (e.g. Resend), Slack webhook, or CRM
-- [ ] Wire up `submitContact` (discovery-call form) — `app/actions.ts`
+- [x] Choose a destination: email via Resend
+- [x] Wire up `submitContact` (discovery-call form) — `app/actions.ts`
 - [ ] Wire up `subscribePlaybook` (playbook signup) — `app/actions.ts`
-- [ ] Add any API keys / webhook URLs as env vars (locally and on the host)
+- [ ] Add `RESEND_API_KEY` (+ `CONTACT_FROM_EMAIL` / `CONTACT_TO_EMAIL` while on the sandbox sender) to Vercel env vars
 - [ ] Send a test submission end to end
+- [ ] Verify `send.frontier-engineering.ai` in Resend: add its 4 DNS records in GoDaddy (DNS lives there, not Vercel), then verify and remove the `CONTACT_FROM_EMAIL=onboarding@resend.dev` override. Until then, mail can only go to the Resend account's own address.
 
 ### 2. Replace placeholder content
 Decide for each: real content, or hide the section until it exists.
