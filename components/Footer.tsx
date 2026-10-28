@@ -16,9 +16,8 @@ export function Footer() {
               {p.short}
             </Link>
           ))}
-          {/* TODO: replace with your real address */}
-          <a href="mailto:hello@example.com" className="hover:text-paper">
-            [EMAIL]
+          <a href="mailto:info@frontier-engineering.ai" className="hover:text-paper">
+            info@frontier-engineering.ai
           </a>
         </nav>
         <p className="font-mono text-xs">© 2026 Frontier Engineering</p>

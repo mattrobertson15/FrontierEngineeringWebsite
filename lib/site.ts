@@ -6,3 +6,5 @@ export const practices = [
 ] as const;
 
 export const contactHref = "/#contact";
+
+export const siteUrl = "https://frontier-engineering.ai";
