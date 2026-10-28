@@ -19,12 +19,24 @@ export const metadata: Metadata = {
     "Evaluation harnesses built on your data and success criteria, so model choice, prompt changes and upgrades are measured decisions.",
 };
 
+const benchmarkSource = "https://github.com/bartr/wharf";
+
+// DeepSWE PASS@1 and mean cost per costed attempt, from the Wharf results export.
 const report = [
-  { suite: "task_accuracy", gate: "pass" },
-  { suite: "grounding", gate: "pass" },
-  { suite: "safety_redteam", gate: "review" },
-  { suite: "latency_p95", gate: "pass" },
-  { suite: "cost_per_task", gate: "pass" },
+  { model: "GPT-5.6 Luna", harness: "Copilot", pass: "74.1%", cost: "$0.37", tone: "best" },
+  { model: "Gemini 3.8 Flash", harness: "Copilot", pass: "74.1%", cost: "$2.79" },
+  { model: "Claude Opus 5", harness: "Copilot", pass: "71.2%", cost: "$5.66" },
+  { model: "GPT-6 Astra", harness: "Copilot", pass: "71.0%", cost: "$8.43" },
+  { model: "Claude Opus 5.5", harness: "Copilot", pass: "70.8%", cost: "$11.98" },
+  { model: "Claude Opus 5", harness: "Claude Code", pass: "64.4%", cost: "$13.49" },
+  { model: "Auto", harness: "Copilot", pass: "37.0%", cost: "$1.62", tone: "worst" },
+];
+
+const findings = [
+  { tag: "harness", title: "Same model, different harness, different result.", body: "Claude Opus 5 passed 71.2% of attempts inside GitHub Copilot and 64.4% inside Claude Code — and cost 58% less per task ($5.66 vs $13.49)." },
+  { tag: "cost", title: "The cheapest model tied for first.", body: "GPT-5.6 Luna passed 74.1% at $0.37 per task — about 1/32 the cost of Claude Opus 5.5, which scored 70.8%." },
+  { tag: "upgrade", title: "Version bumps move the numbers.", body: "Luna fell from 74.1% to 69.9% between two Copilot CLI releases with no change to the model. That is the regression an eval gate catches before rollout." },
+  { tag: "reproduce", title: "Results that hold up.", body: "Where our configurations overlap Meta's published DeepSWE evaluation, our pass counts land within about three passes in 565 attempts." },
 ];
 
 const tests = [
@@ -48,15 +60,15 @@ function EvalReport() {
   const cell = "border-b border-[#22272A] px-2 py-2.5";
   return (
     <figure className="m-0 flex flex-col gap-4 bg-ink p-6 font-mono text-[13px] text-night-text">
-      <div className="flex justify-between text-night-dim">
-        <span>eval_report · release candidate</span>
-        <span>sample layout</span>
+      <div className="flex justify-between gap-4 text-night-dim">
+        <span>deepswe · 113 tasks</span>
+        <span>oct 2026</span>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[360px] border-collapse">
+        <table className="w-full min-w-[400px] border-collapse">
           <thead>
             <tr className="text-left text-night-dim">
-              {["suite", "cases", "baseline", "candidate", "gate"].map((h) => (
+              {["model", "harness", "pass@1", "$/task"].map((h) => (
                 <th key={h} className="border-b border-night-line px-2 py-2.5 font-normal">
                   {h}
                 </th>
@@ -65,21 +77,24 @@ function EvalReport() {
           </thead>
           <tbody>
             {report.map((r) => (
-              <tr key={r.suite}>
-                <td className={cell}>{r.suite}</td>
-                <td className={cell}>[n]</td>
-                <td className={cell}>[x]</td>
-                <td className={cell}>[y]</td>
-                <td className={`${cell} ${r.gate === "pass" ? "text-accent-soft" : "text-warn-soft"}`}>
-                  {r.gate}
-                </td>
+              <tr
+                key={`${r.model}-${r.harness}`}
+                className={r.tone === "best" ? "text-accent-soft" : r.tone === "worst" ? "text-warn-soft" : undefined}
+              >
+                <td className={cell}>{r.model}</td>
+                <td className={cell}>{r.harness}</td>
+                <td className={cell}>{r.pass}</td>
+                <td className={cell}>{r.cost}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <figcaption className="text-night-dim">
-        Every release ships with a report like this. Values shown are placeholders.
+        Max reasoning effort, 4–5 attempts per task. Cost is the mean per attempt.{" "}
+        <a href={benchmarkSource} className="underline hover:text-paper">
+          Methodology &amp; raw data
+        </a>
       </figcaption>
     </figure>
   );
@@ -102,6 +117,27 @@ export default function ModelTestingPage() {
             {tests.map((t) => (
               <FeatureCard key={t.tag} tag={t.tag} title={t.title} tone="surface">
                 {t.body}
+              </FeatureCard>
+            ))}
+          </HairlineGrid>
+        </Container>
+      </section>
+
+      <section className="border-t border-line">
+        <Container className="flex flex-col gap-12 py-26">
+          <div className="flex flex-col gap-4">
+            <Eyebrow>From our own bench</Eyebrow>
+            <H2>16 agent configurations. 7,500+ attempts at real engineering tasks.</H2>
+            <p className="m-0 max-w-[60ch] text-ink-2">
+              We ran today&apos;s frontier models through DeepSWE — 113 real-world software tasks,
+              each attempted four or five times — and graded every attempt against its tests. The
+              leaderboard wasn&apos;t the interesting part.
+            </p>
+          </div>
+          <HairlineGrid min={260}>
+            {findings.map((f) => (
+              <FeatureCard key={f.tag} tag={f.tag} title={f.title}>
+                {f.body}
               </FeatureCard>
             ))}
           </HairlineGrid>

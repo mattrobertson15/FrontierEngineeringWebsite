@@ -30,7 +30,11 @@ Decide for each: real content, or hide the section until it exists.
 - [ ] FDE count on site
 - [ ] Price
 
-**Model Testing** — `app/model-testing/page.tsx` (~line 140)
+**Model Testing** — `app/model-testing/page.tsx`
+- [x] Hero eval report filled with real DeepSWE results (source: github.com/bartr/wharf)
+- [x] "From our own bench" findings section added
+- [ ] Confirm OK to publish named-vendor comparisons and link the wharf repo publicly
+- [ ] Re-check figures if the wharf results are updated (numbers are from the README / `docs/pass-at-1-vs-cost.csv`)
 - [ ] Duration
 - [ ] Scope / use cases
 - [ ] Price
