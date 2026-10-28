@@ -14,7 +14,7 @@ import {
 export const metadata: Metadata = {
   title: "The AI-Native Playbook",
   description:
-    "The working rules G-Labs engineers follow when building software with agents — and how to bring them to your team.",
+    "The working rules Frontier Engineering engineers follow when building software with agents — and how to bring them to your team.",
 };
 
 export default function PlaybookPage() {

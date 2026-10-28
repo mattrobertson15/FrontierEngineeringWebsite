@@ -11,11 +11,11 @@ const geistMono = GeistMono;
 
 export const metadata: Metadata = {
   title: {
-    default: "G-Labs — AI-Native Engineering Consultancy",
-    template: "%s · G-Labs",
+    default: "Frontier Engineering — AI-Native Engineering Consultancy",
+    template: "%s · Frontier Engineering",
   },
   description:
-    "G-Labs embeds senior engineers inside your business to find where AI actually pays, build it the AI-native way, and test it until the numbers hold.",
+    "Frontier Engineering embeds senior engineers inside your business to find where AI actually pays, build it the AI-native way, and test it until the numbers hold.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -75,7 +75,7 @@ export default function Home() {
               Engineering built for the AI era. Proven in production.
             </h1>
             <p className="m-0 max-w-[34ch] text-xl text-ink-2">
-              G-Labs embeds senior engineers inside your business to find where AI actually pays,
+              Frontier Engineering embeds senior engineers inside your business to find where AI actually pays,
               build it the AI-native way, and test it until the numbers hold.
             </p>
             <div className="flex flex-wrap gap-3">

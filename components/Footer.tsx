@@ -8,7 +8,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-[1200px] flex-wrap justify-between gap-6 px-8 py-12">
         <Link href="/" className="flex items-center gap-2.5 font-bold text-paper">
           <LogoMark size={22} inverted />
-          <span>G-Labs</span>
+          <span>Frontier Engineering</span>
         </Link>
         <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-2">
           {practices.map((p) => (
@@ -21,7 +21,7 @@ export function Footer() {
             [EMAIL]
           </a>
         </nav>
-        <p className="font-mono text-xs">© 2026 G-Labs</p>
+        <p className="font-mono text-xs">© 2026 Frontier Engineering</p>
       </div>
     </footer>
   );

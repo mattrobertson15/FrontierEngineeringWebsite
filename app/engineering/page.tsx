@@ -113,7 +113,7 @@ export default function EngineeringPage() {
         }
         stats={[
           { label: "DURATION", value: "[WEEKS]" },
-          { label: "TEAM", value: "[G-LABS ENGINEERS]" },
+          { label: "TEAM", value: "[FRONTIER ENGINEERING ENGINEERS]" },
           { label: "YOU GET", value: "Agent-ready repo, eval-gated CI, team playbook", small: true },
           { label: "INVESTMENT", value: "[YOUR PRICE]" },
         ]}

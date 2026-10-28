@@ -1,6 +1,6 @@
-# G-Labs — website
+# Frontier Engineering — website
 
-Marketing site for G-Labs, an AI-native engineering consultancy. Built with **Next.js 16 (App Router)**, **Tailwind CSS v4** and self-hosted **Geist** fonts. Every page is statically prerendered.
+Marketing site for Frontier Engineering, an AI-native engineering consultancy. Built with **Next.js 16 (App Router)**, **Tailwind CSS v4** and self-hosted **Geist** fonts. Every page is statically prerendered.
 
 ## Run it
 

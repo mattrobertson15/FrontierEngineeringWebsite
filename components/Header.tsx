@@ -16,7 +16,7 @@ export function Header() {
           className="flex items-center gap-2.5 text-xl font-bold tracking-[-0.02em] text-ink"
         >
           <LogoMark />
-          <span>G-Labs</span>
+          <span>Frontier Engineering</span>
         </Link>
 
         <nav aria-label="Primary" className="flex flex-wrap gap-x-6 gap-y-1 text-[15px]">
