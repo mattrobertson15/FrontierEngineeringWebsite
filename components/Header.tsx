@@ -27,7 +27,7 @@ export function Header() {
                 key={p.href}
                 href={p.href}
                 aria-current={active ? "page" : undefined}
-                className={`py-2.5 hover:text-accent ${active ? "font-semibold text-accent" : "text-ink"}`}
+                className={`py-2.5 hover:text-accent-ink ${active ? "font-semibold text-accent-ink" : "text-ink"}`}
               >
                 {p.label}
               </Link>

@@ -13,10 +13,10 @@ export function LogoMark({
         width="26"
         height="26"
         fill="none"
-        stroke={inverted ? "#F4F4F1" : "#0F1214"}
+        stroke={inverted ? "#F5F2EB" : "#071C29"}
         strokeWidth="2"
       />
-      <rect x="12" y="12" width="10" height="10" fill={inverted ? "#9DAEFF" : "#2B4BFF"} />
+      <rect x="12" y="12" width="10" height="10" fill="#C16839" />
     </svg>
   );
 }

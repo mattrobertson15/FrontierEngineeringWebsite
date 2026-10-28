@@ -96,7 +96,7 @@ export default function Home() {
             </div>
             {loop.map((l, i) => (
               <div key={l.n} className="flex flex-col gap-3.5">
-                {i > 0 && <div className="pl-[22px] text-[#6B716E]">│</div>}
+                {i > 0 && <div className="pl-[22px] text-slate">│</div>}
                 <div
                   className={`flex items-center justify-between gap-3 border p-4 ${l.highlight ? "border-accent-soft" : "border-night-line"}`}
                 >
@@ -107,7 +107,7 @@ export default function Home() {
                 </div>
               </div>
             ))}
-            <div className="pl-[22px] text-[#6B716E]">└─ ship · hand off · repeat</div>
+            <div className="pl-[22px] text-slate">└─ ship · hand off · repeat</div>
           </div>
         </AutoGrid>
       </Container>

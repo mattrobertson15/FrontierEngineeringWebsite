@@ -5,20 +5,23 @@
  * Change a value here and it updates everywhere (e.g. bg-paper, text-accent).
  */
 @theme inline {
-  --color-paper: #f4f4f1; /* page ground */
-  --color-surface: #ffffff; /* cards, bands */
-  --color-ink: #0f1214; /* primary text, dark bands */
-  --color-ink-2: #3d4245; /* body copy */
-  --color-muted: #5a5f62; /* mono labels */
-  --color-line: #d6d6d0; /* hairlines */
-  --color-field: #8e9391; /* input borders */
-  --color-accent: #2b4bff; /* cobalt */
-  --color-accent-soft: #9daeff; /* accent on dark */
-  --color-warn-soft: #fdba74;
-  --color-night-line: #33383b;
-  --color-night-text: #e8e8e3;
-  --color-night-muted: #b4b9b6;
-  --color-night-dim: #9a9f9c;
+  /* Brand palette: Midnight #071C29 · Copper #C16839 · Ivory #F5F2EB · Slate #72818A */
+  --color-paper: #f5f2eb; /* page ground — Ivory */
+  --color-surface: #fbfaf6; /* cards, bands */
+  --color-ink: #071c29; /* primary text, dark bands — Midnight */
+  --color-ink-2: #2f4250; /* body copy */
+  --color-muted: #56656e; /* mono labels — Slate, darkened for AA on Ivory */
+  --color-line: #dcd7cb; /* hairlines */
+  --color-field: #72818a; /* input borders — Slate */
+  --color-slate: #72818a; /* Slate */
+  --color-accent: #c16839; /* Copper — fills, rules, large type */
+  --color-accent-ink: #a4552b; /* Copper, deepened for small text on light grounds */
+  --color-accent-soft: #e0915f; /* accent on dark */
+  --color-warn-soft: #f28b82;
+  --color-night-line: #1f3645;
+  --color-night-text: #f5f2eb;
+  --color-night-muted: #b7c0c5;
+  --color-night-dim: #8e9ba3;
 
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;

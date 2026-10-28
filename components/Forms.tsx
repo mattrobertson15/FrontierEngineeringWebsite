@@ -13,7 +13,7 @@ function Status({ state }: { state: ContactState }) {
   return (
     <p
       role="status"
-      className={`m-0 text-[15px] ${state.status === "success" ? "text-accent" : "text-[#B42318]"}`}
+      className={`m-0 text-[15px] ${state.status === "success" ? "text-accent-ink" : "text-[#B42318]"}`}
     >
       {state.message}
     </p>

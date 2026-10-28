@@ -61,7 +61,7 @@ export function DarkBand({ children }: { children: ReactNode }) {
 export function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
   return (
     <p
-      className={`m-0 font-mono text-[13px] tracking-[0.08em] uppercase ${dark ? "text-accent-soft" : "text-accent"}`}
+      className={`m-0 font-mono text-[13px] tracking-[0.08em] uppercase ${dark ? "text-accent-soft" : "text-accent-ink"}`}
     >
       {children}
     </p>
@@ -135,7 +135,7 @@ export function ButtonLink({
 
 export function ArrowLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <Link href={href} className="py-2.5 font-medium text-ink hover:text-accent">
+    <Link href={href} className="py-2.5 font-medium text-ink hover:text-accent-ink">
       {children} →
     </Link>
   );
@@ -192,7 +192,7 @@ export function FeatureCard({
     <article
       className={`flex flex-col gap-3 p-8 ${tone === "paper" ? "bg-paper" : "bg-surface"}`}
     >
-      <span className="font-mono text-[13px] text-accent">{tag}</span>
+      <span className="font-mono text-[13px] text-accent-ink">{tag}</span>
       <h3 className="m-0 text-[21px] font-semibold">{title}</h3>
       <p className="m-0 text-ink-2">{children}</p>
     </article>

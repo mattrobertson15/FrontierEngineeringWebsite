@@ -57,7 +57,7 @@ const triggers = [
 ];
 
 function EvalReport() {
-  const cell = "border-b border-[#22272A] px-2 py-2.5";
+  const cell = "border-b border-night-line px-2 py-2.5";
   return (
     <figure className="m-0 flex flex-col gap-4 bg-ink p-6 font-mono text-[13px] text-night-text">
       <div className="flex justify-between gap-4 text-night-dim">

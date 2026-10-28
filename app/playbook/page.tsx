@@ -35,7 +35,7 @@ export default function PlaybookPage() {
             >
               <AutoGrid min={280} className="gap-x-12 gap-y-3">
                 <div className="flex items-baseline gap-5">
-                  <span className="font-mono text-sm text-accent">
+                  <span className="font-mono text-sm text-accent-ink">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   <h2 className="m-0 text-[26px] font-semibold tracking-[-0.02em]">{rule.title}</h2>
