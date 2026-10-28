@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+/*
+ * G-Labs design tokens — mirrored from the design canvas.
+ * Change a value here and it updates everywhere (e.g. bg-paper, text-accent).
+ */
+@theme inline {
+  --color-paper: #f4f4f1; /* page ground */
+  --color-surface: #ffffff; /* cards, bands */
+  --color-ink: #0f1214; /* primary text, dark bands */
+  --color-ink-2: #3d4245; /* body copy */
+  --color-muted: #5a5f62; /* mono labels */
+  --color-line: #d6d6d0; /* hairlines */
+  --color-field: #8e9391; /* input borders */
+  --color-accent: #2b4bff; /* cobalt */
+  --color-accent-soft: #9daeff; /* accent on dark */
+  --color-warn-soft: #fdba74;
+  --color-night-line: #33383b;
+  --color-night-text: #e8e8e3;
+  --color-night-muted: #b4b9b6;
+  --color-night-dim: #9a9f9c;
+
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
