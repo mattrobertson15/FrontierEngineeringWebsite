@@ -7,7 +7,6 @@ import {
   DarkBand,
   Eyebrow,
   H2,
-  HairlineGrid,
   StatGrid,
 } from "@/components/ui";
 
@@ -140,16 +139,22 @@ export default function Home() {
             the opportunity to keeping it honest after launch.
           </p>
         </div>
-        <HairlineGrid min={260}>
+        {/* Fixed 1 → 2 → 4 columns so four cards never leave an orphan row. */}
+        <div className="grid grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2 xl:grid-cols-4">
           {practiceCards.map((c) => (
-            <article key={c.n} className="flex min-h-[340px] flex-col gap-4 bg-surface p-8">
+            <article
+              key={c.n}
+              className="flex min-w-0 flex-col gap-4 bg-surface p-6 break-words sm:p-8 xl:min-h-[340px]"
+            >
               <span className="font-mono text-[13px] text-muted">{c.n}</span>
-              <h3 className="m-0 text-2xl font-semibold tracking-[-0.02em]">{c.title}</h3>
+              <h3 className="m-0 text-[clamp(21px,2vw,24px)] font-semibold tracking-[-0.02em]">
+                {c.title}
+              </h3>
               <p className="m-0 flex-1 text-ink-2">{c.body}</p>
               <ArrowLink href={c.href}>{c.cta}</ArrowLink>
             </article>
           ))}
-        </HairlineGrid>
+        </div>
       </Container>
 
       {/* Engagement timeline */}
