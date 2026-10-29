@@ -27,7 +27,7 @@ Both forms show a success message but only log to the server console.
 - [x] **Site URL** — `siteUrl` in `lib/site.ts`, used as `metadataBase` in `app/layout.tsx`
 - [x] **Link previews** — `app/opengraph-image.tsx` (site-wide) and `app/research/wharf-deepswe/opengraph-image.tsx`, shared layout in `lib/og.tsx`
 - [x] **Search basics** — `app/sitemap.ts` and `app/robots.ts`
-- [ ] **Mobile header** — check that "Frontier Engineering" plus nav and button fit on small screens
+- [x] **Mobile header** — below 1280px the nav collapses into a Menu button; wordmark hidden below 340px
 
 ## Info needed from Matt
 
