@@ -34,8 +34,8 @@ Decide for each: real content, or hide the section until it exists.
 **Model Testing** — `app/model-testing/page.tsx`
 - [x] Hero eval report filled with real DeepSWE results (source: github.com/bartr/wharf)
 - [x] "From our own bench" findings section added
-- [ ] Confirm OK to publish named-vendor comparisons and link the wharf repo publicly
-- [ ] Re-check figures if the wharf results are updated (numbers are from the README / `docs/pass-at-1-vs-cost.csv`)
+- [x] Confirm OK to publish named-vendor comparisons and link the wharf repo publicly (confirmed: Wharf is Frontier research)
+- [ ] Re-check figures if the wharf results are updated — all numbers now live in `content/wharf.ts`
 - [ ] Duration
 - [ ] Scope / use cases
 - [ ] Price

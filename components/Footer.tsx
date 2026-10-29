@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LogoMark } from "./Logo";
-import { practices } from "@/lib/site";
+import { practices, researchHref } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -16,6 +16,9 @@ export function Footer() {
               {p.short}
             </Link>
           ))}
+          <Link href={researchHref} className="hover:text-paper">
+            Research
+          </Link>
           <a href="mailto:info@frontier-engineering.ai" className="hover:text-paper">
             info@frontier-engineering.ai
           </a>

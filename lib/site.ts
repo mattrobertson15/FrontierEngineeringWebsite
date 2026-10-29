@@ -7,4 +7,6 @@ export const practices = [
 
 export const contactHref = "/#contact";
 
+export const researchHref = "/research/wharf-deepswe";
+
 export const siteUrl = "https://frontier-engineering.ai";
