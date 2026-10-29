@@ -1,4 +1,6 @@
 import { ContactForm } from "@/components/Forms";
+import { researchHref } from "@/lib/site";
+import { passRate, pct, run, runs, taskCount, totalPlanned, usd } from "@/content/wharf";
 import {
   ArrowLink,
   AutoGrid,
@@ -7,7 +9,11 @@ import {
   DarkBand,
   Eyebrow,
   H2,
+  StatGrid,
 } from "@/components/ui";
+
+const opusCopilot = run("copilot-claude-opus-5-max-1.0.77");
+const opusClaudeCode = run("cc-claude-opus-5-max-2.1.220");
 
 const loop = [
   { n: "01", step: "embed", note: "FDEs on site, inside the workflow" },
@@ -142,6 +148,36 @@ export default function Home() {
           ))}
         </div>
       </Container>
+
+      {/* Research proof */}
+      <section className="border-y border-line bg-surface">
+        <Container className="py-24">
+          <AutoGrid min={340} className="items-center gap-14">
+            <div className="flex flex-col gap-5">
+              <Eyebrow>From our own bench</Eyebrow>
+              <H2 className="text-[clamp(32px,4vw,48px)]">We measure before we make claims.</H2>
+              <p className="m-0 max-w-[48ch] text-ink-2">
+                Wharf, our coding-agent benchmark, put today&apos;s frontier models through{" "}
+                {totalPlanned.toLocaleString("en-US")} independently verified attempts at real
+                software tasks. Same model, two harnesses: Claude Opus 5 passed{" "}
+                {pct(passRate(opusCopilot))} in one and {pct(passRate(opusClaudeCode))} in the
+                other — at {usd(opusCopilot.costPerAttempt)} versus{" "}
+                {usd(opusClaudeCode.costPerAttempt)} per attempt.
+              </p>
+              <ArrowLink href={researchHref}>Read the Wharf research</ArrowLink>
+            </div>
+            <StatGrid
+              tone="paper"
+              items={[
+                { label: "VERIFIED ATTEMPTS", value: totalPlanned.toLocaleString("en-US") },
+                { label: "CONFIGURATIONS", value: String(runs.length) },
+                { label: "REAL SOFTWARE TASKS", value: String(taskCount) },
+                { label: "PASS-RATE GAP, SAME MODEL", value: `${((passRate(opusCopilot) - passRate(opusClaudeCode)) * 100).toFixed(1)} pts` },
+              ]}
+            />
+          </AutoGrid>
+        </Container>
+      </section>
 
       {/* Engagement timeline */}
       <DarkBand>

@@ -236,9 +236,12 @@ export default function ForwardDeployedPage() {
             </p>
           </>
         }
-        stats={[
-          { label: "YOU GET", value: "Ranked opportunity map + working prototype", small: true },
+        deliverables={[
+          { title: "A ranked opportunity map", body: "Every task we found, scored by volume, cost, data availability and risk." },
+          { title: "A working prototype", body: "The top candidate, running on your real data in front of the people who'd use it." },
+          { title: "A go / no-go recommendation", body: "Whether to build it, with the baseline and evals to judge it by." },
         ]}
+        doneWhen="You have a clear decision on the top candidate and the evidence to back it."
       />
 
       <section className="border-t border-line">

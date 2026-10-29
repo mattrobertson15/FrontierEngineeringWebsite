@@ -133,9 +133,12 @@ export default function EngineeringPage() {
             </p>
           </>
         }
-        stats={[
-          { label: "YOU GET", value: "Agent-ready repo, eval-gated CI, team playbook", small: true },
+        deliverables={[
+          { title: "An agent-ready repo", body: "Context files, clear module boundaries and one-command tests on your pilot codebase." },
+          { title: "Eval-gated CI", body: "Changes to prompts, models or agents run their eval suite before merge." },
+          { title: "Your team playbook", body: "Conventions for specs, review and agent permissions — written down, in the repo." },
         ]}
+        doneWhen="Your engineers run the loop on the pilot codebase without us, and are ready to take it to the next team."
       />
 
       <CtaStrip

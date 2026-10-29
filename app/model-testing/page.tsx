@@ -248,9 +248,13 @@ export default function ModelTestingPage() {
             </p>
           </>
         }
-        stats={[
-          { label: "YOU GET", value: "Eval harness, golden sets, CI gates, model recommendation", small: true },
+        deliverables={[
+          { title: "An eval harness", body: "Runs your tasks against any model, prompt or agent configuration, with repeated trials." },
+          { title: "Golden sets", body: "Versioned test cases labelled with your domain experts." },
+          { title: "Release gates in CI", body: "Every AI change measured against your baseline before it reaches users." },
+          { title: "A model recommendation", body: "The configuration that meets your quality, cost and latency targets — with the evidence." },
         ]}
+        doneWhen="A model or prompt change gets an approve-or-hold from your own pipeline, without us in the loop."
       />
 
       <CtaStrip

@@ -4,14 +4,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { LogoMark } from "./Logo";
-import { contactHref, practices } from "@/lib/site";
+import { contactHref, practices, researchHref } from "@/lib/site";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
 
-  const links = practices.map((p) => {
+  const links = [...practices, { href: researchHref, label: "Research" }].map((p) => {
     const active = pathname === p.href;
     return { ...p, active };
   });

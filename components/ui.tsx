@@ -224,16 +224,38 @@ export function StatGrid({
 
 export function EngagementSection({
   intro,
-  stats,
+  deliverables,
+  doneWhen,
 }: {
   intro: ReactNode;
-  stats: { label: string; value: string; small?: boolean }[];
+  deliverables: { title: string; body: string }[];
+  /** The exit criterion, shown in place of a duration. */
+  doneWhen: string;
 }) {
   return (
     <Container className="py-26">
-      <AutoGrid min={320} className="gap-12">
+      <AutoGrid min={320} className="items-start gap-12">
         <div className="flex flex-col gap-4">{intro}</div>
-        <StatGrid items={stats} />
+        <div className="flex flex-col gap-4">
+          <Label>What you get</Label>
+          <ol className="m-0 flex list-none flex-col p-0">
+            {deliverables.map((d, i) => (
+              <li key={d.title} className="grid grid-cols-[48px_1fr] gap-3 border-t border-line py-[18px]">
+                <span className="font-mono text-[15px] text-accent-ink">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <p className="m-0 font-medium">{d.title}</p>
+                  <p className="m-0 text-ink-2">{d.body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <div className="flex flex-col gap-2 border border-line bg-surface p-6">
+            <Label>Done when</Label>
+            <p className="m-0 text-[17px] font-medium">{doneWhen}</p>
+          </div>
+        </div>
       </AutoGrid>
     </Container>
   );
