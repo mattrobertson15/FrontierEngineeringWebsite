@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s · Frontier Engineering",
   },
   description:
-    "Frontier Engineering embeds senior engineers inside your business to find where AI actually pays, build it the AI-native way, and test it until the numbers hold.",
+    "Frontier Engineering embeds senior engineers with your team to identify valuable AI workflows, build production software, and measure the results.",
   // Large preview card on X; the image itself comes from opengraph-image.tsx.
   twitter: { card: "summary_large_image" },
 };

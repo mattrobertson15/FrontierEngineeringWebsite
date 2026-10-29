@@ -47,7 +47,7 @@ export function Header() {
           href={contactHref}
           className="hidden min-h-11 items-center whitespace-nowrap bg-ink px-[18px] text-[15px] font-medium text-paper hover:bg-accent xl:inline-flex"
         >
-          Book a discovery call
+          Request a discovery call
         </Link>
 
         <button
@@ -83,7 +83,7 @@ export function Header() {
             onClick={close}
             className="mt-4 inline-flex min-h-12 items-center justify-center bg-ink px-[18px] font-medium text-paper hover:bg-accent"
           >
-            Book a discovery call
+            Request a discovery call
           </Link>
         </nav>
       )}

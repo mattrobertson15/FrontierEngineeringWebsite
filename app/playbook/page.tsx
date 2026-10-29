@@ -23,7 +23,7 @@ export default function PlaybookPage() {
     <>
       <PageHero
         eyebrow="Practice 04 — The AI-native playbook"
-        title="How we write software with agents. Now yours."
+        title="Our working practices for software development with agents."
         lede="These are the working rules our engineers follow on every engagement. We publish them because they're more useful in use than in a drawer — and we teach them hands-on to teams who want to adopt them."
       />
 
@@ -55,8 +55,8 @@ export default function PlaybookPage() {
               <Eyebrow dark>In the repo</Eyebrow>
               <H2 dark>Rules only work when agents can read them.</H2>
               <p className="m-0 text-night-muted">
-                We codify the playbook into the files your agents load on every task — so the
-                standard is applied by default, not by memory.
+                We put these rules in agent context files to guide each task, and enforce critical
+                checks through CI and permissions.
               </p>
             </div>
             <pre className="m-0 overflow-x-auto border border-night-line p-6 font-mono text-[13px] leading-[1.7] whitespace-pre text-night-text">
@@ -91,7 +91,7 @@ export default function PlaybookPage() {
       <CtaStrip
         title="Bring the playbook to your team."
         href={contactHref}
-        label="Talk to us about adoption"
+        label="Request a discovery call"
       />
     </>
   );

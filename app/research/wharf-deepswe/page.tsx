@@ -30,7 +30,7 @@ import {
 export const metadata: Metadata = {
   title: "Wharf: DeepSWE Coding-Agent Research",
   description:
-    "What thousands of verified coding-agent attempts show about harnesses, cost, regressions and reliability.",
+    "What repeated coding-agent trials show about harnesses, cost, regressions and reliability.",
 };
 
 const opusCopilot = run("copilot-claude-opus-5-max-1.0.77");
@@ -85,7 +85,7 @@ const method = [
 const limitations = [
   `These results describe ${taskCount} open-source coding tasks. Your workload may rank the same configurations differently — that's the point of testing on it.`,
   "Harness comparisons change more than one thing at once: the harness release, its prompts and its tools all differ.",
-  `Attempts on the same task are correlated. Gaps of a few points are within run-to-run noise: the same Luna configuration scored ${pct(passRate(luna))} and ${pct(passRate(run("copilot-gpt-5.6-luna-max-1.0.91")))} on consecutive Copilot releases.`,
+  `Attempts on the same task are correlated. These runs do not isolate harness changes from run-to-run variation: Luna scored ${pct(passRate(luna))} and ${pct(passRate(run("copilot-gpt-5.6-luna-max-1.0.91")))} on consecutive Copilot releases.`,
   `Cost is missing for some attempts — ${Math.round((1 - opus55.costCoverage) * 100)}% of the Opus 5.5 run and all of the Muse Spark run. Missing costs are excluded from averages, never counted as zero.`,
   "Regression counts cover attempts where existing tests could be measured. Unmeasured is unknown, not clean.",
   `Models and harnesses ship monthly. This is a ${wharfDate} snapshot.`,
@@ -134,15 +134,15 @@ export default function WharfResearchPage() {
     <>
       <PageHero
         eyebrow="Research — Wharf / DeepSWE"
-        title={`What ${totalPlanned.toLocaleString("en-US")} coding-agent attempts reveal.`}
-        lede="Wharf is our benchmark platform for AI coding agents: real software tasks, repeated attempts, an independent verifier, and every result retained. We pointed it at today's frontier models and harnesses."
+        title={`What ${totalPlanned.toLocaleString("en-US")} planned coding-agent attempts reveal.`}
+        lede={`Wharf is our benchmark platform for AI coding agents: real software tasks, repeated attempts, and an independent verifier. These results cover the models and harnesses tested in ${wharfDate}. Missing attempts count as failures.`}
         aside={
           <StatGrid
             items={[
               { label: "TASKS", value: String(taskCount) },
               { label: "CONFIGURATIONS", value: String(runs.length) },
-              { label: "ATTEMPTS", value: totalPlanned.toLocaleString("en-US") },
-              { label: "ATTEMPTS PER TASK", value: "4–5" },
+              { label: "PLANNED ATTEMPTS", value: totalPlanned.toLocaleString("en-US") },
+              { label: "PLANNED PER TASK / CONFIG", value: "4–5" },
             ]}
           />
         }
@@ -310,7 +310,7 @@ export default function WharfResearchPage() {
       <CtaStrip
         title="Find out how these models do on your tasks."
         href={contactHref}
-        label="Scope an eval program"
+        label="Request a discovery call"
       />
     </>
   );

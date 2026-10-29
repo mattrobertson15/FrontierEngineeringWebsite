@@ -17,13 +17,13 @@ import {
 export const metadata: Metadata = {
   title: "Forward-Deployed Engineers",
   description:
-    "Senior engineers who embed with your teams, find where AI changes the economics, build the tool and stay until your team can run it without us.",
+    "Senior engineers who embed with your teams, identify where AI can reduce costs or improve outcomes, build the tool and stay until your team can run it without us.",
 };
 
 const positioning = [
-  { label: "Not consultants", body: "They write production code, not recommendations." },
-  { label: "Not a dev shop", body: "They decide what to build by finding the problem first." },
-  { label: "Not a pilot factory", body: "Success is a tool in daily use, measured against a baseline." },
+  { label: "Embedded engineers", body: "Engineers work alongside your team, from problem definition through delivery." },
+  { label: "Production delivery", body: "The team identifies the problem, writes the code and puts it into daily use." },
+  { label: "Measured outcomes", body: "Success is a tool in daily use, measured against an agreed baseline." },
 ];
 
 const gapQuestions = [
@@ -105,8 +105,8 @@ export default function ForwardDeployedPage() {
           </div>
           <Lede>
             Our forward-deployed engineers embed with your operations, finance, support or sales
-            teams. They watch how work actually gets done, find where AI changes the economics, and
-            build the tool — then stay until your team can run it without us.
+            teams. They watch how work gets done, identify where AI can reduce costs or improve
+            outcomes, and build the tool — then stay until your team can run it without us.
           </Lede>
         </AutoGrid>
       </Container>
@@ -148,7 +148,7 @@ export default function ForwardDeployedPage() {
       <Container className="flex flex-col gap-12 py-26">
         <div className="flex max-w-[680px] flex-col gap-3.5">
           <Eyebrow>The method</Eyebrow>
-          <H2>From the shop floor to a tool your team owns</H2>
+          <H2>From your team’s workflow to software they own</H2>
         </div>
         <HairlineGrid min={200} as="ol">
           {method.map((m) => (
@@ -266,7 +266,7 @@ export default function ForwardDeployedPage() {
       <CtaStrip
         title="Put an engineer next to your hardest workflow."
         href={contactHref}
-        label="Start a discovery sprint"
+        label="Request a discovery call"
       />
     </>
   );

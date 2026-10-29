@@ -31,7 +31,7 @@ const practices = [
   },
   {
     title: "Forward-Deployed Engineers",
-    body: "Senior engineers who sit with your operators, find the workflows where AI moves a real metric, and ship working software in weeks — not decks.",
+    body: "Senior engineers who sit with your operators, find the workflows where AI moves a real metric, and build software around an agreed business outcome.",
     href: "/forward-deployed",
   },
   {
@@ -54,9 +54,9 @@ const timeline = [
 ];
 
 const principles = [
-  { title: "Start from the work, not the model.", body: "The best opportunities are found on the floor, not in a strategy offsite." },
+  { title: "Start from the work, not the model.", body: "We identify opportunities by working with the people who perform the tasks." },
   { title: "If it isn’t evaluated, it isn’t done.", body: "Every prompt, model and agent ships with tests that say when it breaks." },
-  { title: "Context is the codebase now.", body: "Specs, conventions and docs are written for agents and humans alike." },
+  { title: "Treat project context as part of the codebase.", body: "Specs, conventions and docs are written for agents and humans alike." },
   { title: "Humans own the judgment.", body: "Agents write more of the code; engineers own design, review and accountability." },
 ];
 
@@ -68,15 +68,15 @@ export default function Home() {
         <div className="flex flex-col gap-8">
           <Eyebrow>AI-native engineering consultancy</Eyebrow>
           <h1 className="m-0 max-w-[14ch] font-display text-[clamp(46px,8vw,104px)] leading-[0.98] font-normal tracking-[-0.025em] [overflow-wrap:anywhere]">
-            If it isn’t evaluated, it isn’t done.
+            We build AI systems your team can run.
           </h1>
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
             <p className="m-0 max-w-[44ch] text-xl text-ink-2">
-              Frontier Engineering embeds senior engineers inside your business to find where AI
-              actually pays, build it the AI-native way, and test it until the numbers hold.
+              Our senior engineers work alongside your team to identify valuable workflows,
+              build production software, and measure the results.
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
-              <ButtonLink href="#contact">Start a discovery sprint</ButtonLink>
+              <ButtonLink href="#contact">Request a discovery call</ButtonLink>
               <ArrowLink href="#practices">See how we work</ArrowLink>
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function Home() {
               on real tasks.
             </p>
             <p className="m-0 font-mono text-xs text-muted">
-              {totalPlanned.toLocaleString("en-US")} verified attempts · {runs.length} configurations
+              {totalPlanned.toLocaleString("en-US")} planned attempts · {runs.length} configurations
               · {taskCount} tasks · {wharfDate}
             </p>
             <div>
@@ -119,7 +119,8 @@ export default function Home() {
               />
             </div>
             <figcaption className="font-mono text-xs text-muted">
-              Pass rate against mean cost per attempt. Up and to the left is better.
+              Pass rate against mean cost per attempt. Up and to the left is better. Missing
+              attempts count as failures.
             </figcaption>
           </figure>
         </Container>
@@ -204,11 +205,13 @@ export default function Home() {
           <AutoGrid min={320} className="gap-16">
             <div id="contact" className="flex scroll-mt-8 flex-col gap-5">
               <h2 className="m-0 font-display text-[clamp(38px,5vw,60px)] leading-[1.02] font-normal tracking-[-0.02em]">
-                Find out where AI pays in your business.
+                Find where AI can improve your business.
               </h2>
               <p className="m-0 max-w-[40ch] text-ink-2">
-                Start with a fixed-scope discovery sprint. You leave with a ranked opportunity map
-                and a working prototype of the top candidate.
+                Start with a discovery call to discuss your goals and constraints. Together, we
+                decide whether a discovery sprint, codebase review, or evaluation program is the
+                right next step. A discovery sprint produces a ranked opportunity map and a
+                working prototype of the top candidate.
               </p>
             </div>
             <ContactForm />
