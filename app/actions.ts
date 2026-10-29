@@ -57,7 +57,10 @@ export async function submitContact(
   return { status: "success", message: "Thanks — we'll be in touch shortly." };
 }
 
-/** Playbook email capture. TODO: deliver signups somewhere real. */
+/**
+ * Playbook email capture. Parked: not rendered anywhere until there is a newsletter.
+ * Before re-enabling <PlaybookSignup />, deliver signups somewhere real.
+ */
 export async function subscribePlaybook(
   _prev: ContactState,
   formData: FormData,

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { contactHref } from "@/lib/site";
+import Link from "next/link";
+import { contactHref, researchHref } from "@/lib/site";
+import { passRate, pct, run, runs, taskCount, totalPlanned, usd, wharfDate } from "@/content/wharf";
 import {
+  ArrowLink,
   AutoGrid,
   Container,
   CtaStrip,
@@ -19,25 +22,24 @@ export const metadata: Metadata = {
     "Evaluation harnesses built on your data and success criteria, so model choice, prompt changes and upgrades are measured decisions.",
 };
 
-const benchmarkSource = "https://github.com/bartr/wharf";
-
-// DeepSWE PASS@1 and mean cost per costed attempt, from the Wharf results export.
 const report = [
-  { model: "GPT-5.6 Luna", harness: "Copilot", pass: "74.1%", cost: "$0.37", tone: "best" },
-  { model: "Gemini 3.8 Flash", harness: "Copilot", pass: "74.1%", cost: "$2.79" },
-  { model: "Claude Opus 5", harness: "Copilot", pass: "71.2%", cost: "$5.66" },
-  { model: "GPT-6 Astra", harness: "Copilot", pass: "71.0%", cost: "$8.43" },
-  { model: "Claude Opus 5.5", harness: "Copilot", pass: "70.8%", cost: "$11.98" },
-  { model: "Claude Opus 5", harness: "Claude Code", pass: "64.4%", cost: "$13.49" },
-  { model: "Auto", harness: "Copilot", pass: "37.0%", cost: "$1.62", tone: "worst" },
-];
+  { id: "copilot-gpt-5.6-luna-max-1.0.77", tone: "best" },
+  { id: "copilot-gemini-3.8-flash-high-1.0.91" },
+  { id: "copilot-claude-opus-5-max-1.0.77" },
+  { id: "copilot-gpt-6-astra-max-1.0.91" },
+  { id: "copilot-claude-opus-5.5-max-1.0.95" },
+  { id: "cc-claude-opus-5-max-2.1.220" },
+  { id: "copilot-auto-max-1.0.77", tone: "worst" },
+].map(({ id, tone }) => ({ ...run(id), tone }));
 
 const findings = [
-  { tag: "harness", title: "Same model, different harness, different result.", body: "Claude Opus 5 passed 71.2% of attempts inside GitHub Copilot and 64.4% inside Claude Code — and cost 58% less per task ($5.66 vs $13.49)." },
-  { tag: "cost", title: "The cheapest model tied for first.", body: "GPT-5.6 Luna passed 74.1% at $0.37 per task — about 1/32 the cost of Claude Opus 5.5, which scored 70.8%." },
-  { tag: "upgrade", title: "Version bumps move the numbers.", body: "Luna fell from 74.1% to 69.9% between two Copilot CLI releases with no change to the model. That is the regression an eval gate catches before rollout." },
-  { tag: "reproduce", title: "Results that hold up.", body: "Where our configurations overlap Meta's published DeepSWE evaluation, our pass counts land within about three passes in 565 attempts." },
+  { tag: "harness", title: "Same model, different harness, different result.", body: "Claude Opus 5 passed 71.2% of attempts inside GitHub Copilot and 64.4% inside Claude Code — and cost 58% less per attempt ($5.66 vs $13.49)." },
+  { tag: "cost", title: "The cheapest model tied for first.", body: "GPT-5.6 Luna passed 74.1% at $0.37 per attempt — about 1/32 the cost of Claude Opus 5.5, which scored 70.8%." },
+  { tag: "upgrade", title: "One run isn't a verdict.", body: "Luna scored 74.1% on one Copilot CLI release and 69.9% on the next, same model. A swing that size is within run-to-run noise here — which is why upgrade decisions need repeated trials, not a single score." },
+  { tag: "reproduce", title: "Results that hold up.", body: "Where our configurations overlap Meta's published DeepSWE evaluation, our pass rates land within two points of theirs." },
 ];
+
+const systemParts = ["model", "prompts", "reasoning effort", "tools", "agent harness", "environment", "verification"];
 
 const tests = [
   { tag: "select", title: "Model selection", body: "Head-to-head comparisons across providers and sizes on your workload, weighing quality, latency and cost together." },
@@ -46,6 +48,14 @@ const tests = [
   { tag: "agents", title: "Agent & tool-use evals", body: "Multi-step trajectory testing: did the agent call the right tools, recover from errors and stop when it should?" },
   { tag: "redteam", title: "Safety & red-teaming", body: "Adversarial suites for prompt injection, data leakage and policy violations before your users find them." },
   { tag: "drift", title: "Production monitoring", body: "Online evals and sampling that catch drift when inputs, models or upstream data change underneath you." },
+];
+
+const gateSteps = [
+  ["01", "A change is proposed", "model, prompt, tool, harness, routing", "trigger"],
+  ["02", "Run the eval suite", "your golden set, repeated trials", "CI"],
+  ["03", "Compare to baseline", "quality, reliability, cost, latency", "report"],
+  ["04", "Check for regressions", "does anything that passed now fail?", "CI"],
+  ["05", "Approve or hold", "against thresholds agreed up front", "human"],
 ];
 
 const triggers = [
@@ -61,14 +71,14 @@ function EvalReport() {
   return (
     <figure className="m-0 flex flex-col gap-4 bg-ink p-6 font-mono text-[13px] text-night-text">
       <div className="flex justify-between gap-4 text-night-dim">
-        <span>deepswe · 113 tasks</span>
-        <span>oct 2026</span>
+        <span>deepswe · {taskCount} tasks</span>
+        <span>{wharfDate.toLowerCase()}</span>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[400px] border-collapse">
           <thead>
             <tr className="text-left text-night-dim">
-              {["model", "harness", "pass@1", "$/task"].map((h) => (
+              {["model", "harness", "pass@1", "$/attempt"].map((h) => (
                 <th key={h} className="border-b border-night-line px-2 py-2.5 font-normal">
                   {h}
                 </th>
@@ -78,23 +88,24 @@ function EvalReport() {
           <tbody>
             {report.map((r) => (
               <tr
-                key={`${r.model}-${r.harness}`}
+                key={r.id}
                 className={r.tone === "best" ? "text-accent-soft" : r.tone === "worst" ? "text-warn-soft" : undefined}
               >
                 <td className={cell}>{r.model}</td>
                 <td className={cell}>{r.harness}</td>
-                <td className={cell}>{r.pass}</td>
-                <td className={cell}>{r.cost}</td>
+                <td className={cell}>{pct(passRate(r))}</td>
+                <td className={cell}>{usd(r.costPerAttempt)}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
       <figcaption className="text-night-dim">
-        Max reasoning effort, 4–5 attempts per task. Cost is the mean per attempt.{" "}
-        <a href={benchmarkSource} className="underline hover:text-paper">
-          Methodology &amp; raw data
-        </a>
+        Max reasoning effort (Gemini: high), 4–5 attempts per task. Cost is the mean per attempt
+        with cost data; missing costs are excluded, not zeroed.{" "}
+        <Link href={researchHref} className="underline hover:text-paper">
+          Methodology &amp; full results
+        </Link>
       </figcaption>
     </figure>
   );
@@ -109,6 +120,32 @@ export default function ModelTestingPage() {
         lede="We build evaluation harnesses on your own data and success criteria, so choosing a model, changing a prompt or upgrading a version is a measured decision — not a vibe check."
         aside={<EvalReport />}
       />
+
+      <section className="border-t border-line">
+        <Container className="py-18">
+          <AutoGrid min={320} className="gap-12">
+            <div className="flex flex-col gap-4">
+              <Eyebrow>System, not model</Eyebrow>
+              <H2>Evaluate the system, not just the model.</H2>
+            </div>
+            <div className="flex flex-col gap-5">
+              <p className="m-0 text-ink-2">
+                A model&apos;s results depend on everything around it. The same model scored 71% in
+                one agent harness and 64% in another, at less than half the cost. We test the
+                pieces together and find the configuration that meets your quality, reliability,
+                latency and cost targets on your own workload.
+              </p>
+              <ul className="m-0 flex list-none flex-wrap gap-2 p-0 font-mono text-[13px] text-ink-2">
+                {systemParts.map((p) => (
+                  <li key={p} className="border border-line bg-surface px-2.5 py-1">
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </AutoGrid>
+        </Container>
+      </section>
 
       <section className="border-t border-line bg-surface">
         <Container className="flex flex-col gap-12 py-26">
@@ -127,11 +164,14 @@ export default function ModelTestingPage() {
         <Container className="flex flex-col gap-12 py-26">
           <div className="flex flex-col gap-4">
             <Eyebrow>From our own bench</Eyebrow>
-            <H2>16 agent configurations. 7,500+ attempts at real engineering tasks.</H2>
+            <H2>
+              {runs.length} agent configurations. {totalPlanned.toLocaleString("en-US")} attempts at
+              real engineering tasks.
+            </H2>
             <p className="m-0 max-w-[60ch] text-ink-2">
-              We ran today&apos;s frontier models through DeepSWE — 113 real-world software tasks,
-              each attempted four or five times — and graded every attempt against its tests. The
-              leaderboard wasn&apos;t the interesting part.
+              We ran today&apos;s frontier models through DeepSWE — {taskCount} real-world software
+              tasks, each attempted four or five times — and scored every attempt against its tests.
+              The leaderboard wasn&apos;t the interesting part.
             </p>
           </div>
           <HairlineGrid min={260}>
@@ -141,6 +181,42 @@ export default function ModelTestingPage() {
               </FeatureCard>
             ))}
           </HairlineGrid>
+          <div>
+            <ArrowLink href={researchHref}>Read the full Wharf research</ArrowLink>
+          </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-line bg-surface">
+        <Container className="py-26">
+          <AutoGrid min={320} className="items-start gap-14">
+            <div className="flex flex-col gap-4">
+              <Eyebrow>Release gates</Eyebrow>
+              <H2>Every AI update is a potential regression.</H2>
+              <p className="m-0 text-ink-2">
+                Models, prompts, tools and agent frameworks change constantly — often underneath
+                you, when a provider ships a new version. We wire your eval suite into the release
+                process, so every change is measured against a baseline from your own workload
+                before it reaches users.
+              </p>
+              <p className="m-0 text-ink-2">
+                Repeated trials tell a real regression from run-to-run noise, so a hold means
+                something and so does an approval.
+              </p>
+            </div>
+            <ol className="m-0 flex list-none flex-col border-b border-line p-0">
+              {gateSteps.map(([n, step, detail, who]) => (
+                <li key={n} className="grid grid-cols-[48px_1fr_auto] gap-3 border-t border-line py-[18px]">
+                  <span className="font-mono text-[15px] text-accent-ink">{n}</span>
+                  <div>
+                    <p className="m-0 font-medium">{step}</p>
+                    <p className="m-0 text-ink-2">{detail}</p>
+                  </div>
+                  <span className="font-mono text-[13px] text-muted">{who}</span>
+                </li>
+              ))}
+            </ol>
+          </AutoGrid>
         </Container>
       </section>
 
@@ -172,12 +248,13 @@ export default function ModelTestingPage() {
             </p>
           </>
         }
-        stats={[
-          { label: "DURATION", value: "[WEEKS]" },
-          { label: "SCOPE", value: "[USE CASES]" },
-          { label: "YOU GET", value: "Eval harness, golden sets, CI gates, model recommendation", small: true },
-          { label: "INVESTMENT", value: "[YOUR PRICE]" },
+        deliverables={[
+          { title: "An eval harness", body: "Runs your tasks against any model, prompt or agent configuration, with repeated trials." },
+          { title: "Golden sets", body: "Versioned test cases labelled with your domain experts." },
+          { title: "Release gates in CI", body: "Every AI change measured against your baseline before it reaches users." },
+          { title: "A model recommendation", body: "The configuration that meets your quality, cost and latency targets — with the evidence." },
         ]}
+        doneWhen="A model or prompt change gets an approve-or-hold from your own pipeline, without us in the loop."
       />
 
       <CtaStrip

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { contactHref } from "@/lib/site";
+import { contactHref, researchHref } from "@/lib/site";
 import {
+  ArrowLink,
   AutoGrid,
   Container,
   CtaStrip,
@@ -30,11 +31,13 @@ const features = [
 ];
 
 const loopSteps = [
-  ["01", "Spec & acceptance criteria", "human"],
-  ["02", "Plan & implement", "agent"],
-  ["03", "Tests & evals", "CI"],
-  ["04", "Review & merge", "human"],
-  ["05", "Observe in production", "telemetry"],
+  ["01", "Research the codebase", "agent"],
+  ["02", "Spec & acceptance criteria", "human"],
+  ["03", "Plan, then approve", "agent → human"],
+  ["04", "Implement in bounded sessions", "agent"],
+  ["05", "Verify independently", "CI"],
+  ["06", "Review & merge", "human"],
+  ["07", "Observe in production", "telemetry"],
 ];
 
 export default function EngineeringPage() {
@@ -86,6 +89,8 @@ export default function EngineeringPage() {
               <H2 dark>Humans decide. Agents execute. Tests arbitrate.</H2>
               <p className="m-0 text-night-muted">
                 Every change moves through the same loop, whether a person or an agent wrote it.
+                Understanding comes before code, and the agent never grades its own work — tests
+                run separately, and a claimed fix only counts once they pass.
               </p>
             </div>
             <ol className="m-0 flex list-none flex-col border-b border-night-line p-0 font-mono text-[15px]">
@@ -101,6 +106,23 @@ export default function EngineeringPage() {
         </Container>
       </DarkBand>
 
+      <section className="border-b border-line bg-surface">
+        <Container className="py-18">
+          <AutoGrid min={320} className="items-center gap-12">
+            <div className="flex flex-col gap-3">
+              <Label>Built with the same discipline we measure</Label>
+              <p className="m-0 text-2xl leading-[1.35] font-medium tracking-[-0.015em]">
+                Our Wharf benchmark runs coding agents through thousands of independently verified
+                attempts — the same loop, applied to the agents themselves.
+              </p>
+            </div>
+            <div>
+              <ArrowLink href={researchHref}>See the Wharf research</ArrowLink>
+            </div>
+          </AutoGrid>
+        </Container>
+      </section>
+
       <EngagementSection
         intro={
           <>
@@ -111,12 +133,12 @@ export default function EngineeringPage() {
             </p>
           </>
         }
-        stats={[
-          { label: "DURATION", value: "[WEEKS]" },
-          { label: "TEAM", value: "[FRONTIER ENGINEERING ENGINEERS]" },
-          { label: "YOU GET", value: "Agent-ready repo, eval-gated CI, team playbook", small: true },
-          { label: "INVESTMENT", value: "[YOUR PRICE]" },
+        deliverables={[
+          { title: "An agent-ready repo", body: "Context files, clear module boundaries and one-command tests on your pilot codebase." },
+          { title: "Eval-gated CI", body: "Changes to prompts, models or agents run their eval suite before merge." },
+          { title: "Your team playbook", body: "Conventions for specs, review and agent permissions — written down, in the repo." },
         ]}
+        doneWhen="Your engineers run the loop on the pilot codebase without us, and are ready to take it to the next team."
       />
 
       <CtaStrip
