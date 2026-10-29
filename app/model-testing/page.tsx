@@ -50,6 +50,14 @@ const tests = [
   { tag: "drift", title: "Production monitoring", body: "Online evals and sampling that catch drift when inputs, models or upstream data change underneath you." },
 ];
 
+const gateSteps = [
+  ["01", "A change is proposed", "model, prompt, tool, harness, routing", "trigger"],
+  ["02", "Run the eval suite", "your golden set, repeated trials", "CI"],
+  ["03", "Compare to baseline", "quality, reliability, cost, latency", "report"],
+  ["04", "Check for regressions", "does anything that passed now fail?", "CI"],
+  ["05", "Approve or hold", "against thresholds agreed up front", "human"],
+];
+
 const triggers = [
   "A new model launched and you don't know if switching is safe.",
   "Prompt tweaks fix one case and quietly break three others.",
@@ -176,6 +184,39 @@ export default function ModelTestingPage() {
           <div>
             <ArrowLink href={researchHref}>Read the full Wharf research</ArrowLink>
           </div>
+        </Container>
+      </section>
+
+      <section className="border-t border-line bg-surface">
+        <Container className="py-26">
+          <AutoGrid min={320} className="items-start gap-14">
+            <div className="flex flex-col gap-4">
+              <Eyebrow>Release gates</Eyebrow>
+              <H2>Every AI update is a potential regression.</H2>
+              <p className="m-0 text-ink-2">
+                Models, prompts, tools and agent frameworks change constantly — often underneath
+                you, when a provider ships a new version. We wire your eval suite into the release
+                process, so every change is measured against a baseline from your own workload
+                before it reaches users.
+              </p>
+              <p className="m-0 text-ink-2">
+                Repeated trials tell a real regression from run-to-run noise, so a hold means
+                something and so does an approval.
+              </p>
+            </div>
+            <ol className="m-0 flex list-none flex-col border-b border-line p-0">
+              {gateSteps.map(([n, step, detail, who]) => (
+                <li key={n} className="grid grid-cols-[48px_1fr_auto] gap-3 border-t border-line py-[18px]">
+                  <span className="font-mono text-[15px] text-accent-ink">{n}</span>
+                  <div>
+                    <p className="m-0 font-medium">{step}</p>
+                    <p className="m-0 text-ink-2">{detail}</p>
+                  </div>
+                  <span className="font-mono text-[13px] text-muted">{who}</span>
+                </li>
+              ))}
+            </ol>
+          </AutoGrid>
         </Container>
       </section>
 
