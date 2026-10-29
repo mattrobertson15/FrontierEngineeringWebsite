@@ -42,6 +42,10 @@ export function CostQualityChart({
   };
   const [a, b] = pair.map(at);
   const hovered = plotted.find((r) => r.id === active);
+  // The chart sits in a scroll container that clips overflow, so near either edge the
+  // tooltip grows inward from the dot instead of centring on it.
+  const hx = hovered ? x(hovered.costPerAttempt!) / W : 0;
+  const alignX = hx < 0.3 ? "-translate-x-[14px]" : hx > 0.7 ? "-translate-x-[calc(100%-14px)]" : "-translate-x-1/2";
 
   return (
     // Below ~560px the labels shrink past legibility; the parent scrolls instead.
@@ -123,11 +127,11 @@ export function CostQualityChart({
 
       {hovered && (
         <div
-          className={`pointer-events-none absolute z-10 w-max max-w-[240px] -translate-x-1/2 border border-line bg-paper px-3 py-2 font-mono text-xs text-ink-2 shadow-sm ${
+          className={`pointer-events-none absolute z-10 w-max max-w-[240px] border border-line bg-paper px-3 py-2 font-mono text-xs text-ink-2 shadow-sm ${alignX} ${
             y(passRate(hovered)) < H / 2 ? "translate-y-[14px]" : "-translate-y-[calc(100%+14px)]"
           }`}
           style={{
-            left: `${(x(hovered.costPerAttempt!) / W) * 100}%`,
+            left: `${hx * 100}%`,
             top: `${(y(passRate(hovered)) / H) * 100}%`,
           }}
         >
