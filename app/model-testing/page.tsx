@@ -208,10 +208,7 @@ export default function ModelTestingPage() {
           </>
         }
         stats={[
-          { label: "DURATION", value: "[WEEKS]" },
-          { label: "SCOPE", value: "[USE CASES]" },
           { label: "YOU GET", value: "Eval harness, golden sets, CI gates, model recommendation", small: true },
-          { label: "INVESTMENT", value: "[YOUR PRICE]" },
         ]}
       />
 

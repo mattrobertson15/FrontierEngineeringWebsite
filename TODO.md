@@ -15,36 +15,11 @@ Both forms show a success message but only log to the server console.
 - [ ] Verify `send.frontier-engineering.ai` in Resend: add its 4 DNS records in GoDaddy (DNS lives there, not Vercel), then verify and remove the `CONTACT_FROM_EMAIL=onboarding@resend.dev` override. Until then, mail can only go to the Resend account's own address.
 
 ### 2. Replace placeholder content
-Decide for each: real content, or hide the section until it exists.
-
-**Home page** — `app/page.tsx`
-- [ ] Client logos strip (`[CLIENT LOGO]`, ~line 120)
-- [ ] Case study: title, outcome metric, time to production, eval coverage, industry (~lines 209–223)
-
-**Engineering** — `app/engineering/page.tsx` (~line 115)
-- [ ] Duration
-- [ ] Team (currently reads "[FRONTIER ENGINEERING ENGINEERS]")
-- [ ] Price
-
-**Forward-Deployed** — `app/forward-deployed/page.tsx` (~line 126)
-- [ ] Duration
-- [ ] FDE count on site
-- [ ] Price
-
-**Model Testing** — `app/model-testing/page.tsx`
-- [x] Hero eval report filled with real DeepSWE results (source: github.com/bartr/wharf)
-- [x] "From our own bench" findings section added
-- [x] Confirm OK to publish named-vendor comparisons and link the wharf repo publicly (confirmed: Wharf is Frontier research)
-- [ ] Re-check figures if the wharf results are updated — all numbers now live in `content/wharf.ts`
-- [ ] Duration
-- [ ] Scope / use cases
-- [ ] Price
-
-**Playbook offerings** — `content/playbook.ts` (~lines 43–56)
-- [ ] Durations and prices for all three offerings
-
-**Footer** — `components/Footer.tsx` (~line 20)
-- [x] Real contact email — `info@frontier-engineering.ai`
+- [x] All placeholders removed (Oct 29, 2026). Pricing is never shown on the site. Durations,
+  team size, FDE count and scope are hidden until there are real values; the home page client
+  logos strip and case study section were deleted until there is real content to show. The
+  home timeline uses "Step 1–4" in place of week ranges.
+- [ ] Re-check figures if the wharf results are updated — all numbers live in `content/wharf.ts`
 
 ## Worth doing
 
@@ -58,6 +33,6 @@ Decide for each: real content, or hide the section until it exists.
 
 - [x] Contact email address — `info@frontier-engineering.ai`
 - [ ] Where leads should go (email / Slack / CRM)
-- [ ] Prices and durations for each service and playbook offering
-- [ ] Show or hide the logos and case study sections for now
+- [ ] Durations / team sizes, if we want them back on the engagement sections (no prices — decided not to show pricing)
+- [x] Show or hide the logos and case study sections for now — removed
 - [x] Production domain — `https://frontier-engineering.ai`

@@ -64,7 +64,7 @@ export default function PlaybookPage() {
               <span className="text-accent-soft">## Before you code</span>
               {"\n- Read the spec in /specs for this task\n- Run `make test` and confirm it passes\n\n"}
               <span className="text-accent-soft">## While you code</span>
-              {"\n- Keep diffs under [N] lines; split otherwise\n- Follow patterns in /docs/architecture.md\n- Never edit /migrations without approval\n\n"}
+              {"\n- Keep diffs under 400 lines; split otherwise\n- Follow patterns in /docs/architecture.md\n- Never edit /migrations without approval\n\n"}
               <span className="text-accent-soft">## Before you finish</span>
               {"\n- Add or update tests for every change\n- Run `make evals` if prompts changed\n- Summarize what changed and why"}
             </pre>
@@ -80,10 +80,8 @@ export default function PlaybookPage() {
         <HairlineGrid min={280}>
           {adoptionOptions.map((o) => (
             <article key={o.title} className="flex flex-col gap-3.5 bg-surface p-8">
-              <span className="font-mono text-xs text-muted">{o.duration}</span>
               <h3 className="m-0 text-[22px] font-semibold">{o.title}</h3>
               <p className="m-0 flex-1 text-ink-2">{o.body}</p>
-              <p className="m-0 font-semibold">{o.price}</p>
             </article>
           ))}
         </HairlineGrid>

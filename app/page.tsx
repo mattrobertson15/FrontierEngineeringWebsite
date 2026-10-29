@@ -7,7 +7,6 @@ import {
   DarkBand,
   Eyebrow,
   H2,
-  StatGrid,
 } from "@/components/ui";
 
 const loop = [
@@ -49,10 +48,10 @@ const practiceCards = [
 ];
 
 const timeline = [
-  { when: "Week 0 — Discover", title: "Map the work", body: "Engineers shadow the teams doing the work and inventory tasks by frequency, cost and risk." },
-  { when: "[Weeks] — Prototype", title: "Build the smallest real thing", body: "A working tool in the hands of real users, against real data — not a demo environment." },
-  { when: "[Weeks] — Prove", title: "Measure against a baseline", body: "Task-specific evals and business metrics agreed up front decide whether it ships." },
-  { when: "[Weeks] — Hand off", title: "Leave your team stronger", body: "Code, eval suites, runbooks and the habits to extend them — owned by your engineers." },
+  { when: "Step 1 — Discover", title: "Map the work", body: "Engineers shadow the teams doing the work and inventory tasks by frequency, cost and risk." },
+  { when: "Step 2 — Prototype", title: "Build the smallest real thing", body: "A working tool in the hands of real users, against real data — not a demo environment." },
+  { when: "Step 3 — Prove", title: "Measure against a baseline", body: "Task-specific evals and business metrics agreed up front decide whether it ships." },
+  { when: "Step 4 — Hand off", title: "Leave your team stronger", body: "Code, eval suites, runbooks and the habits to extend them — owned by your engineers." },
 ];
 
 const principles = [
@@ -111,19 +110,6 @@ export default function Home() {
           </div>
         </AutoGrid>
       </Container>
-
-      {/* Clients */}
-      <section aria-label="Clients" className="border-y border-line">
-        <Container className="flex flex-wrap items-center gap-x-10 gap-y-4 py-7 font-mono text-muted">
-          <p className="m-0 text-xs tracking-[0.08em]">WORKING WITH</p>
-          {/* TODO: swap for real logos (next/image) */}
-          {Array.from({ length: 5 }).map((_, i) => (
-            <span key={i} className="text-sm">
-              [CLIENT LOGO]
-            </span>
-          ))}
-        </Container>
-      </section>
 
       {/* Practices */}
       <Container className="flex flex-col gap-14 pt-28 pb-24">
@@ -203,34 +189,6 @@ export default function Home() {
           </ul>
         </AutoGrid>
       </Container>
-
-      {/* Case study */}
-      <section className="border-y border-line bg-surface">
-        <Container className="py-24">
-          <AutoGrid min={320} className="items-start gap-12">
-            <div className="flex flex-col gap-4">
-              <Eyebrow>Field notes</Eyebrow>
-              <h2 className="m-0 text-4xl leading-[1.1] font-semibold tracking-[-0.03em]">
-                [CASE STUDY TITLE]
-              </h2>
-              <p className="m-0 text-ink-2">
-                [One-paragraph summary: the client&apos;s situation, what the forward-deployed team
-                discovered, what was built, and how it was evaluated.]
-              </p>
-              <ArrowLink href="#">Read the case study</ArrowLink>
-            </div>
-            <StatGrid
-              tone="paper"
-              items={[
-                { label: "OUTCOME", value: "[METRIC]" },
-                { label: "TIME TO PRODUCTION", value: "[WEEKS]" },
-                { label: "EVAL COVERAGE", value: "[VALUE]" },
-                { label: "INDUSTRY", value: "[SECTOR]" },
-              ]}
-            />
-          </AutoGrid>
-        </Container>
-      </section>
 
       {/* Contact */}
       <Container className="py-28">

@@ -123,10 +123,7 @@ export default function ForwardDeployedPage() {
           </>
         }
         stats={[
-          { label: "DURATION", value: "[WEEKS]" },
-          { label: "ON SITE", value: "[FDE COUNT]" },
           { label: "YOU GET", value: "Ranked opportunity map + working prototype", small: true },
-          { label: "INVESTMENT", value: "[YOUR PRICE]" },
         ]}
       />
 

@@ -40,19 +40,13 @@ export const adoptionOptions = [
   {
     title: "Workshop",
     body: "A hands-on session on your own codebase: context files, spec writing, agent workflows and review.",
-    duration: "[DURATION]",
-    price: "[YOUR PRICE]",
   },
   {
     title: "Embedded pairing",
     body: "Our engineers pair with yours on real tickets until the new habits stick.",
-    duration: "[DURATION]",
-    price: "[YOUR PRICE]",
   },
   {
     title: "Standards package",
     body: "Your tailored playbook: repo templates, context files, CI gates and review checklists.",
-    duration: "[DURATION]",
-    price: "[YOUR PRICE]",
   },
 ];
