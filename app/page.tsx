@@ -1,4 +1,4 @@
-/* Hallmark · macrostructure: Evidence-led (hero → proof band → index) · genre: editorial · tone: technical
+/* Hallmark · macrostructure: Workflow-led (hero → examples → evidence → engagement → index) · genre: editorial · tone: technical
  * theme: brand (Ivory paper · Copper accent · Newsreader display + Geist body/mono)
  * pre-emit critique: P4 H4 E4 S5 R4 V4
  */
@@ -46,18 +46,59 @@ const practices = [
   },
 ];
 
-const timeline = [
-  { when: "Step 1 — Discover", title: "Map the work", body: "Engineers shadow the teams doing the work and inventory tasks by frequency, cost and risk." },
-  { when: "Step 2 — Prototype", title: "Build the smallest real thing", body: "A working tool in the hands of real users, against real data — not a demo environment." },
-  { when: "Step 3 — Prove", title: "Measure against a baseline", body: "Task-specific evals and business metrics agreed up front decide whether it ships." },
-  { when: "Step 4 — Hand off", title: "Leave your team stronger", body: "Code, eval suites, runbooks and the habits to extend them — owned by your engineers." },
+const workflows = [
+  {
+    area: "Finance & operations",
+    title: "Make exceptions the work, not reconciliation.",
+    problem: "Teams compare records across systems by hand and chase mismatches in spreadsheets.",
+    system: "A reconciliation workflow that matches records, surfaces exceptions, and keeps an audit trail for review.",
+    measure: "Time per reconciliation, unresolved exceptions, and correction rate.",
+  },
+  {
+    area: "Customer support",
+    title: "Give every request a useful starting point.",
+    problem: "Agents search scattered documentation and repeat the same intake and routing decisions.",
+    system: "A triage assistant that retrieves relevant guidance, suggests a response, and routes uncertain cases to a person.",
+    measure: "Time to resolution, routing accuracy, and response quality.",
+  },
+  {
+    area: "Engineering",
+    title: "Turn agent output into changes you can trust.",
+    problem: "Coding agents produce changes faster than a team can confidently review and release them.",
+    system: "A delivery workflow with clear specs, bounded agent tasks, automated checks, and human review before merge.",
+    measure: "Time to an accepted change, review effort, and regression rate.",
+  },
 ];
 
-const principles = [
-  { title: "Start from the work, not the model.", body: "We identify opportunities by working with the people who perform the tasks." },
-  { title: "If it isn’t evaluated, it isn’t done.", body: "Every prompt, model and agent ships with tests that say when it breaks." },
-  { title: "Treat project context as part of the codebase.", body: "Specs, conventions and docs are written for agents and humans alike." },
-  { title: "Humans own the judgment.", body: "Agents write more of the code; engineers own design, review and accountability." },
+const timeline = [
+  {
+    step: "01 / Discover",
+    title: "Choose the work worth changing.",
+    ours: "Shadow operators, map the workflow, and test the most promising opportunities.",
+    yours: "Bring the people who know the work, the system owners, and the constraints we need to respect.",
+    deliverable: "A ranked opportunity map, a prototype of the top candidate, and an agreed measure of success.",
+  },
+  {
+    step: "02 / Build",
+    title: "Put working software in real hands.",
+    ours: "Build in your environment and review working increments against real data and user feedback.",
+    yours: "Give feedback at checkpoints, resolve domain questions, and steer priorities with us.",
+    deliverable: "An integrated system with a reviewable record of decisions, tests, and known limits.",
+  },
+  {
+    step: "03 / Prove",
+    title: "Decide what is ready to ship.",
+    ours: "Evaluate quality against the baseline and verify monitoring, controls, and recovery paths.",
+    yours: "Review the evidence with the people accountable for the workflow and approve production use.",
+    deliverable: "Acceptance evidence, task-specific evals, and operating checks tied to the agreed outcome.",
+  },
+  {
+    step: "04 / Hand over",
+    title: "Make the next change yourselves.",
+    ours: "Pair with your engineers, document the system, and rehearse how to troubleshoot and extend it.",
+    yours: "Name an owner and make a change with us beside you before taking the system forward.",
+    deliverable: "Code, eval suites, runbooks, and a prioritized backlog in your team's hands.",
+  },
 ];
 
 export default function Home() {
@@ -77,19 +118,72 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
               <ButtonLink href="#contact">Request a discovery call</ButtonLink>
-              <ArrowLink href="#practices">See how we work</ArrowLink>
+              <ArrowLink href="#how-we-work">See how we work</ArrowLink>
             </div>
           </div>
         </div>
       </Container>
 
-      {/* Evidence — the Wharf chart is the proof, so it sits directly under the claim */}
+      <section aria-labelledby="workflows-heading" className="border-t border-line">
+        <Container className="py-20 sm:py-24">
+          <div className="grid gap-6 pb-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end lg:gap-16">
+            <div className="flex min-w-0 flex-col gap-4">
+              <Eyebrow>The work we can help with</Eyebrow>
+              <h2 id="workflows-heading" className="m-0 max-w-[23ch] font-display text-[clamp(32px,3.8vw,48px)] leading-[1.08] tracking-[-0.015em]">
+                Start with a workflow that needs to work better.
+              </h2>
+            </div>
+            <p className="m-0 max-w-[42ch] text-ink-2">
+              Illustrative engagement examples. We define the scope and success measures with
+              your team, based on your systems and the work you actually do.
+            </p>
+          </div>
+          <div className="border-b border-line">
+            {workflows.map((workflow) => (
+              <article key={workflow.area} className="grid gap-6 border-t border-line py-9 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
+                <div className="flex min-w-0 flex-col gap-3">
+                  <Eyebrow>{workflow.area}</Eyebrow>
+                  <h3 className="m-0 max-w-[25ch] font-display text-[clamp(26px,3vw,36px)] leading-[1.12] tracking-[-0.01em]">
+                    {workflow.title}
+                  </h3>
+                </div>
+                <dl className="m-0 flex min-w-0 flex-col gap-5">
+                  {[
+                    ["The problem", workflow.problem],
+                    ["What we could build", workflow.system],
+                    ["What we would measure", workflow.measure],
+                  ].map(([label, body]) => (
+                    <div key={label} className="flex flex-col gap-1">
+                      <dt className="font-mono text-xs tracking-[0.06em] text-accent-ink uppercase">{label}</dt>
+                      <dd className="m-0 text-ink-2">{body}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </article>
+            ))}
+          </div>
+          <div className="mt-6">
+            <ArrowLink href="/forward-deployed">Explore embedded delivery</ArrowLink>
+          </div>
+        </Container>
+      </section>
+
+      {/* Evidence — connect the benchmark to a buyer decision before showing the detail. */}
       <section aria-label="Wharf benchmark results" className="border-y border-line bg-surface">
         <Container className="grid gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-center lg:gap-16">
           <div className="flex flex-col gap-5 lg:order-2">
+            <Eyebrow>How we make technical decisions</Eyebrow>
             <H2 className="text-[clamp(30px,3.2vw,40px)]">
-              Same model, two harnesses, {harnessGap} points apart.
+              Choose your AI stack using evidence from the work.
             </H2>
+            <p className="m-0 text-ink-2">
+              Model choice is only part of the decision. The tools around it can change both
+              quality and cost. We build evaluations around your tasks so you can see the tradeoffs
+              before committing.
+            </p>
+            <h3 className="m-0 text-xl font-semibold">
+              Same model, two harnesses, {harnessGap} points apart.
+            </h3>
             <p className="m-0 text-ink-2">
               On Wharf, our coding-agent benchmark, Claude Opus 5 passed{" "}
               {pct(passRate(opusCopilot))} of attempts in GitHub Copilot and{" "}
@@ -126,6 +220,47 @@ export default function Home() {
         </Container>
       </section>
 
+      <DarkBand>
+        <Container className="py-20 sm:py-24">
+          <div id="how-we-work" className="flex scroll-mt-8 flex-col gap-5 pb-12">
+            <Eyebrow dark>How an engagement works</Eyebrow>
+            <H2 dark className="max-w-[24ch]">
+              A working system. A clear role for your team at every step.
+            </H2>
+            <p className="m-0 max-w-[60ch] text-night-muted">
+              We agree on the outcome and the handover criteria before building. Your team
+              shapes the work throughout, and owns the system that comes out of it.
+            </p>
+          </div>
+          <ol className="m-0 list-none p-0">
+            {timeline.map((stage) => (
+              <li key={stage.step} className="grid gap-7 border-t border-night-line py-9 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
+                <div className="flex min-w-0 flex-col gap-3">
+                  <span className="font-mono text-[13px] text-accent-soft uppercase">{stage.step}</span>
+                  <h3 className="m-0 max-w-[24ch] font-display text-[clamp(26px,3vw,36px)] leading-[1.12] font-normal text-paper">
+                    {stage.title}
+                  </h3>
+                </div>
+                <dl className="m-0 grid min-w-0 gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+                  <div className="flex flex-col gap-2">
+                    <dt className="font-mono text-xs text-accent-soft uppercase">Our role</dt>
+                    <dd className="m-0 text-night-muted">{stage.ours}</dd>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <dt className="font-mono text-xs text-accent-soft uppercase">Your role</dt>
+                    <dd className="m-0 text-night-muted">{stage.yours}</dd>
+                  </div>
+                  <div className="flex flex-col gap-2 border-l-2 border-accent-soft pl-4 sm:col-span-2">
+                    <dt className="font-mono text-xs text-accent-soft uppercase">What you receive</dt>
+                    <dd className="m-0 text-paper">{stage.deliverable}</dd>
+                  </div>
+                </dl>
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </DarkBand>
+
       {/* Practices — an index, not a card grid */}
       <Container className="pt-28 pb-24">
         <div
@@ -161,58 +296,26 @@ export default function Home() {
         </ul>
       </Container>
 
-      {/* Engagement timeline */}
-      <DarkBand>
-        <Container className="flex flex-col gap-14 py-24">
-          <H2 dark className="max-w-[24ch]">
-            From first conversation to production, with a gate at every step.
-          </H2>
-          <AutoGrid min={220} as="ol" className="m-0 list-none gap-8 p-0">
-            {timeline.map((t, i) => (
-              <li
-                key={t.title}
-                className={`flex flex-col gap-3 border-t pt-5 ${i === 0 ? "border-accent-soft" : "border-night-line"}`}
-              >
-                <span className="font-mono text-[13px] text-accent-soft uppercase">{t.when}</span>
-                <h3 className="m-0 text-[21px] font-semibold text-paper">{t.title}</h3>
-                <p className="m-0 text-night-muted">{t.body}</p>
-              </li>
-            ))}
-          </AutoGrid>
-        </Container>
-      </DarkBand>
-
-      {/* Principles — statements, set large */}
-      <Container className="pt-32 pb-24">
-        <H2 className="max-w-[22ch]">
-          AI-native isn’t a tool rollout. It’s a different way of engineering.
-        </H2>
-        <ul className="m-0 mt-16 grid list-none gap-x-16 gap-y-12 p-0 md:grid-cols-2">
-          {principles.map((p) => (
-            <li key={p.title} className="flex flex-col gap-3 border-t border-ink pt-6">
-              <h3 className="m-0 font-display text-[clamp(24px,2.4vw,30px)] leading-[1.15] font-normal tracking-[-0.01em]">
-                {p.title}
-              </h3>
-              <p className="m-0 max-w-[44ch] text-ink-2">{p.body}</p>
-            </li>
-          ))}
-        </ul>
-      </Container>
-
       {/* Contact */}
       <section className="border-t border-line">
         <Container className="py-28">
           <AutoGrid min={320} className="gap-16">
             <div id="contact" className="flex scroll-mt-8 flex-col gap-5">
               <h2 className="m-0 font-display text-[clamp(38px,5vw,60px)] leading-[1.02] font-normal tracking-[-0.02em]">
-                Find where AI can improve your business.
+                Bring a workflow. We’ll work out the next step.
               </h2>
               <p className="m-0 max-w-[40ch] text-ink-2">
-                Start with a discovery call to discuss your goals and constraints. Together, we
-                decide whether a discovery sprint, codebase review, or evaluation program is the
-                right next step. A discovery sprint produces a ranked opportunity map and a
-                working prototype of the top candidate.
+                Start with a discovery call with our engineers. Tell us where the work slows
+                down, what you have tried, and what a useful result would look like. Bring a
+                workflow owner or technical lead if they can help explain the constraints.
               </p>
+              <div className="flex flex-col gap-2 border-t border-line pt-5">
+                <Eyebrow>What comes out of the call</Eyebrow>
+                <p className="m-0 max-w-[40ch] text-ink-2">
+                  A shared view of the problem and whether a discovery sprint, codebase review,
+                  or evaluation program is the right next step.
+                </p>
+              </div>
             </div>
             <ContactForm />
           </AutoGrid>
