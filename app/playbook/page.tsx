@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { PlaybookSignup } from "@/components/Forms";
+import { contactHref } from "@/lib/site";
 import { adoptionOptions, playbookRules } from "@/content/playbook";
 import {
   AutoGrid,
   Container,
+  CtaStrip,
   DarkBand,
   Eyebrow,
   H2,
@@ -87,14 +88,11 @@ export default function PlaybookPage() {
         </HairlineGrid>
       </Container>
 
-      <section className="border-t border-line">
-        <Container className="flex flex-wrap items-center justify-between gap-6 py-20">
-          <h2 className="m-0 max-w-[22ch] text-[clamp(28px,3.4vw,40px)] leading-[1.1] font-semibold tracking-[-0.03em]">
-            Get the full playbook in your inbox.
-          </h2>
-          <PlaybookSignup />
-        </Container>
-      </section>
+      <CtaStrip
+        title="Bring the playbook to your team."
+        href={contactHref}
+        label="Talk to us about adoption"
+      />
     </>
   );
 }

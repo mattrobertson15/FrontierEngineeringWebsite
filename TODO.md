@@ -9,7 +9,7 @@ Both forms show a success message but only log to the server console.
 
 - [x] Choose a destination: email via Resend
 - [x] Wire up `submitContact` (discovery-call form) — `app/actions.ts`
-- [ ] Wire up `subscribePlaybook` (playbook signup) — `app/actions.ts`
+- [x] ~~Wire up `subscribePlaybook`~~ — parked: signup removed from the Playbook page until there is a newsletter (`PlaybookSignup` + `subscribePlaybook` kept for later)
 - [ ] Add `RESEND_API_KEY` (+ `CONTACT_FROM_EMAIL` / `CONTACT_TO_EMAIL` while on the sandbox sender) to Vercel env vars
 - [x] Send a test submission end to end (locally, via sandbox sender to the Resend account Gmail)
 - [ ] Verify `send.frontier-engineering.ai` in Resend: add its 4 DNS records in GoDaddy (DNS lives there, not Vercel), then verify and remove the `CONTACT_FROM_EMAIL=onboarding@resend.dev` override. Until then, mail can only go to the Resend account's own address.
