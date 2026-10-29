@@ -77,7 +77,7 @@ export function Label({ children }: { children: ReactNode }) {
 export function H1({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <h1
-      className={`m-0 text-[clamp(40px,5.5vw,68px)] leading-[1.03] font-semibold tracking-[-0.035em] ${className}`}
+      className={`m-0 font-display text-[clamp(42px,5.8vw,72px)] leading-[1.02] font-normal tracking-[-0.02em] ${className}`}
     >
       {children}
     </h1>
@@ -95,7 +95,7 @@ export function H2({
 }) {
   return (
     <h2
-      className={`m-0 text-[clamp(30px,3.6vw,44px)] leading-[1.1] font-semibold tracking-[-0.03em] ${dark ? "text-paper" : ""} ${className}`}
+      className={`m-0 font-display text-[clamp(32px,3.8vw,48px)] leading-[1.08] font-normal tracking-[-0.015em] ${dark ? "text-paper" : ""} ${className}`}
     >
       {children}
     </h2>
@@ -273,7 +273,7 @@ export function CtaStrip({
   return (
     <section className="border-t border-line">
       <Container className="flex flex-wrap items-center justify-between gap-6 py-20">
-        <h2 className="m-0 max-w-[22ch] text-[clamp(28px,3.4vw,40px)] leading-[1.1] font-semibold tracking-[-0.03em]">
+        <h2 className="m-0 max-w-[22ch] font-display text-[clamp(30px,3.6vw,44px)] leading-[1.08] font-normal tracking-[-0.015em]">
           {title}
         </h2>
         <ButtonLink href={href}>{label}</ButtonLink>

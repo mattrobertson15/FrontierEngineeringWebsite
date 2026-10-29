@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Newsreader } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { siteUrl } from "@/lib/site";
@@ -9,6 +10,14 @@ import "./globals.css";
 // Self-hosted Geist (no runtime request to Google Fonts).
 const geistSans = GeistSans;
 const geistMono = GeistMono;
+
+// Display serif for H1/H2. next/font downloads it at build time and serves it from this domain.
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-newsreader",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -26,7 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-paper font-sans text-ink">
         <Header />

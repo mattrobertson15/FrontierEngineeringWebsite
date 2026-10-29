@@ -1,6 +1,12 @@
+/* Hallmark · macrostructure: Evidence-led (hero → proof band → index) · genre: editorial · tone: technical
+ * theme: brand (Ivory paper · Copper accent · Newsreader display + Geist body/mono)
+ * pre-emit critique: P4 H4 E4 S5 R4 V4
+ */
+import Link from "next/link";
 import { ContactForm } from "@/components/Forms";
+import { CostQualityChart } from "@/components/CostQualityChart";
 import { researchHref } from "@/lib/site";
-import { passRate, pct, run, runs, taskCount, totalPlanned, usd } from "@/content/wharf";
+import { passRate, pct, run, runs, taskCount, totalPlanned, usd, wharfDate } from "@/content/wharf";
 import {
   ArrowLink,
   AutoGrid,
@@ -9,47 +15,34 @@ import {
   DarkBand,
   Eyebrow,
   H2,
-  StatGrid,
 } from "@/components/ui";
 
 const opusCopilot = run("copilot-claude-opus-5-max-1.0.77");
 const opusClaudeCode = run("cc-claude-opus-5-max-2.1.220");
+const luna = run("copilot-gpt-5.6-luna-max-1.0.77");
+const auto = run("copilot-auto-max-1.0.77");
+const harnessGap = ((passRate(opusCopilot) - passRate(opusClaudeCode)) * 100).toFixed(1);
 
-const loop = [
-  { n: "01", step: "embed", note: "FDEs on site, inside the workflow" },
-  { n: "02", step: "discover", note: "map tasks → rank by value" },
-  { n: "03", step: "build", note: "agent-ready repo, spec → code" },
-  { n: "04", step: "prove", note: "evals gate every release", highlight: true },
-];
-
-const practiceCards = [
+const practices = [
   {
-    n: "01",
     title: "AI-Native Engineering",
     body: "Rebuild your software lifecycle around agents: agent-ready codebases, spec-driven development, and review pipelines that keep humans in charge.",
     href: "/engineering",
-    cta: "Explore the practice",
   },
   {
-    n: "02",
     title: "Forward-Deployed Engineers",
     body: "Senior engineers who sit with your operators, find the workflows where AI moves a real metric, and ship working software in weeks — not decks.",
     href: "/forward-deployed",
-    cta: "Explore the practice",
   },
   {
-    n: "03",
     title: "Model Testing & Evals",
     body: "Evaluation harnesses built on your data and your tasks, so model choice, prompt changes and upgrades are decisions backed by evidence.",
     href: "/model-testing",
-    cta: "Explore the practice",
   },
   {
-    n: "04",
     title: "AI-Native Playbook",
     body: "The practices, conventions and guardrails we use ourselves — taught to your team through workshops, pairing and codified standards.",
     href: "/playbook",
-    cta: "Read the playbook",
   },
 ];
 
@@ -61,133 +54,118 @@ const timeline = [
 ];
 
 const principles = [
-  { id: "P.01", title: "Start from the work, not the model.", body: "The best opportunities are found on the floor, not in a strategy offsite." },
-  { id: "P.02", title: "If it isn't evaluated, it isn't done.", body: "Every prompt, model and agent ships with tests that say when it breaks." },
-  { id: "P.03", title: "Context is the codebase now.", body: "Specs, conventions and docs are written for agents and humans alike." },
-  { id: "P.04", title: "Humans own the judgment.", body: "Agents write more of the code; engineers own design, review and accountability." },
+  { title: "Start from the work, not the model.", body: "The best opportunities are found on the floor, not in a strategy offsite." },
+  { title: "If it isn’t evaluated, it isn’t done.", body: "Every prompt, model and agent ships with tests that say when it breaks." },
+  { title: "Context is the codebase now.", body: "Specs, conventions and docs are written for agents and humans alike." },
+  { title: "Humans own the judgment.", body: "Agents write more of the code; engineers own design, review and accountability." },
 ];
 
 export default function Home() {
   return (
     <>
-      {/* Hero */}
-      <Container className="pt-24 pb-20">
-        <AutoGrid min={340} className="items-center gap-16">
-          <div className="flex flex-col gap-7">
-            <Eyebrow>AI-native engineering consultancy</Eyebrow>
-            <h1 className="m-0 text-[clamp(42px,6vw,72px)] leading-[1.02] font-semibold tracking-[-0.035em]">
-              Engineering built for the AI era. Proven in production.
-            </h1>
-            <p className="m-0 max-w-[34ch] text-xl text-ink-2">
-              Frontier Engineering embeds senior engineers inside your business to find where AI actually pays,
-              build it the AI-native way, and test it until the numbers hold.
+      {/* Hero — one column, the claim first */}
+      <Container className="pt-24 pb-20 sm:pt-32">
+        <div className="flex flex-col gap-8">
+          <Eyebrow>AI-native engineering consultancy</Eyebrow>
+          <h1 className="m-0 max-w-[14ch] font-display text-[clamp(46px,8vw,104px)] leading-[0.98] font-normal tracking-[-0.025em] [overflow-wrap:anywhere]">
+            If it isn’t evaluated, it isn’t done.
+          </h1>
+          <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
+            <p className="m-0 max-w-[44ch] text-xl text-ink-2">
+              Frontier Engineering embeds senior engineers inside your business to find where AI
+              actually pays, build it the AI-native way, and test it until the numbers hold.
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
               <ButtonLink href="#contact">Start a discovery sprint</ButtonLink>
-              <ButtonLink href="#practices" variant="outline">
-                See how we work
-              </ButtonLink>
+              <ArrowLink href="#practices">See how we work</ArrowLink>
             </div>
           </div>
-
-          <div
-            aria-label="Engagement loop: embed, discover, build, prove, then ship and hand off"
-            role="img"
-            className="flex flex-col gap-3.5 bg-ink p-7 font-mono text-[13px] text-night-text"
-          >
-            <div className="flex justify-between text-night-dim">
-              <span>engagement.loop</span>
-              <span>v1</span>
-            </div>
-            {loop.map((l, i) => (
-              <div key={l.n} className="flex flex-col gap-3.5">
-                {i > 0 && <div className="pl-[22px] text-slate">│</div>}
-                <div
-                  className={`flex items-center justify-between gap-3 border p-4 ${l.highlight ? "border-accent-soft" : "border-night-line"}`}
-                >
-                  <span>
-                    <span className="text-accent-soft">{l.n}</span>&nbsp;&nbsp;{l.step}
-                  </span>
-                  <span className="text-right text-night-dim">{l.note}</span>
-                </div>
-              </div>
-            ))}
-            <div className="pl-[22px] text-slate">└─ ship · hand off · repeat</div>
-          </div>
-        </AutoGrid>
+        </div>
       </Container>
 
-      {/* Practices */}
-      <Container className="flex flex-col gap-14 pt-28 pb-24">
-        <div id="practices" className="flex scroll-mt-8 flex-wrap items-end justify-between gap-6">
-          <div className="flex max-w-[640px] flex-col gap-4">
-            <Eyebrow>Practices</Eyebrow>
-            <H2 className="text-[clamp(32px,4vw,48px)]">
-              Four disciplines. One standard: it works in production.
+      {/* Evidence — the Wharf chart is the proof, so it sits directly under the claim */}
+      <section aria-label="Wharf benchmark results" className="border-y border-line bg-surface">
+        <Container className="grid gap-12 py-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,22rem)] lg:items-center lg:gap-16">
+          <div className="flex flex-col gap-5 lg:order-2">
+            <H2 className="text-[clamp(30px,3.2vw,40px)]">
+              Same model, two harnesses, {harnessGap} points apart.
             </H2>
+            <p className="m-0 text-ink-2">
+              On Wharf, our coding-agent benchmark, Claude Opus 5 passed{" "}
+              {pct(passRate(opusCopilot))} of attempts in GitHub Copilot and{" "}
+              {pct(passRate(opusClaudeCode))} in Claude Code — at {usd(opusCopilot.costPerAttempt)}{" "}
+              versus {usd(opusClaudeCode.costPerAttempt)} per attempt. You only see that by testing
+              on real tasks.
+            </p>
+            <p className="m-0 font-mono text-xs text-muted">
+              {totalPlanned.toLocaleString("en-US")} verified attempts · {runs.length} configurations
+              · {taskCount} tasks · {wharfDate}
+            </p>
+            <div>
+              <ArrowLink href={researchHref}>Read the Wharf research</ArrowLink>
+            </div>
           </div>
+          <figure className="m-0 flex min-w-0 flex-col gap-3 lg:order-1">
+            <div className="overflow-x-auto">
+              <CostQualityChart
+                runs={runs}
+                pair={[opusCopilot.id, opusClaudeCode.id]}
+                labels={[
+                  { id: luna.id, text: "GPT-5.6 Luna" },
+                  { id: opusCopilot.id, text: "Opus 5 · Copilot", anchor: "end" },
+                  { id: opusClaudeCode.id, text: "Opus 5 · Claude Code", anchor: "end" },
+                  { id: auto.id, text: "Copilot Auto" },
+                ]}
+              />
+            </div>
+            <figcaption className="font-mono text-xs text-muted">
+              Pass rate against mean cost per attempt. Up and to the left is better.
+            </figcaption>
+          </figure>
+        </Container>
+      </section>
+
+      {/* Practices — an index, not a card grid */}
+      <Container className="pt-28 pb-24">
+        <div
+          id="practices"
+          className="grid scroll-mt-8 gap-6 pb-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end lg:gap-16"
+        >
+          <H2>Four disciplines. One standard: it works in production.</H2>
           <p className="m-0 max-w-[40ch] text-ink-2">
             Each practice stands alone, but most engagements move through all four — from finding
             the opportunity to keeping it honest after launch.
           </p>
         </div>
-        {/* Fixed 1 → 2 → 4 columns so four cards never leave an orphan row. */}
-        <div className="grid grid-cols-1 gap-px border border-line bg-line sm:grid-cols-2 xl:grid-cols-4">
-          {practiceCards.map((c) => (
-            <article
-              key={c.n}
-              className="flex min-w-0 flex-col gap-4 bg-surface p-6 break-words sm:p-8 xl:min-h-[340px]"
-            >
-              <span className="font-mono text-[13px] text-muted">{c.n}</span>
-              <h3 className="m-0 text-[clamp(21px,2vw,24px)] font-semibold tracking-[-0.02em]">
-                {c.title}
-              </h3>
-              <p className="m-0 flex-1 text-ink-2">{c.body}</p>
-              <ArrowLink href={c.href}>{c.cta}</ArrowLink>
-            </article>
+        <ul className="m-0 list-none border-b border-line p-0">
+          {practices.map((p) => (
+            <li key={p.href} className="border-t border-line">
+              <Link
+                href={p.href}
+                className="group grid gap-3 py-8 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)_auto] md:items-baseline md:gap-12"
+              >
+                <span className="font-display text-[clamp(26px,3vw,36px)] leading-[1.1] tracking-[-0.01em] text-ink transition-colors group-hover:text-accent-ink">
+                  {p.title}
+                </span>
+                <span className="text-ink-2">{p.body}</span>
+                <span
+                  aria-hidden="true"
+                  className="hidden text-xl text-accent-ink transition-transform group-hover:translate-x-1 motion-reduce:transition-none md:block"
+                >
+                  →
+                </span>
+              </Link>
+            </li>
           ))}
-        </div>
+        </ul>
       </Container>
-
-      {/* Research proof */}
-      <section className="border-y border-line bg-surface">
-        <Container className="py-24">
-          <AutoGrid min={340} className="items-center gap-14">
-            <div className="flex flex-col gap-5">
-              <Eyebrow>From our own bench</Eyebrow>
-              <H2 className="text-[clamp(32px,4vw,48px)]">We measure before we make claims.</H2>
-              <p className="m-0 max-w-[48ch] text-ink-2">
-                Wharf, our coding-agent benchmark, put today&apos;s frontier models through{" "}
-                {totalPlanned.toLocaleString("en-US")} independently verified attempts at real
-                software tasks. Same model, two harnesses: Claude Opus 5 passed{" "}
-                {pct(passRate(opusCopilot))} in one and {pct(passRate(opusClaudeCode))} in the
-                other — at {usd(opusCopilot.costPerAttempt)} versus{" "}
-                {usd(opusClaudeCode.costPerAttempt)} per attempt.
-              </p>
-              <ArrowLink href={researchHref}>Read the Wharf research</ArrowLink>
-            </div>
-            <StatGrid
-              tone="paper"
-              items={[
-                { label: "VERIFIED ATTEMPTS", value: totalPlanned.toLocaleString("en-US") },
-                { label: "CONFIGURATIONS", value: String(runs.length) },
-                { label: "REAL SOFTWARE TASKS", value: String(taskCount) },
-                { label: "PASS-RATE GAP, SAME MODEL", value: `${((passRate(opusCopilot) - passRate(opusClaudeCode)) * 100).toFixed(1)} pts` },
-              ]}
-            />
-          </AutoGrid>
-        </Container>
-      </section>
 
       {/* Engagement timeline */}
       <DarkBand>
-        <Container className="flex flex-col gap-14 py-28">
-          <div className="flex max-w-[720px] flex-col gap-4">
-            <Eyebrow dark>How an engagement runs</Eyebrow>
-            <H2 dark className="text-[clamp(32px,4vw,48px)]">
-              From first conversation to production, with a gate at every step.
-            </H2>
-          </div>
+        <Container className="flex flex-col gap-14 py-24">
+          <H2 dark className="max-w-[24ch]">
+            From first conversation to production, with a gate at every step.
+          </H2>
           <AutoGrid min={220} as="ol" className="m-0 list-none gap-8 p-0">
             {timeline.map((t, i) => (
               <li
@@ -203,44 +181,40 @@ export default function Home() {
         </Container>
       </DarkBand>
 
-      {/* Principles */}
-      <Container className="py-28">
-        <AutoGrid min={320} className="gap-16">
-          <div className="flex flex-col gap-4">
-            <Eyebrow>What we believe</Eyebrow>
-            <H2 className="text-[clamp(32px,4vw,48px)]">
-              AI-native isn&apos;t a tool rollout. It&apos;s a different way of engineering.
-            </H2>
-          </div>
-          <ul className="m-0 flex list-none flex-col border-b border-line p-0">
-            {principles.map((p) => (
-              <li key={p.id} className="grid grid-cols-[56px_1fr] gap-4 border-t border-line py-[22px]">
-                <span className="pt-1 font-mono text-[13px] text-muted">{p.id}</span>
-                <div>
-                  <h3 className="m-0 mb-1.5 text-[19px] font-semibold">{p.title}</h3>
-                  <p className="m-0 text-ink-2">{p.body}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </AutoGrid>
+      {/* Principles — statements, set large */}
+      <Container className="pt-32 pb-24">
+        <H2 className="max-w-[22ch]">
+          AI-native isn’t a tool rollout. It’s a different way of engineering.
+        </H2>
+        <ul className="m-0 mt-16 grid list-none gap-x-16 gap-y-12 p-0 md:grid-cols-2">
+          {principles.map((p) => (
+            <li key={p.title} className="flex flex-col gap-3 border-t border-ink pt-6">
+              <h3 className="m-0 font-display text-[clamp(24px,2.4vw,30px)] leading-[1.15] font-normal tracking-[-0.01em]">
+                {p.title}
+              </h3>
+              <p className="m-0 max-w-[44ch] text-ink-2">{p.body}</p>
+            </li>
+          ))}
+        </ul>
       </Container>
 
       {/* Contact */}
-      <Container className="py-28">
-        <AutoGrid min={320} className="gap-16">
-          <div id="contact" className="flex scroll-mt-8 flex-col gap-5">
-            <h2 className="m-0 text-[clamp(36px,5vw,56px)] leading-[1.04] font-semibold tracking-[-0.035em]">
-              Find out where AI pays in your business.
-            </h2>
-            <p className="m-0 max-w-[40ch] text-ink-2">
-              Start with a fixed-scope discovery sprint. You leave with a ranked opportunity map and
-              a working prototype of the top candidate.
-            </p>
-          </div>
-          <ContactForm />
-        </AutoGrid>
-      </Container>
+      <section className="border-t border-line">
+        <Container className="py-28">
+          <AutoGrid min={320} className="gap-16">
+            <div id="contact" className="flex scroll-mt-8 flex-col gap-5">
+              <h2 className="m-0 font-display text-[clamp(38px,5vw,60px)] leading-[1.02] font-normal tracking-[-0.02em]">
+                Find out where AI pays in your business.
+              </h2>
+              <p className="m-0 max-w-[40ch] text-ink-2">
+                Start with a fixed-scope discovery sprint. You leave with a ranked opportunity map
+                and a working prototype of the top candidate.
+              </p>
+            </div>
+            <ContactForm />
+          </AutoGrid>
+        </Container>
+      </section>
     </>
   );
 }
