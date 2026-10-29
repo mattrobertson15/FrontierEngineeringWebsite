@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   },
   description:
     "Frontier Engineering embeds senior engineers inside your business to find where AI actually pays, build it the AI-native way, and test it until the numbers hold.",
+  // Large preview card on X; the image itself comes from opengraph-image.tsx.
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
