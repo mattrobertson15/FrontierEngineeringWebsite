@@ -112,8 +112,8 @@ export default function EngineeringPage() {
             <div className="flex flex-col gap-3">
               <Label>Built with the same discipline we measure</Label>
               <p className="m-0 text-2xl leading-[1.35] font-medium tracking-[-0.015em]">
-                Our Wharf benchmark runs coding agents through thousands of independently verified
-                attempts — the same loop, applied to the agents themselves.
+                Our Wharf benchmark evaluates coding agents with repeated attempts and a separate
+                verifier. Missing attempts count as failures.
               </p>
             </div>
             <div>
@@ -144,7 +144,7 @@ export default function EngineeringPage() {
       <CtaStrip
         title="See where your codebase stands today."
         href={contactHref}
-        label="Request an AI-readiness review"
+        label="Request a discovery call"
       />
     </>
   );

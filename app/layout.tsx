@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
+import { Newsreader } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { siteUrl } from "@/lib/site";
@@ -10,6 +11,14 @@ import "./globals.css";
 const geistSans = GeistSans;
 const geistMono = GeistMono;
 
+// Display serif for H1/H2. next/font downloads it at build time and serves it from this domain.
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  axes: ["opsz"],
+  variable: "--font-newsreader",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -17,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s · Frontier Engineering",
   },
   description:
-    "Frontier Engineering embeds senior engineers inside your business to find where AI actually pays, build it the AI-native way, and test it until the numbers hold.",
+    "Frontier Engineering embeds senior engineers with your team to identify valuable AI workflows, build production software, and measure the results.",
   // Large preview card on X; the image itself comes from opengraph-image.tsx.
   twitter: { card: "summary_large_image" },
 };
@@ -26,7 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-paper font-sans text-ink">
         <Header />

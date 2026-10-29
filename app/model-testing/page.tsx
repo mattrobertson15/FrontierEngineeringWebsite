@@ -34,9 +34,8 @@ const report = [
 
 const findings = [
   { tag: "harness", title: "Same model, different harness, different result.", body: "Claude Opus 5 passed 71.2% of attempts inside GitHub Copilot and 64.4% inside Claude Code — and cost 58% less per attempt ($5.66 vs $13.49)." },
-  { tag: "cost", title: "The cheapest model tied for first.", body: "GPT-5.6 Luna passed 74.1% at $0.37 per attempt — about 1/32 the cost of Claude Opus 5.5, which scored 70.8%." },
-  { tag: "upgrade", title: "One run isn't a verdict.", body: "Luna scored 74.1% on one Copilot CLI release and 69.9% on the next, same model. A swing that size is within run-to-run noise here — which is why upgrade decisions need repeated trials, not a single score." },
-  { tag: "reproduce", title: "Results that hold up.", body: "Where our configurations overlap Meta's published DeepSWE evaluation, our pass rates land within two points of theirs." },
+  { tag: "cost", title: "A low-cost configuration tied for the highest pass rate.", body: "GPT-5.6 Luna passed 74.1% at $0.37 per attempt — about 1/32 the cost of Claude Opus 5.5, which scored 70.8%." },
+  { tag: "upgrade", title: "One run isn't a verdict.", body: "Luna scored 74.1% on one Copilot CLI release and 69.9% on the next, same model. These runs do not isolate the effect of the harness upgrade from run-to-run variation. Upgrade decisions need repeated trials, not a single score." },
 ];
 
 const systemParts = ["model", "prompts", "reasoning effort", "tools", "agent harness", "environment", "verification"];
@@ -101,7 +100,7 @@ function EvalReport() {
         </table>
       </div>
       <figcaption className="text-night-dim">
-        Max reasoning effort (Gemini: high), 4–5 attempts per task. Cost is the mean per attempt
+        Max reasoning effort (Gemini: high), 4–5 planned attempts per task. Cost is the mean per attempt
         with cost data; missing costs are excluded, not zeroed.{" "}
         <Link href={researchHref} className="underline hover:text-paper">
           Methodology &amp; full results
@@ -117,7 +116,7 @@ export default function ModelTestingPage() {
       <PageHero
         eyebrow="Practice 03 — Model testing & evals"
         title="Benchmarks don't run your business. Your tasks do."
-        lede="We build evaluation harnesses on your own data and success criteria, so choosing a model, changing a prompt or upgrading a version is a measured decision — not a vibe check."
+        lede="We build evaluation harnesses on your own data and success criteria, so choosing a model, changing a prompt or upgrading a version is a decision backed by repeatable tests."
         aside={<EvalReport />}
       />
 
@@ -130,9 +129,9 @@ export default function ModelTestingPage() {
             </div>
             <div className="flex flex-col gap-5">
               <p className="m-0 text-ink-2">
-                A model&apos;s results depend on everything around it. The same model scored 71% in
-                one agent harness and 64% in another, at less than half the cost. We test the
-                pieces together and find the configuration that meets your quality, reliability,
+                A model&apos;s results depend on everything around it. Claude Opus 5 passed 71.2% of
+                attempts in GitHub Copilot at $5.66 per attempt, compared with 64.4% in Claude
+                Code at $13.49 per attempt. We test the pieces together and find the configuration that meets your quality, reliability,
                 latency and cost targets on your own workload.
               </p>
               <ul className="m-0 flex list-none flex-wrap gap-2 p-0 font-mono text-[13px] text-ink-2">
@@ -165,13 +164,13 @@ export default function ModelTestingPage() {
           <div className="flex flex-col gap-4">
             <Eyebrow>From our own bench</Eyebrow>
             <H2>
-              {runs.length} agent configurations. {totalPlanned.toLocaleString("en-US")} attempts at
+              {runs.length} agent configurations. {totalPlanned.toLocaleString("en-US")} planned attempts at
               real engineering tasks.
             </H2>
             <p className="m-0 max-w-[60ch] text-ink-2">
-              We ran today&apos;s frontier models through DeepSWE — {taskCount} real-world software
-              tasks, each attempted four or five times — and scored every attempt against its tests.
-              The leaderboard wasn&apos;t the interesting part.
+              In {wharfDate}, we tested models and harnesses on {taskCount} DeepSWE software
+              tasks, with four or five planned attempts per task for each configuration. Missing
+              attempts count as failures. The leaderboard wasn&apos;t the interesting part.
             </p>
           </div>
           <HairlineGrid min={260}>
@@ -260,7 +259,7 @@ export default function ModelTestingPage() {
       <CtaStrip
         title="Know what your model can do before your users do."
         href={contactHref}
-        label="Scope an eval program"
+        label="Request a discovery call"
       />
     </>
   );
