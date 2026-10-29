@@ -24,6 +24,7 @@ const positioning = [
   { label: "Embedded engineers", body: "Engineers work alongside your team, from problem definition through delivery." },
   { label: "Production delivery", body: "The team identifies the problem, writes the code and puts it into daily use." },
   { label: "Measured outcomes", body: "Success is a tool in daily use, measured against an agreed baseline." },
+  { label: "Your IP, any stack", body: "The code, data and know-how stay yours. We pick models and tools by evidence, not by vendor." },
 ];
 
 const gapQuestions = [
@@ -66,6 +67,14 @@ const poorFit = [
   "No one owns the process, or there is no route to production.",
 ];
 
+const commitments = [
+  { title: "Domain experts", body: "Operators who know the work, with time each week to show us the exceptions and judge the output." },
+  { title: "Access", body: "Timely access to the systems, data and environments the workflow touches — real data, not a sanitized sample." },
+  { title: "Security from day one", body: "Your security, privacy and compliance owners involved at the start, so controls shape the design instead of blocking launch." },
+  { title: "An owner", body: "A named person accountable for the outcome, who can make decisions quickly and will run the system after we leave." },
+  { title: "A route to production", body: "Somewhere to deploy, and a team ready to train early users and adopt it." },
+];
+
 const faqs = [
   {
     q: "How is this different from consulting?",
@@ -78,6 +87,14 @@ const faqs = [
   {
     q: "Will we end up depending on you?",
     a: "Not by design. Exit criteria are agreed at the start, your owners pair with us throughout, and the tests, runbooks and decisions live in your systems. The engagement is done when your team can make and safely deploy a change on its own.",
+  },
+  {
+    q: "Who owns what we build?",
+    a: "You do. Code, prompts, eval suites and runbooks live in your repositories, and your data stays in your environment. We keep only the general methods we bring to every engagement.",
+  },
+  {
+    q: "Are you tied to a model or cloud vendor?",
+    a: "No. We don't resell a platform or earn on usage, so we choose models, tools and infrastructure by testing them on your tasks — and build on the stack you already run where it does the job.",
   },
   {
     q: "How do you measure success?",
@@ -225,6 +242,25 @@ export default function ForwardDeployedPage() {
           </AutoGrid>
         </Container>
       </section>
+
+      <Container className="flex flex-col gap-12 py-26">
+        <div className="flex max-w-[680px] flex-col gap-3.5">
+          <Eyebrow>What we need from you</Eyebrow>
+          <H2>Embedded only works if both sides show up.</H2>
+          <p className="m-0 text-ink-2">
+            We agree these before the first sprint. They are the most reliable predictor of
+            whether a system reaches production.
+          </p>
+        </div>
+        <HairlineGrid min={200}>
+          {commitments.map((c) => (
+            <div key={c.title} className="flex flex-col gap-2.5 bg-paper p-8">
+              <h3 className="m-0 text-[21px] font-semibold">{c.title}</h3>
+              <p className="m-0 text-ink-2">{c.body}</p>
+            </div>
+          ))}
+        </HairlineGrid>
+      </Container>
 
       <EngagementSection
         intro={

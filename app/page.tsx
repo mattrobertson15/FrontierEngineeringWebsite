@@ -107,7 +107,8 @@ export default function Home() {
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
             <p className="m-0 max-w-[44ch] text-xl text-ink-2">
               Our senior engineers work alongside your team to identify valuable workflows,
-              build production software, and measure the results.
+              build production software, and measure the results. The code, data and IP stay
+              yours.
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
               <ButtonLink href="#contact">Request a discovery call</ButtonLink>
@@ -169,7 +170,8 @@ export default function Home() {
             </H2>
             <p className="m-0 text-ink-2">
               The tools around a model change its quality and cost. Our Wharf benchmark
-              shows why we evaluate the whole system before choosing a stack.
+              shows why we evaluate the whole system before choosing a stack. We don&apos;t
+              resell a model or a cloud, so the evidence picks it.
             </p>
             <h3 className="m-0 text-xl font-semibold">
               Same model, two harnesses, {harnessGap} points apart.
