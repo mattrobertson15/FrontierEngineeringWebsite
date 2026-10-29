@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ContactForm } from "@/components/Forms";
 import { CostQualityChart } from "@/components/CostQualityChart";
 import { researchHref } from "@/lib/site";
-import { passRate, pct, run, runs, taskCount, totalPlanned, usd, wharfDate } from "@/content/wharf";
+import { passRate, pct, run, runs, taskCount, totalPlanned, wharfDate } from "@/content/wharf";
 import {
   ArrowLink,
   AutoGrid,
@@ -26,22 +26,22 @@ const harnessGap = ((passRate(opusCopilot) - passRate(opusClaudeCode)) * 100).to
 const practices = [
   {
     title: "AI-Native Engineering",
-    body: "Rebuild your software lifecycle around agents: agent-ready codebases, spec-driven development, and review pipelines that keep humans in charge.",
+    body: "Codebases, specs, and review workflows that help your engineers ship with agents.",
     href: "/engineering",
   },
   {
     title: "Forward-Deployed Engineers",
-    body: "Senior engineers who sit with your operators, find the workflows where AI moves a real metric, and build software around an agreed business outcome.",
+    body: "Embedded engineers who turn operational problems into software your team owns.",
     href: "/forward-deployed",
   },
   {
     title: "Model Testing & Evals",
-    body: "Evaluation harnesses built on your data and your tasks, so model choice, prompt changes and upgrades are decisions backed by evidence.",
+    body: "Tests on your data and tasks to guide model selection and catch regressions.",
     href: "/model-testing",
   },
   {
     title: "AI-Native Playbook",
-    body: "The practices, conventions and guardrails we use ourselves — taught to your team through workshops, pairing and codified standards.",
+    body: "Our working practices for building with agents, taught through workshops and pairing.",
     href: "/playbook",
   },
 ];
@@ -49,23 +49,20 @@ const practices = [
 const workflows = [
   {
     area: "Finance & operations",
-    title: "Make exceptions the work, not reconciliation.",
-    problem: "Teams compare records across systems by hand and chase mismatches in spreadsheets.",
-    system: "A reconciliation workflow that matches records, surfaces exceptions, and keeps an audit trail for review.",
+    title: "Reconcile records. Review exceptions.",
+    description: "A reconciliation workflow that matches records, surfaces exceptions, and keeps an audit trail for review.",
     measure: "Time per reconciliation, unresolved exceptions, and correction rate.",
   },
   {
     area: "Customer support",
-    title: "Give every request a useful starting point.",
-    problem: "Agents search scattered documentation and repeat the same intake and routing decisions.",
-    system: "A triage assistant that retrieves relevant guidance, suggests a response, and routes uncertain cases to a person.",
+    title: "Resolve support requests sooner.",
+    description: "A triage assistant that retrieves relevant guidance, suggests a response, and routes uncertain cases to a person.",
     measure: "Time to resolution, routing accuracy, and response quality.",
   },
   {
     area: "Engineering",
-    title: "Turn agent output into changes you can trust.",
-    problem: "Coding agents produce changes faster than a team can confidently review and release them.",
-    system: "A delivery workflow with clear specs, bounded agent tasks, automated checks, and human review before merge.",
+    title: "Ship agent-written code with confidence.",
+    description: "A delivery workflow with clear specs, bounded agent tasks, automated checks, and human review before merge.",
     measure: "Time to an accepted change, review effort, and regression rate.",
   },
 ];
@@ -73,31 +70,27 @@ const workflows = [
 const timeline = [
   {
     step: "01 / Discover",
-    title: "Choose the work worth changing.",
-    ours: "Shadow operators, map the workflow, and test the most promising opportunities.",
-    yours: "Bring the people who know the work, the system owners, and the constraints we need to respect.",
-    deliverable: "A ranked opportunity map, a prototype of the top candidate, and an agreed measure of success.",
+    title: "Choose the opportunity.",
+    body: "We map the workflow with your operators and system owners, test feasibility, and agree on success measures.",
+    deliverable: "A ranked opportunity map and a prototype of the top candidate.",
   },
   {
     step: "02 / Build",
-    title: "Put working software in real hands.",
-    ours: "Build in your environment and review working increments against real data and user feedback.",
-    yours: "Give feedback at checkpoints, resolve domain questions, and steer priorities with us.",
-    deliverable: "An integrated system with a reviewable record of decisions, tests, and known limits.",
+    title: "Build in your environment.",
+    body: "We integrate with your systems. Your team reviews working increments and steers priorities at each checkpoint.",
+    deliverable: "Working software, tests, and documented decisions.",
   },
   {
     step: "03 / Prove",
-    title: "Decide what is ready to ship.",
-    ours: "Evaluate quality against the baseline and verify monitoring, controls, and recovery paths.",
-    yours: "Review the evidence with the people accountable for the workflow and approve production use.",
-    deliverable: "Acceptance evidence, task-specific evals, and operating checks tied to the agreed outcome.",
+    title: "Verify before launch.",
+    body: "We test quality, controls, and recovery. Your workflow owners review the evidence and approve production use.",
+    deliverable: "Acceptance evidence, eval suites, and operating checks.",
   },
   {
     step: "04 / Hand over",
     title: "Make the next change yourselves.",
-    ours: "Pair with your engineers, document the system, and rehearse how to troubleshoot and extend it.",
-    yours: "Name an owner and make a change with us beside you before taking the system forward.",
-    deliverable: "Code, eval suites, runbooks, and a prioritized backlog in your team's hands.",
+    body: "We pair with your engineers until they can troubleshoot, extend, and deploy a change themselves.",
+    deliverable: "Code, runbooks, and a prioritized backlog owned by your team.",
   },
 ];
 
@@ -130,12 +123,12 @@ export default function Home() {
             <div className="flex min-w-0 flex-col gap-4">
               <Eyebrow>The work we can help with</Eyebrow>
               <h2 id="workflows-heading" className="m-0 max-w-[23ch] font-display text-[clamp(32px,3.8vw,48px)] leading-[1.08] tracking-[-0.015em]">
-                Start with a workflow that needs to work better.
+                Where could AI improve the work?
               </h2>
             </div>
             <p className="m-0 max-w-[42ch] text-ink-2">
-              Illustrative engagement examples. We define the scope and success measures with
-              your team, based on your systems and the work you actually do.
+              Illustrative examples. We scope each engagement around your systems,
+              constraints, and measures of success.
             </p>
           </div>
           <div className="border-b border-line">
@@ -148,16 +141,14 @@ export default function Home() {
                   </h3>
                 </div>
                 <dl className="m-0 flex min-w-0 flex-col gap-5">
-                  {[
-                    ["The problem", workflow.problem],
-                    ["What we could build", workflow.system],
-                    ["What we would measure", workflow.measure],
-                  ].map(([label, body]) => (
-                    <div key={label} className="flex flex-col gap-1">
-                      <dt className="font-mono text-xs tracking-[0.06em] text-accent-ink uppercase">{label}</dt>
-                      <dd className="m-0 text-ink-2">{body}</dd>
-                    </div>
-                  ))}
+                  <div>
+                    <dt className="sr-only">What we could build</dt>
+                    <dd className="m-0 text-ink-2">{workflow.description}</dd>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <dt className="font-mono text-xs tracking-[0.06em] text-accent-ink uppercase">Measure success</dt>
+                    <dd className="m-0 text-ink-2">{workflow.measure}</dd>
+                  </div>
                 </dl>
               </article>
             ))}
@@ -174,22 +165,18 @@ export default function Home() {
           <div className="flex flex-col gap-5 lg:order-2">
             <Eyebrow>How we make technical decisions</Eyebrow>
             <H2 className="text-[clamp(30px,3.2vw,40px)]">
-              Choose your AI stack using evidence from the work.
+              Test the stack on the task.
             </H2>
             <p className="m-0 text-ink-2">
-              Model choice is only part of the decision. The tools around it can change both
-              quality and cost. We build evaluations around your tasks so you can see the tradeoffs
-              before committing.
+              The tools around a model change its quality and cost. Our Wharf benchmark
+              shows why we evaluate the whole system before choosing a stack.
             </p>
             <h3 className="m-0 text-xl font-semibold">
               Same model, two harnesses, {harnessGap} points apart.
             </h3>
             <p className="m-0 text-ink-2">
-              On Wharf, our coding-agent benchmark, Claude Opus 5 passed{" "}
-              {pct(passRate(opusCopilot))} of attempts in GitHub Copilot and{" "}
-              {pct(passRate(opusClaudeCode))} in Claude Code — at {usd(opusCopilot.costPerAttempt)}{" "}
-              versus {usd(opusClaudeCode.costPerAttempt)} per attempt. You only see that by testing
-              on real tasks.
+              Claude Opus 5 passed {pct(passRate(opusCopilot))} of attempts in GitHub Copilot
+              and {pct(passRate(opusClaudeCode))} in Claude Code on the same benchmark.
             </p>
             <p className="m-0 font-mono text-xs text-muted">
               {totalPlanned.toLocaleString("en-US")} planned attempts · {runs.length} configurations
@@ -225,11 +212,11 @@ export default function Home() {
           <div id="how-we-work" className="flex scroll-mt-8 flex-col gap-5 pb-12">
             <Eyebrow dark>How an engagement works</Eyebrow>
             <H2 dark className="max-w-[24ch]">
-              A working system. A clear role for your team at every step.
+              Build together. Take it forward.
             </H2>
             <p className="m-0 max-w-[60ch] text-night-muted">
-              We agree on the outcome and the handover criteria before building. Your team
-              shapes the work throughout, and owns the system that comes out of it.
+              We agree on the outcome and handover criteria up front.
+              Your team steers the work and owns the result.
             </p>
           </div>
           <ol className="m-0 list-none p-0">
@@ -241,20 +228,13 @@ export default function Home() {
                     {stage.title}
                   </h3>
                 </div>
-                <dl className="m-0 grid min-w-0 gap-5 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-                  <div className="flex flex-col gap-2">
-                    <dt className="font-mono text-xs text-accent-soft uppercase">Our role</dt>
-                    <dd className="m-0 text-night-muted">{stage.ours}</dd>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <dt className="font-mono text-xs text-accent-soft uppercase">Your role</dt>
-                    <dd className="m-0 text-night-muted">{stage.yours}</dd>
-                  </div>
-                  <div className="flex flex-col gap-2 border-l-2 border-accent-soft pl-4 sm:col-span-2">
-                    <dt className="font-mono text-xs text-accent-soft uppercase">What you receive</dt>
-                    <dd className="m-0 text-paper">{stage.deliverable}</dd>
-                  </div>
-                </dl>
+                <div className="flex min-w-0 flex-col gap-4">
+                  <p className="m-0 text-night-muted">{stage.body}</p>
+                  <dl className="m-0 border-l-2 border-accent-soft pl-4">
+                    <dt className="font-mono text-xs text-accent-soft uppercase">You leave this stage with</dt>
+                    <dd className="m-0 mt-2 text-paper">{stage.deliverable}</dd>
+                  </dl>
+                </div>
               </li>
             ))}
           </ol>
@@ -267,10 +247,10 @@ export default function Home() {
           id="practices"
           className="grid scroll-mt-8 gap-6 pb-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end lg:gap-16"
         >
-          <H2>Four disciplines. One standard: it works in production.</H2>
+          <H2>Explore our practices.</H2>
           <p className="m-0 max-w-[40ch] text-ink-2">
-            Each practice stands alone, but most engagements move through all four — from finding
-            the opportunity to keeping it honest after launch.
+            Start with the support you need: delivery, engineering workflows,
+            evaluations, or team enablement.
           </p>
         </div>
         <ul className="m-0 list-none border-b border-line p-0">
@@ -302,18 +282,17 @@ export default function Home() {
           <AutoGrid min={320} className="gap-16">
             <div id="contact" className="flex scroll-mt-8 flex-col gap-5">
               <h2 className="m-0 font-display text-[clamp(38px,5vw,60px)] leading-[1.02] font-normal tracking-[-0.02em]">
-                Bring a workflow. We’ll work out the next step.
+                What would you like to improve?
               </h2>
               <p className="m-0 max-w-[40ch] text-ink-2">
-                Start with a discovery call with our engineers. Tell us where the work slows
-                down, what you have tried, and what a useful result would look like. Bring a
-                workflow owner or technical lead if they can help explain the constraints.
+                Talk with our engineers about the workflow, what you have tried, and what
+                a useful result would look like. Bring a workflow owner or technical lead.
               </p>
               <div className="flex flex-col gap-2 border-t border-line pt-5">
                 <Eyebrow>What comes out of the call</Eyebrow>
                 <p className="m-0 max-w-[40ch] text-ink-2">
-                  A shared view of the problem and whether a discovery sprint, codebase review,
-                  or evaluation program is the right next step.
+                  A clear next step: a discovery sprint, codebase review, or evaluation
+                  program, if there is a fit.
                 </p>
               </div>
             </div>
