@@ -32,6 +32,7 @@ export type WharfRun = {
   agentSeconds: number;
 };
 
+// "Auto" and "HydraFusion" are Copilot model routers, not single models.
 export const runs: WharfRun[] = [
   { id: "copilot-gpt-5.6-luna-max-1.0.77", model: "GPT-5.6 Luna", harness: "Copilot", version: "1.0.77", effort: "max", planned: 452, passing: 335, regressions: 17, costPerAttempt: 0.3711, costCoverage: 0.9712, agentSeconds: 1511 },
   { id: "copilot-gemini-3.8-flash-high-1.0.91", model: "Gemini 3.8 Flash", harness: "Copilot", version: "1.0.91", effort: "high", planned: 452, passing: 335, regressions: 20, costPerAttempt: 2.7897, costCoverage: 1, agentSeconds: 1879 },

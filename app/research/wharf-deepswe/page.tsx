@@ -39,6 +39,7 @@ const luna = run("copilot-gpt-5.6-luna-max-1.0.77");
 const opus55 = run("copilot-claude-opus-5.5-max-1.0.95");
 const astra = run("copilot-gpt-6-astra-max-1.0.91");
 const auto = run("copilot-auto-max-1.0.77");
+const hydra = run("copilot-hydrafusion-default-1.0.98");
 
 const findings = [
   {
@@ -49,7 +50,7 @@ const findings = [
   {
     tag: "02 · cost",
     title: "More expensive isn't more effective.",
-    body: `GPT-5.6 Luna passed ${pct(passRate(luna))} at ${usd(luna.costPerAttempt)} per attempt. Claude Opus 5.5 passed ${pct(passRate(opus55))} at ${usd(opus55.costPerAttempt)}. Copilot's automatic model routing passed only ${pct(passRate(auto))}.`,
+    body: `GPT-5.6 Luna passed ${pct(passRate(luna))} at ${usd(luna.costPerAttempt)} per attempt. Claude Opus 5.5 passed ${pct(passRate(opus55))} at ${usd(opus55.costPerAttempt)}. Routing is no shortcut either: Copilot's Auto router passed ${pct(passRate(auto))}, its HydraFusion router ${pct(passRate(hydra))}.`,
   },
   {
     tag: "03 · regressions",
