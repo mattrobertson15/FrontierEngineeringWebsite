@@ -22,7 +22,7 @@ export default function PlaybookPage() {
   return (
     <>
       <PageHero
-        eyebrow="Practice 04 — The AI-native playbook"
+        eyebrow="Build with Your Team — The AI-native playbook"
         title="Our working practices for software development with agents."
         lede="These are the working rules our engineers follow on every engagement. We publish them because they're more useful in use than in a drawer — and we teach them hands-on to teams who want to adopt them."
       />

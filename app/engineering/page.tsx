@@ -6,7 +6,6 @@ import {
   Container,
   CtaStrip,
   DarkBand,
-  EngagementSection,
   Eyebrow,
   FeatureCard,
   H2,
@@ -44,7 +43,7 @@ export default function EngineeringPage() {
   return (
     <>
       <PageHero
-        eyebrow="Practice 01 — AI-native engineering"
+        eyebrow="Build with Your Team — AI-native engineering"
         title="Rebuild how software gets made — around agents."
         lede="Giving engineers a coding assistant is the easy part. We redesign the codebase, the workflow and the review process so agents can do real work safely — and your team ships more of what matters."
       />
@@ -123,23 +122,23 @@ export default function EngineeringPage() {
         </Container>
       </section>
 
-      <EngagementSection
-        intro={
-          <>
-            <H2>Typical engagement</H2>
+      <Container className="py-26">
+        <AutoGrid min={320} className="items-end gap-12">
+          <div className="flex flex-col gap-4">
+            <Eyebrow>How to get it</Eyebrow>
+            <H2>Offered as part of Build with Your Team.</H2>
+          </div>
+          <div className="flex flex-col gap-4">
             <p className="m-0 max-w-[44ch] text-ink-2">
-              We start with one team and one codebase, prove the model, then scale it across the
-              organization with your engineers leading.
+              We set this up with your engineers on a real pilot project, then help them take it
+              to the next team.
             </p>
-          </>
-        }
-        deliverables={[
-          { title: "An agent-ready repo", body: "Context files, clear module boundaries and one-command tests on your pilot codebase." },
-          { title: "Eval-gated CI", body: "Changes to prompts, models or agents run their eval suite before merge." },
-          { title: "Your team playbook", body: "Conventions for specs, review and agent permissions — written down, in the repo." },
-        ]}
-        doneWhen="Your engineers run the loop on the pilot codebase without us, and are ready to take it to the next team."
-      />
+            <div>
+              <ArrowLink href="/build-with-your-team">See Build with Your Team</ArrowLink>
+            </div>
+          </div>
+        </AutoGrid>
+      </Container>
 
       <CtaStrip
         title="See where your codebase stands today."

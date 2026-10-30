@@ -5,6 +5,8 @@ import { submitContact, subscribePlaybook, type ContactState } from "@/app/actio
 
 const initial: ContactState = { status: "idle" };
 
+const engagementOptions = ["Done for You", "Build with Your Team", "Not sure yet"];
+
 const field =
   "min-h-12 border border-field bg-surface px-3.5 text-base font-normal text-ink";
 
@@ -33,6 +35,21 @@ export function ContactForm() {
         Work email
         <input type="email" name="email" required autoComplete="email" className={field} />
       </label>
+      <fieldset className="m-0 flex flex-col gap-2 border-0 p-0">
+        <legend className="mb-1.5 text-sm font-medium">How would you like to work?</legend>
+        {engagementOptions.map((option) => (
+          <label key={option} className="flex min-h-11 items-center gap-3 text-base">
+            <input
+              type="radio"
+              name="engagement"
+              value={option}
+              defaultChecked={option === "Not sure yet"}
+              className="size-4 accent-accent"
+            />
+            {option}
+          </label>
+        ))}
+      </fieldset>
       <label className="flex flex-col gap-1.5 text-sm font-medium">
         What are you trying to solve?
         <textarea name="message" rows={4} className={`${field} resize-y py-3`} />

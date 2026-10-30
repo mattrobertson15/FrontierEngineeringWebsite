@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { contactHref, researchHref } from "@/lib/site";
+import { researchHref } from "@/lib/site";
 import { passRate, pct, run, runs, taskCount, totalPlanned, usd, wharfDate } from "@/content/wharf";
 import {
   ArrowLink,
@@ -19,7 +19,7 @@ import {
 export const metadata: Metadata = {
   title: "Model Testing & Evals",
   description:
-    "Evaluation harnesses built on your data and success criteria, so model choice, prompt changes and upgrades are measured decisions.",
+    "How Frontier Engineering tests models and agent harnesses, and the evals that ship with every system we build.",
 };
 
 const report = [
@@ -114,9 +114,9 @@ export default function ModelTestingPage() {
   return (
     <>
       <PageHero
-        eyebrow="Practice 03 — Model testing & evals"
+        eyebrow="Research — Model testing & evals"
         title="Benchmarks don't run your business. Your tasks do."
-        lede="We build evaluation harnesses on your own data and success criteria, so choosing a model, changing a prompt or upgrading a version is a decision backed by repeatable tests."
+        lede="We test models and agent harnesses on real tasks before we trust them. The same discipline goes into every system we build, so choosing a model, changing a prompt or upgrading a version is a decision backed by repeatable tests."
         aside={<EvalReport />}
       />
 
@@ -223,7 +223,7 @@ export default function ModelTestingPage() {
         <Container className="py-26">
           <AutoGrid min={320} className="gap-14">
             <div className="flex flex-col gap-4">
-              <Eyebrow dark>When teams call us</Eyebrow>
+              <Eyebrow dark>Why we test</Eyebrow>
               <H2 dark>You can&apos;t answer &ldquo;is it better?&rdquo; with confidence.</H2>
             </div>
             <ul className="m-0 flex list-none flex-col border-b border-night-line p-0">
@@ -240,10 +240,10 @@ export default function ModelTestingPage() {
       <EngagementSection
         intro={
           <>
-            <H2>Typical engagement</H2>
+            <H2>Built into every engagement</H2>
             <p className="m-0 max-w-[44ch] text-ink-2">
-              We build the harness alongside your team and wire it into CI, so evals keep running
-              long after we&apos;ve left.
+              We don&apos;t sell evals on their own. Every system we build, Done for You or with
+              your team, ships with its eval suite wired into CI.
             </p>
           </>
         }
@@ -258,8 +258,8 @@ export default function ModelTestingPage() {
 
       <CtaStrip
         title="Know what your model can do before your users do."
-        href={contactHref}
-        label="Request a discovery call"
+        href={researchHref}
+        label="Read the Wharf research"
       />
     </>
   );
