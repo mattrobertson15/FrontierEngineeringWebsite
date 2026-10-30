@@ -22,6 +22,7 @@ export async function submitContact(
   const lead = {
     name: String(formData.get("name") ?? "").trim(),
     email: String(formData.get("email") ?? "").trim(),
+    engagement: String(formData.get("engagement") ?? "").trim().slice(0, 50) || "Not sure yet",
     message: String(formData.get("message") ?? "").trim(),
   };
 
@@ -46,7 +47,7 @@ export async function submitContact(
     to: [CONTACT_TO],
     replyTo: lead.email,
     subject: `Discovery call request: ${lead.name.replace(/\s+/g, " ").slice(0, 100)}`,
-    text: `Name: ${lead.name}\nEmail: ${lead.email}\n\n${lead.message || "(no message)"}`,
+    text: `Name: ${lead.name}\nEmail: ${lead.email}\nEngagement: ${lead.engagement}\n\n${lead.message || "(no message)"}`,
   });
 
   if (error) {

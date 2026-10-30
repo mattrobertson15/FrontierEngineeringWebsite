@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { contactHref } from "@/lib/site";
 import {
+  ArrowLink,
   AutoGrid,
   Container,
   CtaStrip,
@@ -17,7 +18,7 @@ import {
 export const metadata: Metadata = {
   title: "Forward-Deployed Engineers",
   description:
-    "Senior engineers who embed with your teams, identify where AI can reduce costs or improve outcomes, build the tool and stay until your team can run it without us.",
+    "How we deliver Done for You: senior engineers who embed with your teams, find where AI can reduce costs or improve outcomes, and build the tool.",
 };
 
 const positioning = [
@@ -40,7 +41,7 @@ const method = [
   { n: "02", title: "Score", body: "Rank tasks by volume, cost, error rate, data availability and risk of getting it wrong." },
   { n: "03", title: "Spike", body: "Build quick technical probes on the top candidates to test feasibility on real data." },
   { n: "04", title: "Ship", body: "Take the winner to production with evals, monitoring and a named owner on your side." },
-  { n: "05", title: "Hand off", body: "Pair with your owners and rehearse recovery. We leave when your engineers can ship a change without us." },
+  { n: "05", title: "Hand off", body: "Train the people who will run the system and rehearse recovery. We hand over to your chosen maintainers or continue under an agreed support scope." },
 ];
 
 const handoff = [
@@ -57,7 +58,7 @@ const goodFit = [
   "The path to it isn't known yet — the answer is somewhere on the floor.",
   "The knowledge is spread across operations, data, security and engineering.",
   "It has to fit the systems and controls you already have.",
-  "You want to own it at the end, not rent us forever.",
+  "You want to own the code and IP at the end, not rent a platform.",
 ];
 
 const poorFit = [
@@ -65,41 +66,6 @@ const poorFit = [
   "An off-the-shelf product does the job with routine setup.",
   "You need extra coding capacity, not someone to find the problem.",
   "No one owns the process, or there is no route to production.",
-];
-
-const commitments = [
-  { title: "Domain experts", body: "Operators who know the work, with time each week to show us the exceptions and judge the output." },
-  { title: "Access", body: "Timely access to the systems, data and environments the workflow touches — real data, not a sanitized sample." },
-  { title: "Security from day one", body: "Your security, privacy and compliance owners involved at the start, so controls shape the design instead of blocking launch." },
-  { title: "An owner", body: "A named person accountable for the outcome, who can make decisions quickly and will run the system after we leave." },
-  { title: "A route to production", body: "Somewhere to deploy, and a team ready to train early users and adopt it." },
-];
-
-const faqs = [
-  {
-    q: "How is this different from consulting?",
-    a: "Consulting often stops at the recommendation. Our engineers frame the problem, write the code, put it into production and measure it — one team, accountable for the result rather than the roadmap.",
-  },
-  {
-    q: "How is this different from staff augmentation?",
-    a: "Augmentation adds hands to work you have already defined. A forward-deployed team works out what to build, ships a bounded piece of it to production, and builds your team's ability to own it.",
-  },
-  {
-    q: "Will we end up depending on you?",
-    a: "Not by design. Exit criteria are agreed at the start, your owners pair with us throughout, and the tests, runbooks and decisions live in your systems. The engagement is done when your team can make and safely deploy a change on its own.",
-  },
-  {
-    q: "Who owns what we build?",
-    a: "You do. Code, prompts, eval suites and runbooks live in your repositories, and your data stays in your environment. We keep only the general methods we bring to every engagement.",
-  },
-  {
-    q: "Are you tied to a model or cloud vendor?",
-    a: "No. We don't resell a platform or earn on usage, so we choose models, tools and infrastructure by testing them on your tasks — and build on the stack you already run where it does the job.",
-  },
-  {
-    q: "How do you measure success?",
-    a: "Against measures agreed before we build: the business result against its baseline, quality and incident rates in production, whether the intended people actually use it, and whether your team can run it without us.",
-  },
 ];
 
 const domains = [
@@ -117,13 +83,13 @@ export default function ForwardDeployedPage() {
       <Container className="pt-24 pb-18">
         <AutoGrid min={340} className="items-end gap-14">
           <div className="flex flex-col gap-6">
-            <Eyebrow>Practice 02 — Forward-deployed engineers</Eyebrow>
+            <Eyebrow>Done for You — Forward-deployed engineers</Eyebrow>
             <H1>Engineers in the room where the work happens.</H1>
           </div>
           <Lede>
-            Our forward-deployed engineers embed with your operations, finance, support or sales
-            teams. They watch how work gets done, identify where AI can reduce costs or improve
-            outcomes, and build the tool — then stay until your team can run it without us.
+            Forward-deployed engineering is how we deliver Done for You. Our engineers embed with
+            your operations, finance, support or sales teams, watch how work gets done, find where
+            AI can reduce costs or improve outcomes, and build the tool in your environment.
           </Lede>
         </AutoGrid>
       </Container>
@@ -205,7 +171,7 @@ export default function ForwardDeployedPage() {
       <Container className="flex flex-col gap-12 py-26">
         <div className="flex max-w-[680px] flex-col gap-3.5">
           <Eyebrow>What you keep</Eyebrow>
-          <H2>Everything it takes to run it without us.</H2>
+          <H2>Everything it takes to run it, whoever runs it.</H2>
         </div>
         <HairlineGrid min={300}>
           {handoff.map((h) => (
@@ -243,25 +209,6 @@ export default function ForwardDeployedPage() {
         </Container>
       </section>
 
-      <Container className="flex flex-col gap-12 py-26">
-        <div className="flex max-w-[680px] flex-col gap-3.5">
-          <Eyebrow>What we need from you</Eyebrow>
-          <H2>Embedded only works if both sides show up.</H2>
-          <p className="m-0 text-ink-2">
-            We agree these before the first sprint. They are the most reliable predictor of
-            whether a system reaches production.
-          </p>
-        </div>
-        <HairlineGrid min={200}>
-          {commitments.map((c) => (
-            <div key={c.title} className="flex flex-col gap-2.5 bg-paper p-8">
-              <h3 className="m-0 text-[21px] font-semibold">{c.title}</h3>
-              <p className="m-0 text-ink-2">{c.body}</p>
-            </div>
-          ))}
-        </HairlineGrid>
-      </Container>
-
       <EngagementSection
         intro={
           <>
@@ -280,22 +227,13 @@ export default function ForwardDeployedPage() {
         doneWhen="You have a clear decision on the top candidate and the evidence to back it."
       />
 
-      <section className="border-t border-line">
-        <Container className="py-26">
-          <AutoGrid min={340} className="items-start gap-14">
-            <div className="flex flex-col gap-4">
-              <Eyebrow>Questions</Eyebrow>
-              <H2>What people ask before the first sprint.</H2>
-            </div>
-            <div className="flex flex-col border-b border-line">
-              {faqs.map((f) => (
-                <details key={f.q} className="border-t border-line py-5 text-ink-2">
-                  <summary className="cursor-pointer text-[19px] font-medium text-ink">{f.q}</summary>
-                  <p className="m-0 mt-3">{f.a}</p>
-                </details>
-              ))}
-            </div>
-          </AutoGrid>
+      <section className="border-t border-line bg-surface">
+        <Container className="flex flex-wrap items-center justify-between gap-6 py-14">
+          <p className="m-0 max-w-[52ch] text-ink-2">
+            What we need from you, what happens after launch, and common questions are on the
+            Done for You page.
+          </p>
+          <ArrowLink href="/done-for-you">See Done for You</ArrowLink>
         </Container>
       </section>
 

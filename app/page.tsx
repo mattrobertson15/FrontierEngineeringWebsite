@@ -1,4 +1,4 @@
-/* Hallmark · macrostructure: Workflow-led (hero → examples → evidence → engagement → index) · genre: editorial · tone: technical
+/* Hallmark · macrostructure: Offer-led (hero → offerings → examples → evidence → engagement → contact) · genre: editorial · tone: technical
  * theme: brand (Ivory paper · Copper accent · Newsreader display + Geist body/mono)
  * pre-emit critique: P4 H4 E4 S5 R4 V4
  */
@@ -23,26 +23,30 @@ const luna = run("copilot-gpt-5.6-luna-max-1.0.77");
 const auto = run("copilot-auto-max-1.0.77");
 const harnessGap = ((passRate(opusCopilot) - passRate(opusClaudeCode)) * 100).toFixed(1);
 
-const practices = [
+const practiceLinks = [
+  { label: "Forward-Deployed Engineers", href: "/forward-deployed" },
+  { label: "AI-Native Engineering", href: "/engineering" },
+  { label: "AI-Native Playbook", href: "/playbook" },
+];
+
+const offerings = [
   {
-    title: "AI-Native Engineering",
-    body: "Codebases, specs, and review workflows that help your engineers ship with agents.",
-    href: "/engineering",
+    n: "01",
+    eyebrow: "Done for You",
+    title: "We build it.",
+    body: "Our engineers scope, build and ship the system in your environment. Afterward, we hand it over or keep running it as a managed service.",
+    youGive: "A workflow owner, domain expertise and access to system owners.",
+    youGet: "Production software, with our team responsible for delivery.",
+    href: "/done-for-you",
   },
   {
-    title: "Forward-Deployed Engineers",
-    body: "Embedded engineers who turn operational problems into software your team owns.",
-    href: "/forward-deployed",
-  },
-  {
-    title: "Model Testing & Evals",
-    body: "Tests on your data and tasks to guide model selection and catch regressions.",
-    href: "/model-testing",
-  },
-  {
-    title: "AI-Native Playbook",
-    body: "Our working practices for building with agents, taught through workshops and pairing.",
-    href: "/playbook",
+    n: "02",
+    eyebrow: "Hands-on Team Enablement",
+    title: "Help your team achieve more.",
+    body: "We teach our AI engineering practices through pairing, code review and hands-on work in your codebase, building on how your team uses AI today.",
+    youGive: "Engineers with time to learn and apply the practices to real work.",
+    youGet: "Practical experience, a better development workflow and a playbook your team can keep using.",
+    href: "/build-with-your-team",
   },
 ];
 
@@ -67,30 +71,21 @@ const workflows = [
   },
 ];
 
-const timeline = [
+const commitments = [
   {
-    step: "01 / Discover",
-    title: "Choose the opportunity.",
-    body: "We map the workflow with your operators and system owners, test feasibility, and agree on success measures.",
-    deliverable: "A ranked opportunity map and a prototype of the top candidate.",
+    n: "01",
+    title: "Agree the goal.",
+    body: "We agree the scope, time commitment and what success looks like before work starts.",
   },
   {
-    step: "02 / Build",
-    title: "Build in your environment.",
-    body: "We integrate with your systems. Your team reviews working increments and steers priorities at each checkpoint.",
-    deliverable: "Working software, tests, and documented decisions.",
+    n: "02",
+    title: "Work in your environment.",
+    body: "We work in your systems and codebase, with your people. The code, data and documentation stay yours.",
   },
   {
-    step: "03 / Prove",
-    title: "Verify before launch.",
-    body: "We test quality, controls, and recovery. Your workflow owners review the evidence and approve production use.",
-    deliverable: "Acceptance evidence, eval suites, and operating checks.",
-  },
-  {
-    step: "04 / Hand over",
-    title: "Make the next change yourselves.",
-    body: "We pair with your engineers until they can troubleshoot, extend, and deploy a change themselves.",
-    deliverable: "Code, runbooks, and a prioritized backlog owned by your team.",
+    n: "03",
+    title: "Verify the result.",
+    body: "We check the work against the agreed goals and leave you with evidence, documented decisions and clear next steps.",
   },
 ];
 
@@ -101,42 +96,95 @@ export default function Home() {
       <Container className="pt-24 pb-20 sm:pt-32">
         <div className="flex flex-col gap-8">
           <Eyebrow>AI-native engineering consultancy</Eyebrow>
-          <h1 className="m-0 max-w-[14ch] font-display text-[clamp(46px,8vw,104px)] leading-[0.98] font-normal tracking-[-0.025em] [overflow-wrap:anywhere]">
-            We build AI systems your team can run.
+          <h1 className="m-0 max-w-[20ch] font-display text-[clamp(46px,8vw,104px)] leading-[0.98] font-normal tracking-[-0.025em] [overflow-wrap:anywhere]">
+            We build AI systems.
+            <br />
+            We teach your engineers how to build better.
           </h1>
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
             <p className="m-0 max-w-[44ch] text-xl text-ink-2">
-              Our senior engineers work alongside your team to identify valuable workflows,
-              build production software, and measure the results. The code, data and IP stay
-              yours.
+              We build AI systems for your business and teach your engineers how to get more
+              from AI in their own work. Choose a delivery team or hands-on guidance for yours.
+              The code, data and IP stay yours.
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
               <ButtonLink href="#contact">Request a discovery call</ButtonLink>
-              <ArrowLink href="#how-we-work">See how we work</ArrowLink>
+              <ArrowLink href="#offerings">Two ways to work with us</ArrowLink>
             </div>
           </div>
         </div>
       </Container>
 
-      <section aria-labelledby="workflows-heading" className="border-t border-line">
+      {/* Offerings — the first decision a buyer makes */}
+      <section aria-labelledby="offerings-heading" className="border-y border-line bg-surface">
+        <Container className="py-20 sm:py-24">
+          <div id="offerings" className="flex scroll-mt-8 flex-col gap-4 pb-12">
+            <Eyebrow>Two ways to work with us</Eyebrow>
+            <h2 id="offerings-heading" className="m-0 max-w-[23ch] font-display text-[clamp(32px,3.8vw,48px)] leading-[1.08] tracking-[-0.015em]">
+              A system delivered, or a stronger engineering team.
+            </h2>
+          </div>
+          <div className="grid gap-px border border-line bg-line lg:grid-cols-2">
+            {offerings.map((o) => (
+              <Link key={o.href} href={o.href} className="group flex flex-col gap-6 border-t-2 border-accent bg-paper p-8 transition-colors hover:border-accent-ink sm:p-10">
+                <div className="flex flex-col gap-3">
+                  <Eyebrow>
+                    {o.n} — {o.eyebrow}
+                  </Eyebrow>
+                  <h3 className="m-0 font-display text-[clamp(30px,3.4vw,44px)] leading-[1.05] font-normal tracking-[-0.015em] text-ink transition-colors group-hover:text-accent-ink">
+                    {o.title}
+                  </h3>
+                  <p className="m-0 text-ink-2">{o.body}</p>
+                </div>
+                <dl className="m-0 mt-auto flex flex-col gap-4 border-t border-line pt-6">
+                  <div className="flex flex-col gap-1">
+                    <dt className="font-mono text-xs tracking-[0.06em] text-muted uppercase">You provide</dt>
+                    <dd className="m-0 text-ink-2">{o.youGive}</dd>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <dt className="font-mono text-xs tracking-[0.06em] text-accent-ink uppercase">You get</dt>
+                    <dd className="m-0 text-ink-2">{o.youGet}</dd>
+                  </div>
+                </dl>
+                <span className="font-medium text-ink group-hover:text-accent-ink">
+                  Explore {o.eyebrow}{" "}
+                  <span aria-hidden="true" className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transition-none">
+                    →
+                  </span>
+                </span>
+              </Link>
+            ))}
+          </div>
+          <p className="m-0 mt-6 flex flex-wrap gap-x-6 gap-y-1 text-ink-2">
+            <span>Inside the offerings:</span>
+            {practiceLinks.map((p) => (
+              <Link key={p.href} href={p.href} className="font-medium text-ink underline decoration-line underline-offset-4 hover:text-accent-ink hover:decoration-accent">
+                {p.label}
+              </Link>
+            ))}
+          </p>
+        </Container>
+      </section>
+
+      <section aria-labelledby="workflows-heading" className="bg-ink text-night-text">
         <Container className="py-20 sm:py-24">
           <div className="grid gap-6 pb-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end lg:gap-16">
             <div className="flex min-w-0 flex-col gap-4">
-              <Eyebrow>The work we can help with</Eyebrow>
+              <Eyebrow dark>The work we can help with</Eyebrow>
               <h2 id="workflows-heading" className="m-0 max-w-[23ch] font-display text-[clamp(32px,3.8vw,48px)] leading-[1.08] tracking-[-0.015em]">
                 Where could AI improve the work?
               </h2>
             </div>
-            <p className="m-0 max-w-[42ch] text-ink-2">
+            <p className="m-0 max-w-[42ch] text-night-muted">
               Illustrative examples. We scope each engagement around your systems,
               constraints, and measures of success.
             </p>
           </div>
-          <div className="border-b border-line">
+          <div className="border-b border-night-line">
             {workflows.map((workflow) => (
-              <article key={workflow.area} className="grid gap-6 border-t border-line py-9 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
+              <article key={workflow.area} className="grid gap-6 border-t border-night-line py-9 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
                 <div className="flex min-w-0 flex-col gap-3">
-                  <Eyebrow>{workflow.area}</Eyebrow>
+                  <Eyebrow dark>{workflow.area}</Eyebrow>
                   <h3 className="m-0 max-w-[25ch] font-display text-[clamp(26px,3vw,36px)] leading-[1.12] tracking-[-0.01em]">
                     {workflow.title}
                   </h3>
@@ -144,18 +192,15 @@ export default function Home() {
                 <dl className="m-0 flex min-w-0 flex-col gap-5">
                   <div>
                     <dt className="sr-only">What we could build</dt>
-                    <dd className="m-0 text-ink-2">{workflow.description}</dd>
+                    <dd className="m-0 text-night-muted">{workflow.description}</dd>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <dt className="font-mono text-xs tracking-[0.06em] text-accent-ink uppercase">Measure success</dt>
-                    <dd className="m-0 text-ink-2">{workflow.measure}</dd>
+                    <dt className="font-mono text-xs tracking-[0.06em] text-accent-soft uppercase">Measure success</dt>
+                    <dd className="m-0 text-night-muted">{workflow.measure}</dd>
                   </div>
                 </dl>
               </article>
             ))}
-          </div>
-          <div className="mt-6">
-            <ArrowLink href="/forward-deployed">Explore embedded delivery</ArrowLink>
           </div>
         </Container>
       </section>
@@ -212,71 +257,26 @@ export default function Home() {
       <DarkBand>
         <Container className="py-20 sm:py-24">
           <div id="how-we-work" className="flex scroll-mt-8 flex-col gap-5 pb-12">
-            <Eyebrow dark>How an engagement works</Eyebrow>
+            <Eyebrow dark>How we work</Eyebrow>
             <H2 dark className="max-w-[24ch]">
-              Build together. Take it forward.
+              Three commitments, either way.
             </H2>
-            <p className="m-0 max-w-[60ch] text-night-muted">
-              We agree on the outcome and handover criteria up front.
-              Your team steers the work and owns the result.
-            </p>
           </div>
           <ol className="m-0 list-none p-0">
-            {timeline.map((stage) => (
-              <li key={stage.step} className="grid gap-7 border-t border-night-line py-9 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
-                <div className="flex min-w-0 flex-col gap-3">
-                  <span className="font-mono text-[13px] text-accent-soft uppercase">{stage.step}</span>
-                  <h3 className="m-0 max-w-[24ch] font-display text-[clamp(26px,3vw,36px)] leading-[1.12] font-normal text-paper">
-                    {stage.title}
+            {commitments.map((commitment) => (
+              <li key={commitment.n} className="grid gap-5 border-t border-night-line py-7 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
+                <div className="flex min-w-0 items-baseline gap-4">
+                  <span className="font-mono text-[13px] text-accent-soft">{commitment.n}</span>
+                  <h3 className="m-0 font-display text-[clamp(26px,3vw,36px)] leading-[1.12] font-normal text-paper">
+                    {commitment.title}
                   </h3>
                 </div>
-                <div className="flex min-w-0 flex-col gap-4">
-                  <p className="m-0 text-night-muted">{stage.body}</p>
-                  <dl className="m-0 border-l-2 border-accent-soft pl-4">
-                    <dt className="font-mono text-xs text-accent-soft uppercase">You leave this stage with</dt>
-                    <dd className="m-0 mt-2 text-paper">{stage.deliverable}</dd>
-                  </dl>
-                </div>
+                <p className="m-0 text-night-muted">{commitment.body}</p>
               </li>
             ))}
           </ol>
         </Container>
       </DarkBand>
-
-      {/* Practices — an index, not a card grid */}
-      <Container className="pt-28 pb-24">
-        <div
-          id="practices"
-          className="grid scroll-mt-8 gap-6 pb-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end lg:gap-16"
-        >
-          <H2>Explore our practices.</H2>
-          <p className="m-0 max-w-[40ch] text-ink-2">
-            Start with the support you need: delivery, engineering workflows,
-            evaluations, or team enablement.
-          </p>
-        </div>
-        <ul className="m-0 list-none border-b border-line p-0">
-          {practices.map((p) => (
-            <li key={p.href} className="border-t border-line">
-              <Link
-                href={p.href}
-                className="group grid gap-3 py-8 md:grid-cols-[minmax(0,5fr)_minmax(0,6fr)_auto] md:items-baseline md:gap-12"
-              >
-                <span className="font-display text-[clamp(26px,3vw,36px)] leading-[1.1] tracking-[-0.01em] text-ink transition-colors group-hover:text-accent-ink">
-                  {p.title}
-                </span>
-                <span className="text-ink-2">{p.body}</span>
-                <span
-                  aria-hidden="true"
-                  className="hidden text-xl text-accent-ink transition-transform group-hover:translate-x-1 motion-reduce:transition-none md:block"
-                >
-                  →
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </Container>
 
       {/* Contact */}
       <section className="border-t border-line">
@@ -293,8 +293,7 @@ export default function Home() {
               <div className="flex flex-col gap-2 border-t border-line pt-5">
                 <Eyebrow>What comes out of the call</Eyebrow>
                 <p className="m-0 max-w-[40ch] text-ink-2">
-                  A clear next step: a discovery sprint, codebase review, or evaluation
-                  program, if there is a fit.
+                  A recommendation on the right offering and a scoped first step if there is a fit.
                 </p>
               </div>
             </div>

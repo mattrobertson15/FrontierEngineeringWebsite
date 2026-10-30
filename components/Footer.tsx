@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LogoMark } from "./Logo";
-import { practices, researchHref } from "@/lib/site";
+import { offerings, practices, researchHref } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -11,7 +11,7 @@ export function Footer() {
           <span>Frontier Engineering</span>
         </Link>
         <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-2">
-          {practices.map((p) => (
+          {[...offerings, ...practices].map((p) => (
             <Link key={p.href} href={p.href} className="hover:text-paper">
               {p.short}
             </Link>

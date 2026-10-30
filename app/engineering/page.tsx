@@ -6,7 +6,6 @@ import {
   Container,
   CtaStrip,
   DarkBand,
-  EngagementSection,
   Eyebrow,
   FeatureCard,
   H2,
@@ -18,7 +17,7 @@ import {
 export const metadata: Metadata = {
   title: "AI-Native Engineering",
   description:
-    "Rebuild how software gets made around agents: agent-ready codebases, spec-driven development, eval-gated CI and review pipelines that scale.",
+    "Practical engineering with AI: clear specs, useful context, testing and code review, taught hands-on in your codebase.",
 };
 
 const features = [
@@ -44,9 +43,9 @@ export default function EngineeringPage() {
   return (
     <>
       <PageHero
-        eyebrow="Practice 01 — AI-native engineering"
-        title="Rebuild how software gets made — around agents."
-        lede="Giving engineers a coding assistant is the easy part. We redesign the codebase, the workflow and the review process so agents can do real work safely — and your team ships more of what matters."
+        eyebrow="Hands-on Team Enablement — AI-native engineering"
+        title="Better engineering practices for working with AI."
+        lede="Already using coding agents? We help your engineers get more from them by teaching how we write specs, prepare codebases, test changes and review AI-written code. We work alongside your team and adapt the practices to your work."
       />
 
       <section className="border-y border-line bg-surface">
@@ -55,8 +54,8 @@ export default function EngineeringPage() {
             <div className="flex flex-col gap-3">
               <Label>The problem</Label>
               <p className="m-0 text-2xl leading-[1.35] font-medium tracking-[-0.015em]">
-                Most teams bolt AI onto a process designed for humans typing every line — and get
-                faster typing, not faster delivery.
+                Writing more code is only part of the work. Clear tasks, useful context and
+                thorough review help turn agent output into changes you can ship.
               </p>
             </div>
             <div className="flex flex-col gap-3">
@@ -71,7 +70,7 @@ export default function EngineeringPage() {
       </section>
 
       <Container className="flex flex-col gap-12 py-26">
-        <H2>What we put in place</H2>
+        <H2>The practices we teach</H2>
         <HairlineGrid>
           {features.map((f) => (
             <FeatureCard key={f.tag} tag={f.tag} title={f.title}>
@@ -123,23 +122,23 @@ export default function EngineeringPage() {
         </Container>
       </section>
 
-      <EngagementSection
-        intro={
-          <>
-            <H2>Typical engagement</H2>
+      <Container className="py-26">
+        <AutoGrid min={320} className="items-end gap-12">
+          <div className="flex flex-col gap-4">
+            <Eyebrow>How to get it</Eyebrow>
+            <H2>Offered as part of Hands-on Team Enablement.</H2>
+          </div>
+          <div className="flex flex-col gap-4">
             <p className="m-0 max-w-[44ch] text-ink-2">
-              We start with one team and one codebase, prove the model, then scale it across the
-              organization with your engineers leading.
+              We teach through pairing and review in your codebase, building on the tools and
+              practices your engineers already use.
             </p>
-          </>
-        }
-        deliverables={[
-          { title: "An agent-ready repo", body: "Context files, clear module boundaries and one-command tests on your pilot codebase." },
-          { title: "Eval-gated CI", body: "Changes to prompts, models or agents run their eval suite before merge." },
-          { title: "Your team playbook", body: "Conventions for specs, review and agent permissions — written down, in the repo." },
-        ]}
-        doneWhen="Your engineers run the loop on the pilot codebase without us, and are ready to take it to the next team."
-      />
+            <div>
+              <ArrowLink href="/build-with-your-team">See Hands-on Team Enablement</ArrowLink>
+            </div>
+          </div>
+        </AutoGrid>
+      </Container>
 
       <CtaStrip
         title="See where your codebase stands today."
