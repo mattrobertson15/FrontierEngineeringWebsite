@@ -97,7 +97,9 @@ export default function Home() {
         <div className="flex flex-col gap-8">
           <Eyebrow>AI-native engineering consultancy</Eyebrow>
           <h1 className="m-0 max-w-[20ch] font-display text-[clamp(46px,8vw,104px)] leading-[0.98] font-normal tracking-[-0.025em] [overflow-wrap:anywhere]">
-            We build AI systems. We teach your engineers how to build better.
+            We build AI systems.
+            <br />
+            We teach your engineers how to build better.
           </h1>
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
             <p className="m-0 max-w-[44ch] text-xl text-ink-2">
