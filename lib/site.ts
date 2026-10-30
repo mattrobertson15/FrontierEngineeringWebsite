@@ -2,7 +2,7 @@ export const researchHref = "/research/wharf-deepswe";
 
 export const offerings = [
   { href: "/done-for-you", label: "Done for You", short: "Done for You" },
-  { href: "/build-with-your-team", label: "Build with Your Team", short: "With Your Team" },
+  { href: "/build-with-your-team", label: "Hands-on Team Enablement", short: "Team Enablement" },
 ] as const;
 
 /** Header menu: each offering opens onto the practices it draws on; Research holds our credibility work. */
@@ -18,10 +18,10 @@ export const navGroups = [
   {
     ...offerings[1],
     overview: "Overview",
-    summary: "Your engineers ship it with us, then lead the next one.",
+    summary: "Hands-on education to help your engineers get more from AI.",
     children: [
       { href: "/engineering", label: "AI-Native Engineering", summary: "Codebases, specs and review set up for agents." },
-      { href: "/playbook", label: "AI-Native Playbook", summary: "The working rules we teach, published in full." },
+      { href: "/playbook", label: "AI-Native Playbook", summary: "The engineering practices we teach, published in full." },
     ],
   },
   {

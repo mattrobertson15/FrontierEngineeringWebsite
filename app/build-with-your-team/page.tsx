@@ -16,45 +16,44 @@ import {
 } from "@/components/ui";
 
 export const metadata: Metadata = {
-  title: "Build with Your Team",
+  title: "Hands-on Team Enablement",
   description:
-    "Our senior engineers work inside your team on a real project, pairing, reviewing and teaching, so your engineers ship a production AI system and can build the next one without us.",
+    "Help your engineers get more from AI. We teach our engineering practices through pairing, code review and hands-on work in your codebase.",
 };
 
 const positioning = [
-  { label: "Your time", body: "Engineers assigned to the project and a workflow owner. This is real work, not training on the side." },
-  { label: "Our team", body: "Senior engineers who pair, review, coach and set up the tooling." },
-  { label: "A real project", body: "Your team learns on a system you will ship, not a toy exercise." },
-  { label: "Your practice", body: "Specs, conventions and eval habits written into your repositories." },
+  { label: "Your time", body: "Engineers with time to learn and apply the practices to their work." },
+  { label: "Our team", body: "Senior engineers who teach through pairing, code review and practical examples." },
+  { label: "A real project", body: "We work on your existing codebase or a new project your team wants to ship." },
+  { label: "Your practice", body: "Practices adapted to your team and documented in your repositories." },
 ];
 
-const handoffSteps = [
-  ["01", "Assess the codebase, workflow and skills", "us"],
-  ["02", "Set up the repo, CI and eval gates", "us · you pair"],
-  ["03", "Build the first increments", "us · you pair"],
-  ["04", "Build the rest of the pilot", "you · we review"],
-  ["05", "Ship and operate it", "you · we coach"],
-  ["06", "Start the next project", "you"],
+const learningSteps = [
+  ["01", "Understand how you use AI today", "together"],
+  ["02", "Choose the practices to work on", "together"],
+  ["03", "Teach through real changes", "we pair"],
+  ["04", "Apply the practices to your work", "you lead"],
+  ["05", "Review progress and document what works", "together"],
 ];
 
 const skills = [
-  { tag: "/specs", title: "Spec-driven development", body: "Turning a workflow into reviewable specs with acceptance criteria that people and agents build against." },
+  { tag: "/specs", title: "Spec-driven development", body: "Writing clear tasks and acceptance criteria so people and agents know what to build." },
   { tag: "/repo", title: "Agent-ready codebases", body: "Context files, module boundaries and fast tests so agents do real work safely." },
-  { tag: "/evals", title: "Evals and model selection", body: "Building test sets with your domain experts and choosing a stack by evidence." },
-  { tag: "/review", title: "Review at agent speed", body: "Risk-tiered review and eval-gated CI, so more output doesn't mean more bugs." },
-  { tag: "/ops", title: "Running AI in production", body: "Monitoring, drift detection, runbooks and recovery for systems that depend on models." },
-  { tag: "/scope", title: "Finding the next opportunity", body: "Scoring workflows by value, data availability and risk, so your team picks its next project well." },
+  { tag: "/tools", title: "Choosing and using agents", body: "Choosing tools for your tasks, giving agents useful context and knowing when to step in." },
+  { tag: "/review", title: "Reviewing AI-written code", body: "Checking the design, behavior and maintainability of a change before it ships." },
+  { tag: "/tests", title: "Testing and verification", body: "Using tests, CI and independent checks to verify agent work. Adding evals when the product uses models." },
+  { tag: "/workflow", title: "Making the practices stick", body: "Building what works into planning, code review and everyday development." },
 ];
 
 const goodFit = [
-  "You have engineers and want them to own AI work long term.",
-  "Engineering capability is part of how you compete.",
+  "Your engineers use AI, or are getting started, and want to get more from it.",
+  "You want practical guidance on specs, agents, testing and review.",
   "You can give a team real time on the project each week.",
-  "You want a working system and a team that can repeat it.",
+  "You want your team to keep using the practices after we leave.",
 ];
 
 const otherFit = [
-  "No engineers are available, or the project can't wait for them to ramp up.",
+  "Your engineers are committed elsewhere, or you do not have an engineering team.",
   "You need one team accountable for delivery itself.",
   "You would rather we keep running the system after launch.",
 ];
@@ -62,7 +61,7 @@ const otherFit = [
 const capabilities = [
   { href: "/engineering", title: "AI-Native Engineering", body: "The codebase, spec and review practices we set up with your team." },
   { href: "/playbook", title: "AI-Native Playbook", body: "The working rules we teach, published in full." },
-  { href: "/model-testing", title: "Model Testing & Evals", body: "How your team learns to measure quality and choose a stack." },
+  { href: "/model-testing", title: "Model Testing & Evals", body: "How we evaluate models when your product depends on them." },
   { href: researchHref, title: "Wharf research", body: "Our benchmark of models and agent harnesses on real engineering tasks." },
 ];
 
@@ -70,9 +69,9 @@ export default function BuildWithYourTeamPage() {
   return (
     <>
       <PageHero
-        eyebrow="Offering 02 — Build with Your Team"
-        title="Your engineers build it. We build it with them."
-        lede="We work inside your team on a real project, pairing, reviewing and teaching. Your engineers ship a production AI system and finish able to build the next one without us."
+        eyebrow="Offering 02 — Hands-on Team Enablement"
+        title="Help your engineers get more from AI."
+        lede="Your team may already use AI every day. We teach the engineering practices that help them achieve more, through pairing, code review and hands-on work in your codebase. The project can be any software your team builds."
       />
 
       <section className="border-y border-line bg-surface">
@@ -93,15 +92,15 @@ export default function BuildWithYourTeamPage() {
           <AutoGrid min={320} className="items-start gap-14">
             <div className="flex flex-col gap-4">
               <Eyebrow dark>How it works</Eyebrow>
-              <H2 dark>We lead at the start. Your team leads by the end.</H2>
+              <H2 dark>Learn together. Apply it to your work.</H2>
               <p className="m-0 text-night-muted">
-                The work moves from our hands to yours one stage at a time. Each handoff happens
-                when your engineers are ready, not on a fixed date, and we agree the exit criteria
-                before we start.
+                We start with how your team works today and choose the practices that will help most.
+                We agree the scope, time commitment and checkpoints up front, then teach and
+                review as your engineers apply them to real changes.
               </p>
             </div>
             <ol className="m-0 flex list-none flex-col border-b border-night-line p-0 font-mono text-[15px]">
-              {handoffSteps.map(([n, step, who]) => (
+              {learningSteps.map(([n, step, who]) => (
                 <li key={n} className="grid grid-cols-[48px_1fr_auto] gap-3 border-t border-night-line py-[18px]">
                   <span className="text-accent-soft">{n}</span>
                   <span className="text-paper">{step}</span>
@@ -116,7 +115,7 @@ export default function BuildWithYourTeamPage() {
       <Container className="flex flex-col gap-12 py-26">
         <div className="flex max-w-[680px] flex-col gap-3.5">
           <Eyebrow>What your team learns</Eyebrow>
-          <H2>The skills to do it again without us.</H2>
+          <H2>Practical habits for better engineering with AI.</H2>
         </div>
         <HairlineGrid>
           {skills.map((s) => (
@@ -131,11 +130,11 @@ export default function BuildWithYourTeamPage() {
         <Container className="flex flex-col gap-12 py-26">
           <div className="flex max-w-[680px] flex-col gap-3.5">
             <Eyebrow>Is this the right fit?</Eyebrow>
-            <H2>Build with Your Team, or Done for You?</H2>
+            <H2>Hands-on Team Enablement, or Done for You?</H2>
           </div>
           <AutoGrid min={320} className="gap-14">
             {[
-              { label: "Build with Your Team fits when", items: goodFit },
+              { label: "Hands-on Team Enablement fits when", items: goodFit },
               { label: "Done for You instead when", items: otherFit },
             ].map((col) => (
               <div key={col.label} className="flex flex-col gap-4">
@@ -161,17 +160,17 @@ export default function BuildWithYourTeamPage() {
           <>
             <H2>What you get</H2>
             <p className="m-0 max-w-[44ch] text-ink-2">
-              We start with one team and one pilot project, then help you take the practice to
-              the next team with your engineers leading.
+              We focus on the practices your team needs and apply them to a bounded piece of
+              real work. We review progress against the goals we agreed at the start.
             </p>
           </>
         }
         deliverables={[
-          { title: "A shipped pilot", body: "A production system your engineers built and now run." },
-          { title: "An agent-ready repo with eval-gated CI", body: "The tooling your team uses for every project after this one." },
-          { title: "Your team playbook", body: "Conventions for specs, review, evals and agent permissions, written down in the repo." },
+          { title: "Hands-on learning", body: "Pairing and review on real changes, with feedback your engineers can use immediately." },
+          { title: "A better development workflow", body: "Improvements to context, specs, tests and review that fit your codebase." },
+          { title: "Your team playbook", body: "Examples and conventions your engineers can use and share, written down in the repo." },
         ]}
-        doneWhen="Your engineers have shipped the pilot and can make and deploy the next change without us."
+        doneWhen="Your engineers can apply the agreed practices to a change, verify the result and explain their decisions without our guidance."
       />
 
       <Container className="flex flex-col gap-8 pb-26">
@@ -189,7 +188,7 @@ export default function BuildWithYourTeamPage() {
       </Container>
 
       <CtaStrip
-        title="Bring a project. Leave with a team that can ship the next one."
+        title="Bring your team and the work you want to improve."
         href={contactHref}
         label="Request a discovery call"
       />

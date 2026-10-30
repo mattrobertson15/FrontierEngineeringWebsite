@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 };
 
 const positioning = [
-  { label: "Your time", body: "A workflow owner and domain experts for a few hours a week. No engineers pulled off your roadmap." },
+  { label: "Your time", body: "A workflow owner, domain expertise and access to your technical and security owners. We agree the time needed up front." },
   { label: "Our team", body: "Senior engineers who scope, build, test and deploy the system end to end." },
   { label: "Your IP", body: "Code, prompts, evals and data live in your accounts from the first commit." },
   { label: "Any stack", body: "We choose models and tools by testing them on your tasks, not by vendor." },
@@ -44,8 +44,8 @@ const afterLaunch = [
   {
     label: "Option B",
     title: "Managed service",
-    body: "We keep running it: monitoring, re-running evals when models or inputs change, fixes and small improvements.",
-    detail: "The handover package is kept current, so you can take it in-house whenever you choose.",
+    body: "We monitor the system, re-run evals when models or inputs change, and handle fixes within an agreed support scope.",
+    detail: "We keep the handover package current. Support terms and further development are scoped separately.",
   },
 ];
 
@@ -57,14 +57,14 @@ const goodFit = [
 ];
 
 const otherFit = [
-  "You want your engineers to be able to build the next one.",
+  "You want your engineers to get more from the AI tools they use.",
   "Engineering is core to how you compete.",
   "You can give engineers real time on the project each week.",
 ];
 
 const commitments = [
   { title: "Domain experts", body: "Operators who know the work, with time each week to show us the exceptions and judge the output." },
-  { title: "Access", body: "Timely access to the systems, data and environments the workflow touches: real data, not a sanitized sample." },
+  { title: "Access", body: "Access to the systems and representative data the workflow touches, including exceptions, through an agreed access process." },
   { title: "Security from day one", body: "Your security, privacy and compliance owners involved at the start, so controls shape the design instead of blocking launch." },
   { title: "An owner", body: "A named person accountable for the outcome, who can make decisions quickly and owns the system after launch." },
   { title: "A route to production", body: "Somewhere to deploy, and a team ready to train early users and adopt it." },
@@ -72,8 +72,8 @@ const commitments = [
 
 const faqs = [
   {
-    q: "How is this different from consulting?",
-    a: "Consulting often stops at the recommendation. Our engineers frame the problem, write the code, put it into production and measure it. One team is accountable for the result, not the roadmap.",
+    q: "What are you accountable for?",
+    a: "We own delivery from problem definition through launch. We agree acceptance criteria before building and show the evidence against them before production use.",
   },
   {
     q: "How is this different from staff augmentation?",
@@ -109,7 +109,7 @@ export default function DoneForYouPage() {
       <PageHero
         eyebrow="Offering 01 — Done for You"
         title="Hand us the problem. Get working software."
-        lede="Our senior engineers scope, build and ship the system in your environment. Your people contribute access, domain judgment and sign-off, not engineering hours. You own what we build and choose who runs it after launch."
+        lede="Our senior engineers scope, build and ship the system in your environment. We provide the delivery team. Your people provide domain judgment, access to system owners and sign-off. You own what we build and choose who runs it after launch."
       />
 
       <section className="border-y border-line bg-surface">
@@ -128,7 +128,11 @@ export default function DoneForYouPage() {
       <Container className="flex flex-col gap-12 py-26">
         <div className="flex max-w-[680px] flex-col gap-3.5">
           <Eyebrow>How it works</Eyebrow>
-          <H2>From workflow to production, with one team accountable.</H2>
+          <H2>Start with a discovery sprint.</H2>
+          <p className="m-0 text-ink-2">
+            A fixed-scope first step: map the workflow, test a prototype and decide whether to
+            build. You leave with the evidence and a recommendation, even if the answer is no-go.
+          </p>
         </div>
         <HairlineGrid min={220} as="ol">
           {method.map((m) => (
@@ -171,8 +175,7 @@ export default function DoneForYouPage() {
           <Eyebrow>What we need from you</Eyebrow>
           <H2>Less of your time, but not none of it.</H2>
           <p className="m-0 text-ink-2">
-            We agree these before the first sprint. They are the most reliable predictor of
-            whether a system reaches production.
+            We agree who needs to be involved and when before the first sprint.
           </p>
         </div>
         <HairlineGrid min={200}>
@@ -189,12 +192,12 @@ export default function DoneForYouPage() {
         <Container className="flex flex-col gap-12 py-26">
           <div className="flex max-w-[680px] flex-col gap-3.5">
             <Eyebrow>Is this the right fit?</Eyebrow>
-            <H2>Done for You, or Build with Your Team?</H2>
+            <H2>Done for You, or Hands-on Team Enablement?</H2>
           </div>
           <AutoGrid min={320} className="gap-14">
             {[
               { label: "Done for You fits when", items: goodFit },
-              { label: "Build with Your Team instead when", items: otherFit },
+              { label: "Hands-on Team Enablement instead when", items: otherFit },
             ].map((col) => (
               <div key={col.label} className="flex flex-col gap-4">
                 <Label>{col.label}</Label>
@@ -209,7 +212,7 @@ export default function DoneForYouPage() {
             ))}
           </AutoGrid>
           <div>
-            <ArrowLink href="/build-with-your-team">See Build with Your Team</ArrowLink>
+            <ArrowLink href="/build-with-your-team">See Hands-on Team Enablement</ArrowLink>
           </div>
         </Container>
       </section>

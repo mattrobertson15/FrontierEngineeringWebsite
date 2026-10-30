@@ -5,7 +5,7 @@ import { submitContact, subscribePlaybook, type ContactState } from "@/app/actio
 
 const initial: ContactState = { status: "idle" };
 
-const engagementOptions = ["Done for You", "Build with Your Team", "Not sure yet"];
+const engagementOptions = ["Done for You", "Hands-on Team Enablement", "Not sure yet"];
 
 const field =
   "min-h-12 border border-field bg-surface px-3.5 text-base font-normal text-ink";

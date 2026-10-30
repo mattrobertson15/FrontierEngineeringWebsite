@@ -41,7 +41,7 @@ const method = [
   { n: "02", title: "Score", body: "Rank tasks by volume, cost, error rate, data availability and risk of getting it wrong." },
   { n: "03", title: "Spike", body: "Build quick technical probes on the top candidates to test feasibility on real data." },
   { n: "04", title: "Ship", body: "Take the winner to production with evals, monitoring and a named owner on your side." },
-  { n: "05", title: "Hand off", body: "Pair with your owners and rehearse recovery. We leave when your engineers can ship a change without us." },
+  { n: "05", title: "Hand off", body: "Train the people who will run the system and rehearse recovery. We hand over to your chosen maintainers or continue under an agreed support scope." },
 ];
 
 const handoff = [

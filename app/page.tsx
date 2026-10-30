@@ -35,17 +35,17 @@ const offerings = [
     eyebrow: "Done for You",
     title: "We build it.",
     body: "Our engineers scope, build and ship the system in your environment. Afterward, we hand it over or keep running it as a managed service.",
-    youGive: "A workflow owner and domain experts for a few hours a week.",
-    youGet: "Production software in daily use, with no engineering hours pulled from your roadmap.",
+    youGive: "A workflow owner, domain expertise and access to system owners.",
+    youGet: "Production software, with our team responsible for delivery.",
     href: "/done-for-you",
   },
   {
     n: "02",
-    eyebrow: "Build with Your Team",
-    title: "We build it with you.",
-    body: "Our engineers work inside your team on a real project, pairing, reviewing and teaching until your engineers lead the work.",
-    youGive: "Engineers assigned to the project, plus a workflow owner.",
-    youGet: "A shipped system and a team that can build the next one without us.",
+    eyebrow: "Hands-on Team Enablement",
+    title: "Help your team achieve more.",
+    body: "We teach our AI engineering practices through pairing, code review and hands-on work in your codebase, building on how your team uses AI today.",
+    youGive: "Engineers with time to learn and apply the practices to real work.",
+    youGet: "Practical experience, a better development workflow and a playbook your team can keep using.",
     href: "/build-with-your-team",
   },
 ];
@@ -71,30 +71,21 @@ const workflows = [
   },
 ];
 
-const timeline = [
+const commitments = [
   {
-    step: "01 / Discover",
-    title: "Choose the opportunity.",
-    body: "We map the workflow with your operators and system owners, test feasibility, and agree on success measures.",
-    deliverable: "A ranked opportunity map and a prototype of the top candidate.",
+    n: "01",
+    title: "Agree the goal.",
+    body: "We agree the scope, time commitment and what success looks like before work starts.",
   },
   {
-    step: "02 / Build",
-    title: "Build in your environment.",
-    body: "We integrate with your systems. Your team reviews working increments and steers priorities at each checkpoint.",
-    deliverable: "Working software, tests, and documented decisions.",
+    n: "02",
+    title: "Work in your environment.",
+    body: "We work in your systems and codebase, with your people. The code, data and documentation stay yours.",
   },
   {
-    step: "03 / Prove",
-    title: "Verify before launch.",
-    body: "We test quality, controls, and recovery. Your workflow owners review the evidence and approve production use.",
-    deliverable: "Acceptance evidence, eval suites, and operating checks.",
-  },
-  {
-    step: "04 / Hand over",
-    title: "Choose who runs it.",
-    body: "We hand it over, keep running it for you, or step back once your engineers ship a change on their own.",
-    deliverable: "Code, runbooks, and a prioritized backlog, owned by you.",
+    n: "03",
+    title: "Verify the result.",
+    body: "We check the work against the agreed goals and leave you with evidence, documented decisions and clear next steps.",
   },
 ];
 
@@ -105,14 +96,14 @@ export default function Home() {
       <Container className="pt-24 pb-20 sm:pt-32">
         <div className="flex flex-col gap-8">
           <Eyebrow>AI-native engineering consultancy</Eyebrow>
-          <h1 className="m-0 max-w-[14ch] font-display text-[clamp(46px,8vw,104px)] leading-[0.98] font-normal tracking-[-0.025em] [overflow-wrap:anywhere]">
-            We build AI systems your team can run.
+          <h1 className="m-0 max-w-[20ch] font-display text-[clamp(46px,8vw,104px)] leading-[0.98] font-normal tracking-[-0.025em] [overflow-wrap:anywhere]">
+            We build AI systems. We teach your engineers how to build better.
           </h1>
           <div className="flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
             <p className="m-0 max-w-[44ch] text-xl text-ink-2">
-              Our senior engineers find the valuable workflows and ship production software,
-              either building it for you or building it with your engineers so they can do the
-              next one. The code, data and IP stay yours.
+              We build AI systems for your business and teach your engineers how to get more
+              from AI in their own work. Choose a delivery team or hands-on guidance for yours.
+              The code, data and IP stay yours.
             </p>
             <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
               <ButtonLink href="#contact">Request a discovery call</ButtonLink>
@@ -128,7 +119,7 @@ export default function Home() {
           <div id="offerings" className="flex scroll-mt-8 flex-col gap-4 pb-12">
             <Eyebrow>Two ways to work with us</Eyebrow>
             <h2 id="offerings-heading" className="m-0 max-w-[23ch] font-display text-[clamp(32px,3.8vw,48px)] leading-[1.08] tracking-[-0.015em]">
-              Have us build it, or build it together.
+              A system delivered, or a stronger engineering team.
             </h2>
           </div>
           <div className="grid gap-px border border-line bg-line lg:grid-cols-2">
@@ -173,25 +164,25 @@ export default function Home() {
         </Container>
       </section>
 
-      <section aria-labelledby="workflows-heading">
+      <section aria-labelledby="workflows-heading" className="bg-ink text-night-text">
         <Container className="py-20 sm:py-24">
           <div className="grid gap-6 pb-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end lg:gap-16">
             <div className="flex min-w-0 flex-col gap-4">
-              <Eyebrow>The work we can help with</Eyebrow>
+              <Eyebrow dark>The work we can help with</Eyebrow>
               <h2 id="workflows-heading" className="m-0 max-w-[23ch] font-display text-[clamp(32px,3.8vw,48px)] leading-[1.08] tracking-[-0.015em]">
                 Where could AI improve the work?
               </h2>
             </div>
-            <p className="m-0 max-w-[42ch] text-ink-2">
+            <p className="m-0 max-w-[42ch] text-night-muted">
               Illustrative examples. We scope each engagement around your systems,
               constraints, and measures of success.
             </p>
           </div>
-          <div className="border-b border-line">
+          <div className="border-b border-night-line">
             {workflows.map((workflow) => (
-              <article key={workflow.area} className="grid gap-6 border-t border-line py-9 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
+              <article key={workflow.area} className="grid gap-6 border-t border-night-line py-9 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
                 <div className="flex min-w-0 flex-col gap-3">
-                  <Eyebrow>{workflow.area}</Eyebrow>
+                  <Eyebrow dark>{workflow.area}</Eyebrow>
                   <h3 className="m-0 max-w-[25ch] font-display text-[clamp(26px,3vw,36px)] leading-[1.12] tracking-[-0.01em]">
                     {workflow.title}
                   </h3>
@@ -199,11 +190,11 @@ export default function Home() {
                 <dl className="m-0 flex min-w-0 flex-col gap-5">
                   <div>
                     <dt className="sr-only">What we could build</dt>
-                    <dd className="m-0 text-ink-2">{workflow.description}</dd>
+                    <dd className="m-0 text-night-muted">{workflow.description}</dd>
                   </div>
                   <div className="flex flex-col gap-1">
-                    <dt className="font-mono text-xs tracking-[0.06em] text-accent-ink uppercase">Measure success</dt>
-                    <dd className="m-0 text-ink-2">{workflow.measure}</dd>
+                    <dt className="font-mono text-xs tracking-[0.06em] text-accent-soft uppercase">Measure success</dt>
+                    <dd className="m-0 text-night-muted">{workflow.measure}</dd>
                   </div>
                 </dl>
               </article>
@@ -264,31 +255,21 @@ export default function Home() {
       <DarkBand>
         <Container className="py-20 sm:py-24">
           <div id="how-we-work" className="flex scroll-mt-8 flex-col gap-5 pb-12">
-            <Eyebrow dark>How an engagement works</Eyebrow>
+            <Eyebrow dark>How we work</Eyebrow>
             <H2 dark className="max-w-[24ch]">
-              Same discipline, either way.
+              Three commitments, either way.
             </H2>
-            <p className="m-0 max-w-[60ch] text-night-muted">
-              Both offerings follow the same four stages. What changes is who writes the code
-              and who runs it afterward. You steer the work and own the result.
-            </p>
           </div>
           <ol className="m-0 list-none p-0">
-            {timeline.map((stage) => (
-              <li key={stage.step} className="grid gap-7 border-t border-night-line py-9 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
-                <div className="flex min-w-0 flex-col gap-3">
-                  <span className="font-mono text-[13px] text-accent-soft uppercase">{stage.step}</span>
-                  <h3 className="m-0 max-w-[24ch] font-display text-[clamp(26px,3vw,36px)] leading-[1.12] font-normal text-paper">
-                    {stage.title}
+            {commitments.map((commitment) => (
+              <li key={commitment.n} className="grid gap-5 border-t border-night-line py-7 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:gap-16">
+                <div className="flex min-w-0 items-baseline gap-4">
+                  <span className="font-mono text-[13px] text-accent-soft">{commitment.n}</span>
+                  <h3 className="m-0 font-display text-[clamp(26px,3vw,36px)] leading-[1.12] font-normal text-paper">
+                    {commitment.title}
                   </h3>
                 </div>
-                <div className="flex min-w-0 flex-col gap-4">
-                  <p className="m-0 text-night-muted">{stage.body}</p>
-                  <dl className="m-0 border-l-2 border-accent-soft pl-4">
-                    <dt className="font-mono text-xs text-accent-soft uppercase">You leave this stage with</dt>
-                    <dd className="m-0 mt-2 text-paper">{stage.deliverable}</dd>
-                  </dl>
-                </div>
+                <p className="m-0 text-night-muted">{commitment.body}</p>
               </li>
             ))}
           </ol>
@@ -310,8 +291,7 @@ export default function Home() {
               <div className="flex flex-col gap-2 border-t border-line pt-5">
                 <Eyebrow>What comes out of the call</Eyebrow>
                 <p className="m-0 max-w-[40ch] text-ink-2">
-                  Which offering fits, Done for You or Build with Your Team, and a scoped
-                  first step if there is a fit.
+                  A recommendation on the right offering and a scoped first step if there is a fit.
                 </p>
               </div>
             </div>
