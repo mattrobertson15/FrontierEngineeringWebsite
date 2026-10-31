@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LogoMark } from "./Logo";
-import { offerings, practices, researchHref } from "@/lib/site";
+import { careersHref, caseStudiesHref, offerings, practices, researchHref } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -18,6 +18,12 @@ export function Footer() {
           ))}
           <Link href={researchHref} className="hover:text-paper">
             Research
+          </Link>
+          <Link href={caseStudiesHref} className="hover:text-paper">
+            Case Studies
+          </Link>
+          <Link href={careersHref} className="hover:text-paper">
+            Careers
           </Link>
           <a href="mailto:info@frontier-engineering.ai" className="hover:text-paper">
             info@frontier-engineering.ai
