@@ -33,25 +33,61 @@ export async function submitContact(
     return { status: "error", message: "That message is a bit long — could you trim it?" };
   }
 
+  return sendLead("contact", {
+    replyTo: lead.email,
+    subject: `Discovery call request: ${oneLine(lead.name)}`,
+    text: `Name: ${lead.name}\nEmail: ${lead.email}\nEngagement: ${lead.engagement}\n\n${lead.message || "(no message)"}`,
+  });
+}
+
+/** Handles the careers form: emails the candidate's note to CONTACT_TO via Resend. */
+export async function submitCareers(
+  _prev: ContactState,
+  formData: FormData,
+): Promise<ContactState> {
+  const candidate = {
+    name: String(formData.get("name") ?? "").trim(),
+    email: String(formData.get("email") ?? "").trim(),
+    role: String(formData.get("role") ?? "").trim().slice(0, 50) || "Something else",
+    link: String(formData.get("link") ?? "").trim().slice(0, 500),
+    message: String(formData.get("message") ?? "").trim(),
+  };
+
+  if (!candidate.name || !EMAIL_RE.test(candidate.email)) {
+    return { status: "error", message: "Please add your name and a valid email." };
+  }
+  if (candidate.message.length > 5000) {
+    return { status: "error", message: "That message is a bit long — could you trim it?" };
+  }
+
+  return sendLead("careers", {
+    replyTo: candidate.email,
+    subject: `Careers: ${oneLine(candidate.role)} — ${oneLine(candidate.name)}`,
+    text: `Name: ${candidate.name}\nEmail: ${candidate.email}\nRole: ${candidate.role}\nLink: ${candidate.link || "(none)"}\n\n${candidate.message || "(no message)"}`,
+  });
+}
+
+function oneLine(value: string) {
+  return value.replace(/\s+/g, " ").slice(0, 100);
+}
+
+async function sendLead(
+  tag: string,
+  email: { replyTo: string; subject: string; text: string },
+): Promise<ContactState> {
   if (!resend) {
     if (process.env.NODE_ENV === "production") {
-      console.error("[contact] RESEND_API_KEY is not set; lead not delivered");
+      console.error(`[${tag}] RESEND_API_KEY is not set; message not delivered`);
       return { status: "error", message: "Something went wrong — please email us directly." };
     }
-    console.warn("[contact] RESEND_API_KEY not set; skipping email", lead);
+    console.warn(`[${tag}] RESEND_API_KEY not set; skipping email`, email);
     return { status: "success", message: "Thanks — we'll be in touch shortly." };
   }
 
-  const { error } = await resend.emails.send({
-    from: CONTACT_FROM,
-    to: [CONTACT_TO],
-    replyTo: lead.email,
-    subject: `Discovery call request: ${lead.name.replace(/\s+/g, " ").slice(0, 100)}`,
-    text: `Name: ${lead.name}\nEmail: ${lead.email}\nEngagement: ${lead.engagement}\n\n${lead.message || "(no message)"}`,
-  });
+  const { error } = await resend.emails.send({ from: CONTACT_FROM, to: [CONTACT_TO], ...email });
 
   if (error) {
-    console.error("[contact] Resend send failed", error);
+    console.error(`[${tag}] Resend send failed`, error);
     return { status: "error", message: "Something went wrong — please email us directly." };
   }
 

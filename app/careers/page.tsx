@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { careersEmail, researchHref } from "@/lib/site";
+import { CareersForm } from "@/components/Forms";
 import {
   ArrowLink,
   AutoGrid,
   Container,
-  DarkBand,
   Eyebrow,
   H2,
   HairlineGrid,
@@ -66,10 +66,6 @@ const roles = [
   },
 ];
 
-function mailto(role: string) {
-  return `mailto:${careersEmail}?subject=${encodeURIComponent(`Careers: ${role}`)}`;
-}
-
 export default function CareersPage() {
   return (
     <>
@@ -112,7 +108,7 @@ export default function CareersPage() {
                   <p className="m-0 text-ink-2">{r.summary}</p>
                 </div>
                 <a
-                  href={mailto(r.title)}
+                  href={`#apply-${r.id}`}
                   className="inline-flex min-h-12 items-center bg-accent px-[22px] font-medium text-white transition-colors hover:bg-ink"
                 >
                   Get in touch
@@ -147,28 +143,28 @@ export default function CareersPage() {
         </div>
       </Container>
 
-      <DarkBand>
+      <section className="border-t border-line">
         <Container className="py-26">
-          <AutoGrid min={320} className="items-center gap-14">
-            <div className="flex flex-col gap-4">
-              <Eyebrow dark>How to reach us</Eyebrow>
-              <H2 dark>No application portal. Just send us a note.</H2>
-              <p className="m-0 text-night-muted">
-                Tell us which role interests you, what you&apos;ve built, and a link to your work
-                or CV. Don&apos;t see a role that fits? Write anyway. We read everything.
+          <AutoGrid min={320} className="gap-16">
+            <div id="apply" className="flex scroll-mt-8 flex-col gap-5">
+              <Eyebrow>Get in touch</Eyebrow>
+              <H2>No application portal. Just send us a note.</H2>
+              <p className="m-0 max-w-[44ch] text-ink-2">
+                Tell us which role interests you, what you&apos;ve built, and where we can see your
+                work. Don&apos;t see a role that fits? Write anyway. We read everything.
+              </p>
+              <p className="m-0 max-w-[44ch] border-t border-line pt-5 text-ink-2">
+                Prefer email? Write to{" "}
+                <a href={`mailto:${careersEmail}`} className="font-medium text-ink hover:text-accent-ink">
+                  {careersEmail}
+                </a>
+                .
               </p>
             </div>
-            <div className="flex flex-col gap-3">
-              <a
-                href={mailto("General")}
-                className="inline-flex min-h-12 items-center self-start bg-accent px-[22px] font-medium text-white transition-colors hover:bg-paper hover:text-ink"
-              >
-                Email {careersEmail}
-              </a>
-            </div>
+            <CareersForm />
           </AutoGrid>
         </Container>
-      </DarkBand>
+      </section>
     </>
   );
 }
