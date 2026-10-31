@@ -1,11 +1,13 @@
 export const researchHref = "/research/wharf-deepswe";
 
+export const caseStudiesHref = "/case-studies";
+
 export const offerings = [
   { href: "/done-for-you", label: "Done for You", short: "Done for You" },
   { href: "/build-with-your-team", label: "Hands-on Team Enablement", short: "Team Enablement" },
 ] as const;
 
-/** Header menu: each offering opens onto the practices it draws on; Research holds our credibility work. */
+/** Header menu: each offering opens onto the practices it draws on; Our Work holds client case studies and research. */
 export const navGroups = [
   {
     ...offerings[0],
@@ -25,11 +27,12 @@ export const navGroups = [
     ],
   },
   {
-    href: researchHref,
-    label: "Research",
-    overview: "Wharf benchmark",
-    summary: "Thousands of attempts across models and agent harnesses.",
+    href: caseStudiesHref,
+    label: "Our Work",
+    overview: "Case Studies",
+    summary: "Client engagements: the problem, the approach, the outcome.",
     children: [
+      { href: researchHref, label: "Wharf Research", summary: "Thousands of attempts across models and agent harnesses." },
       { href: "/model-testing", label: "Model Testing & Evals", summary: "How we test models and harnesses before we choose a stack." },
     ],
   },
