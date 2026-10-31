@@ -2,6 +2,11 @@ export const researchHref = "/research/wharf-deepswe";
 
 export const caseStudiesHref = "/case-studies";
 
+export const careersHref = "/careers";
+
+/** Candidates write here; job applications stay out of the client contact form. */
+export const careersEmail = "info@frontier-engineering.ai";
+
 export const offerings = [
   { href: "/done-for-you", label: "Done for You", short: "Done for You" },
   { href: "/build-with-your-team", label: "Hands-on Team Enablement", short: "Team Enablement" },
