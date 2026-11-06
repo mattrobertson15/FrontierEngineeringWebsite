@@ -1,0 +1,8 @@
+"metric_id","scope","name","unit","direction","aggregation","denominator","description"
+"github_stars","engagement","GitHub stars","count","neutral",,,"Stars on the benchmark's primary repository at the time of observation."
+"github_forks","engagement","GitHub forks","count","neutral",,,
+"paper_citations","engagement","Paper citations","count","neutral",,,"Citations of the primary paper as counted by the named source (OpenAlex or Semantic Scholar)."
+"hf_downloads_30d","engagement","Hugging Face downloads (30 days)","count","neutral",,,
+"pass_rate","evaluation","Pass rate","percent","higher_is_better","Passing attempts divided by the denominator, across all tasks and repetitions.","Planned attempts. Each run must state how missing or incomplete attempts were counted.",
+"pass_hat_k","evaluation","pass^k","percent","higher_is_better","Share of tasks where all k independent trials succeed.","Tasks. k is recorded in the run's repetitions.",
+"accuracy","evaluation","Accuracy","percent","higher_is_better",,"Questions in the split.",

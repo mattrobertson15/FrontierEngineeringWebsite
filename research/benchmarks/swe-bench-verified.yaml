@@ -1,9 +1,0 @@
-# Draft stub from the kickoff research list. Nothing here is verified yet.
-# Research note: Identity to verify: separate family, or a version/split of SWE-bench?
-slug: swe-bench-verified
-name: "SWE-bench Verified"
-kind: unclassified
-profile_depth: detailed
-research_priority: high
-review_state: draft
-capabilities: [repo-repair, software-engineering]

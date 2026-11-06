@@ -1,8 +1,0 @@
-# Licenses referenced by benchmark resources. Check the resource's own LICENSE before linking one.
-- { slug: mit, name: MIT License, spdx_id: MIT, category: permissive }
-- { slug: apache-2.0, name: Apache License 2.0, spdx_id: Apache-2.0, category: permissive }
-- { slug: bsd-3-clause, name: BSD 3-Clause License, spdx_id: BSD-3-Clause, category: permissive }
-- { slug: cc-by-4.0, name: Creative Commons Attribution 4.0, spdx_id: CC-BY-4.0, category: permissive }
-- { slug: cc-by-sa-4.0, name: Creative Commons Attribution-ShareAlike 4.0, spdx_id: CC-BY-SA-4.0, category: copyleft }
-- { slug: cc-by-nc-4.0, name: Creative Commons Attribution-NonCommercial 4.0, spdx_id: CC-BY-NC-4.0, category: non_commercial }
-- { slug: proprietary, name: Proprietary / no public license, category: proprietary }

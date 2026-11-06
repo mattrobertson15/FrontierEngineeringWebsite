@@ -1,9 +1,0 @@
-# Draft stub from the kickoff research list. Nothing here is verified yet.
-# Research note: Do not assume it shares a family with SWE-bench; verify the maintainer.
-slug: swe-bench-pro
-name: "SWE-Bench Pro"
-kind: unclassified
-profile_depth: detailed
-research_priority: high
-review_state: draft
-capabilities: [repo-repair, software-engineering]

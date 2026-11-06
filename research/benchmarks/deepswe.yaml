@@ -1,9 +1,0 @@
-# Draft stub from the kickoff research list. Nothing here is verified yet.
-# Research note: Pilot profile. Wharf results already on the site (content/wharf.ts) are the first Frontier-run import candidate.
-slug: deepswe
-name: "DeepSWE"
-kind: unclassified
-profile_depth: detailed
-research_priority: high
-review_state: draft
-capabilities: [repo-repair, software-engineering]

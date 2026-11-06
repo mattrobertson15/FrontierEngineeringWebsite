@@ -1,0 +1,1272 @@
+{
+  "schema_version": "0.2.0",
+  "research_date": "2026-11-06",
+  "package_status": "research_staging",
+  "tables": {
+    "organizations": {
+      "file": "organizations.csv",
+      "rows": 22,
+      "primary_key": "org_id",
+      "row": "An organization: maintainer, publisher, model provider, evaluator or citing lab",
+      "columns": [
+        {
+          "name": "org_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "type",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "lab",
+            "academic",
+            "company",
+            "nonprofit",
+            "independent",
+            "government"
+          ]
+        },
+        {
+          "name": "website",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    "capabilities": {
+      "file": "capabilities.csv",
+      "rows": 26,
+      "primary_key": "capability_id",
+      "row": "A capability (what is tested) or domain (where tasks come from) in the taxonomy",
+      "columns": [
+        {
+          "name": "capability_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "axis",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "capability",
+            "domain"
+          ]
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "parent_id",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    "licenses": {
+      "file": "licenses.csv",
+      "rows": 7,
+      "primary_key": "license_id",
+      "row": "A license that a benchmark resource may carry",
+      "columns": [
+        {
+          "name": "license_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "spdx_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "category",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "permissive",
+            "copyleft",
+            "non_commercial",
+            "proprietary",
+            "custom",
+            "unknown"
+          ]
+        },
+        {
+          "name": "url",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    "metric_definitions": {
+      "file": "metric_definitions.csv",
+      "rows": 7,
+      "primary_key": "metric_id",
+      "row": "A metric: engagement (popularity of a benchmark) or evaluation (result of a run)",
+      "columns": [
+        {
+          "name": "metric_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "scope",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "evaluation",
+            "engagement"
+          ]
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "unit",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "direction",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "higher_is_better",
+            "lower_is_better",
+            "neutral"
+          ]
+        },
+        {
+          "name": "aggregation",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "denominator",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    "models": {
+      "file": "models.csv",
+      "rows": 0,
+      "primary_key": "model_id",
+      "row": "A model identity referenced by citations and runs",
+      "columns": [
+        {
+          "name": "model_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "provider_org_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "open_weights",
+          "type": "boolean",
+          "nullable": true
+        }
+      ]
+    },
+    "sources": {
+      "file": "sources.csv",
+      "rows": 41,
+      "primary_key": "source_id",
+      "row": "A retrieved source document or page, with a retrieval date and evidence locator",
+      "columns": [
+        {
+          "name": "source_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "url",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "publisher",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "published_on",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "checked_on",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "source_kind",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "primary",
+            "independent_audit",
+            "secondary"
+          ]
+        },
+        {
+          "name": "access_method",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "snapshot_path",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "content_hash",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    "benchmarks": {
+      "file": "benchmarks.csv",
+      "rows": 42,
+      "primary_key": "benchmark_id",
+      "row": "A named registry entity: benchmark, variant, family, framework or evaluation study",
+      "columns": [
+        {
+          "name": "benchmark_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "slug",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "entity_kind",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "benchmark",
+            "suite",
+            "framework",
+            "evaluation_study",
+            "index",
+            "unclassified",
+            "variant",
+            "benchmark_family",
+            "evaluation_environment",
+            "benchmark_and_agent",
+            "benchmark_and_platform"
+          ]
+        },
+        {
+          "name": "editorial_track",
+          "type": "text",
+          "nullable": true,
+          "values": [
+            "coding",
+            "agents",
+            "enterprise",
+            "reliability"
+          ]
+        },
+        {
+          "name": "research_priority",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "pilot",
+            "launch",
+            "expand",
+            "supporting",
+            "backlog"
+          ]
+        },
+        {
+          "name": "summary",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "primary_source_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "identity_status",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "not_checked",
+            "primary_source_located"
+          ]
+        },
+        {
+          "name": "profile_status",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "registry_only",
+            "pilot_draft",
+            "profile_draft",
+            "profile_complete"
+          ]
+        },
+        {
+          "name": "checked_on",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "maintenance_status",
+          "type": "text",
+          "nullable": true,
+          "values": [
+            "active",
+            "unmaintained",
+            "superseded",
+            "deprecated",
+            "unknown"
+          ]
+        },
+        {
+          "name": "review_state",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "draft",
+            "in_review",
+            "published",
+            "retracted"
+          ]
+        },
+        {
+          "name": "reviewed_on",
+          "type": "date",
+          "nullable": true
+        }
+      ]
+    },
+    "benchmark_aliases": {
+      "file": "benchmark_aliases.csv",
+      "rows": 5,
+      "primary_key": "alias",
+      "row": "Another name that should resolve to one registry entry (unique across all names)",
+      "columns": [
+        {
+          "name": "alias",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "benchmark_id",
+          "type": "text",
+          "nullable": false
+        }
+      ]
+    },
+    "benchmark_capabilities": {
+      "file": "benchmark_capabilities.csv",
+      "rows": 63,
+      "primary_key": [
+        "benchmark_id",
+        "capability_id"
+      ],
+      "row": "A registry entry tagged with a capability or domain; at most one primary per entry",
+      "columns": [
+        {
+          "name": "benchmark_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "capability_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "is_primary",
+          "type": "boolean",
+          "nullable": false
+        }
+      ]
+    },
+    "versions": {
+      "file": "versions.csv",
+      "rows": 4,
+      "primary_key": "version_id",
+      "row": "An explicitly identified version of one registry entity",
+      "columns": [
+        {
+          "name": "version_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "benchmark_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "version_label",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "release_date",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "date_basis",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "task_count",
+          "type": "integer",
+          "nullable": true
+        },
+        {
+          "name": "source_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "revision_hash",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "pin_status",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "label_only",
+            "source_short_commit",
+            "pinned"
+          ]
+        }
+      ]
+    },
+    "splits": {
+      "file": "splits.csv",
+      "rows": 0,
+      "primary_key": "split_id",
+      "row": "A named split of one version (only when a source names it)",
+      "columns": [
+        {
+          "name": "split_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "version_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "visibility",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "public",
+            "semi_private",
+            "private",
+            "unknown"
+          ]
+        },
+        {
+          "name": "task_count",
+          "type": "integer",
+          "nullable": true
+        },
+        {
+          "name": "source_id",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    "claims": {
+      "file": "claims.csv",
+      "rows": 56,
+      "primary_key": "claim_id",
+      "row": "A single attributed statement about an entity or version",
+      "columns": [
+        {
+          "name": "claim_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "benchmark_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "version_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "predicate",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "value",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "value_type",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "text",
+            "number",
+            "date"
+          ]
+        },
+        {
+          "name": "unit",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "verification_status",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "verified",
+            "reported",
+            "estimated",
+            "unverified"
+          ]
+        },
+        {
+          "name": "checked_on",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "notes",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    "claim_evidence": {
+      "file": "claim_evidence.csv",
+      "rows": 56,
+      "primary_key": "evidence_id",
+      "row": "One source supporting (or disputing) one claim",
+      "columns": [
+        {
+          "name": "evidence_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "claim_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "locator",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "evidence_role",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "supports",
+            "disputes",
+            "context"
+          ]
+        },
+        {
+          "name": "capture_kind",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "paraphrase",
+            "quotation"
+          ]
+        },
+        {
+          "name": "excerpt",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    "relationships": {
+      "file": "relationships.csv",
+      "rows": 3,
+      "primary_key": "relationship_id",
+      "row": "A documented, sourced relationship between two registry entities",
+      "columns": [
+        {
+          "name": "relationship_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "from_benchmark_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "relationship_type",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "variant_of",
+            "derived_from",
+            "successor_of",
+            "subset_of",
+            "related_to"
+          ]
+        },
+        {
+          "name": "to_benchmark_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_id",
+          "type": "text",
+          "nullable": false
+        }
+      ]
+    },
+    "citations": {
+      "file": "citations.csv",
+      "rows": 0,
+      "primary_key": "citation_id",
+      "row": "One lab or organization citing a benchmark in one experiment (evidence via its claim)",
+      "columns": [
+        {
+          "name": "citation_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "benchmark_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "version_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "citing_org_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "model_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "citation_kind",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "mention",
+            "explicit_adoption",
+            "score_report",
+            "reproduction",
+            "audit",
+            "frontier_run"
+          ]
+        },
+        {
+          "name": "cited_on",
+          "type": "partial_date",
+          "nullable": false
+        },
+        {
+          "name": "claim_id",
+          "type": "text",
+          "nullable": false
+        }
+      ]
+    },
+    "result_observations": {
+      "file": "result_observations.csv",
+      "rows": 3,
+      "primary_key": "observation_id",
+      "row": "A publisher-displayed result awaiting configuration reconciliation (staging; never ranked)",
+      "columns": [
+        {
+          "name": "observation_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "benchmark_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "version_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "source_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_locator",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "model_label",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "effort_label",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "agent_label",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "score_percent",
+          "type": "number",
+          "nullable": true
+        },
+        {
+          "name": "interval_halfwidth_pp",
+          "type": "number",
+          "nullable": true
+        },
+        {
+          "name": "score_display",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "average_cost_usd",
+          "type": "number",
+          "nullable": true
+        },
+        {
+          "name": "output_tokens_display",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "steps_display",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "source_updated_on",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "observed_on",
+          "type": "date",
+          "nullable": false
+        },
+        {
+          "name": "precision",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "exact",
+            "rounded",
+            "displayed_integer",
+            "rounded_display"
+          ]
+        },
+        {
+          "name": "origin",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "publisher_reported",
+            "independent_reproduction",
+            "frontier_run"
+          ]
+        },
+        {
+          "name": "comparison_status",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "not_ready",
+            "ready",
+            "excluded"
+          ]
+        },
+        {
+          "name": "missing_context",
+          "type": "text",
+          "nullable": true
+        }
+      ]
+    },
+    "audits": {
+      "file": "audits.csv",
+      "rows": 2,
+      "primary_key": "audit_id",
+      "row": "An auditor's attributed finding about a specific version",
+      "columns": [
+        {
+          "name": "audit_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "benchmark_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "version_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "auditor",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "audit_date",
+          "type": "date",
+          "nullable": true
+        },
+        {
+          "name": "verdict",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "affected_tasks_lower_bound",
+          "type": "integer",
+          "nullable": true
+        },
+        {
+          "name": "review_task_count",
+          "type": "integer",
+          "nullable": true
+        },
+        {
+          "name": "claim_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "source_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "summary",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "remediation_status",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "not_checked",
+            "open",
+            "acknowledged",
+            "resolved",
+            "wont_fix",
+            "disputed"
+          ]
+        }
+      ]
+    },
+    "metric_snapshots": {
+      "file": "metric_snapshots.csv",
+      "rows": 4,
+      "primary_key": "snapshot_id",
+      "row": "A dated, source-specific popularity observation",
+      "columns": [
+        {
+          "name": "snapshot_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "benchmark_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "metric",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "value",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "value_display",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "precision",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "exact",
+            "rounded",
+            "displayed_integer",
+            "rounded_display"
+          ]
+        },
+        {
+          "name": "source_id",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "observed_on",
+          "type": "date",
+          "nullable": false
+        }
+      ]
+    },
+    "research_gaps": {
+      "file": "research_gaps.csv",
+      "rows": 16,
+      "primary_key": "gap_id",
+      "row": "One unresolved research action",
+      "columns": [
+        {
+          "name": "gap_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "benchmark_id",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "priority",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "P0",
+            "P1",
+            "P2"
+          ]
+        },
+        {
+          "name": "gap_type",
+          "type": "text",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "text",
+          "nullable": false,
+          "values": [
+            "open",
+            "in_progress",
+            "resolved",
+            "wont_fix"
+          ]
+        },
+        {
+          "name": "next_action",
+          "type": "text",
+          "nullable": false
+        }
+      ]
+    }
+  },
+  "foreign_keys": [
+    [
+      "capabilities",
+      "parent_id",
+      "capabilities",
+      "capability_id"
+    ],
+    [
+      "models",
+      "provider_org_id",
+      "organizations",
+      "org_id"
+    ],
+    [
+      "benchmarks",
+      "primary_source_id",
+      "sources",
+      "source_id"
+    ],
+    [
+      "benchmark_aliases",
+      "benchmark_id",
+      "benchmarks",
+      "benchmark_id"
+    ],
+    [
+      "benchmark_capabilities",
+      "benchmark_id",
+      "benchmarks",
+      "benchmark_id"
+    ],
+    [
+      "benchmark_capabilities",
+      "capability_id",
+      "capabilities",
+      "capability_id"
+    ],
+    [
+      "versions",
+      "benchmark_id",
+      "benchmarks",
+      "benchmark_id"
+    ],
+    [
+      "versions",
+      "source_id",
+      "sources",
+      "source_id"
+    ],
+    [
+      "splits",
+      "version_id",
+      "versions",
+      "version_id"
+    ],
+    [
+      "splits",
+      "source_id",
+      "sources",
+      "source_id"
+    ],
+    [
+      "claims",
+      "benchmark_id",
+      "benchmarks",
+      "benchmark_id"
+    ],
+    [
+      "claims",
+      "version_id",
+      "versions",
+      "version_id"
+    ],
+    [
+      "claim_evidence",
+      "claim_id",
+      "claims",
+      "claim_id"
+    ],
+    [
+      "claim_evidence",
+      "source_id",
+      "sources",
+      "source_id"
+    ],
+    [
+      "relationships",
+      "from_benchmark_id",
+      "benchmarks",
+      "benchmark_id"
+    ],
+    [
+      "relationships",
+      "to_benchmark_id",
+      "benchmarks",
+      "benchmark_id"
+    ],
+    [
+      "relationships",
+      "source_id",
+      "sources",
+      "source_id"
+    ],
+    [
+      "citations",
+      "benchmark_id",
+      "benchmarks",
+      "benchmark_id"
+    ],
+    [
+      "citations",
+      "version_id",
+      "versions",
+      "version_id"
+    ],
+    [
+      "citations",
+      "citing_org_id",
+      "organizations",
+      "org_id"
+    ],
+    [
+      "citations",
+      "model_id",
+      "models",
+      "model_id"
+    ],
+    [
+      "citations",
+      "claim_id",
+      "claims",
+      "claim_id"
+    ],
+    [
+      "result_observations",
+      "benchmark_id",
+      "benchmarks",
+      "benchmark_id"
+    ],
+    [
+      "result_observations",
+      "version_id",
+      "versions",
+      "version_id"
+    ],
+    [
+      "result_observations",
+      "source_id",
+      "sources",
+      "source_id"
+    ],
+    [
+      "audits",
+      "benchmark_id",
+      "benchmarks",
+      "benchmark_id"
+    ],
+    [
+      "audits",
+      "version_id",
+      "versions",
+      "version_id"
+    ],
+    [
+      "audits",
+      "claim_id",
+      "claims",
+      "claim_id"
+    ],
+    [
+      "audits",
+      "source_id",
+      "sources",
+      "source_id"
+    ],
+    [
+      "metric_snapshots",
+      "benchmark_id",
+      "benchmarks",
+      "benchmark_id"
+    ],
+    [
+      "metric_snapshots",
+      "metric",
+      "metric_definitions",
+      "metric_id"
+    ],
+    [
+      "metric_snapshots",
+      "source_id",
+      "sources",
+      "source_id"
+    ],
+    [
+      "research_gaps",
+      "benchmark_id",
+      "benchmarks",
+      "benchmark_id"
+    ]
+  ]
+}

@@ -1,8 +1,0 @@
-# Draft stub from the kickoff research list. Nothing here is verified yet.
-slug: re-bench
-name: "RE-Bench"
-kind: unclassified
-profile_depth: registry
-research_priority: medium
-review_state: draft
-capabilities: [ml-research-engineering]

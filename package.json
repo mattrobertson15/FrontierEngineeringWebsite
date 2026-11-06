@@ -11,7 +11,8 @@
     "registry:import": "node --env-file-if-exists=.env.local scripts/registry/cli.ts import",
     "test:registry": "node --test \"scripts/registry/**/*.test.ts\"",
     "registry:migrate": "node --env-file-if-exists=.env.local scripts/registry/cli.ts migrate",
-    "registry:check-access": "node --env-file-if-exists=.env.local scripts/registry/cli.ts check-access"
+    "registry:check-access": "node --env-file-if-exists=.env.local scripts/registry/cli.ts check-access",
+    "registry:manifest": "node scripts/registry/cli.ts manifest"
   },
   "dependencies": {
     "geist": "^1.8.2",
@@ -20,7 +21,6 @@
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "resend": "^6.35.0",
-    "yaml": "^2.9.1",
     "zod": "^4.6.7"
   },
   "devDependencies": {

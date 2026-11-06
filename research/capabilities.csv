@@ -1,0 +1,27 @@
+"capability_id","axis","name","description","parent_id"
+"coding","capability","Coding",,
+"repo-repair","capability","Repository issue resolution",,"coding"
+"code-generation","capability","Code generation",,"coding"
+"agentic-tasks","capability","Agentic tasks",,
+"terminal-use","capability","Terminal use",,"agentic-tasks"
+"tool-calling","capability","Tool and function calling",,"agentic-tasks"
+"web-navigation","capability","Web navigation",,"agentic-tasks"
+"computer-use","capability","Computer use",,"agentic-tasks"
+"multi-turn-interaction","capability","Multi-turn interaction",,"agentic-tasks"
+"long-horizon-autonomy","capability","Long-horizon autonomy",,"agentic-tasks"
+"knowledge-work","capability","Enterprise knowledge work",,
+"ml-research-engineering","capability","ML research engineering",,
+"offensive-security","capability","Offensive security",,
+"reasoning","capability","Reasoning",,
+"mathematics","capability","Mathematics",,"reasoning"
+"factuality","capability","Factuality",,
+"software-engineering","domain","Software engineering",,
+"it-operations","domain","IT operations",,
+"customer-service","domain","Customer service",,
+"finance","domain","Finance",,
+"accounting","domain","Accounting",,
+"law","domain","Law",,
+"management-consulting","domain","Management consulting",,
+"office-work","domain","Office work",,
+"scientific-research","domain","Scientific research",,
+"information-security","domain","Information security",,

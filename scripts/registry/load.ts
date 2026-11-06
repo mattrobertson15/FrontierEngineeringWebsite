@@ -1,33 +1,28 @@
 /**
- * Reads research/ from disk, validates every file against the contract, and checks
- * cross-file references and publication rules. Returns every problem at once, each with
- * the file it came from, so one run of `registry:validate` shows the whole picture.
+ * Reads the research package (research/*.csv, research/runs/*.json, research/manifest.json),
+ * validates every cell against the contract, then checks keys, references and the import rules
+ * from the package README plus our publication rules. Every problem is reported at once with
+ * its file and line, so one `registry:validate` run shows the whole picture.
  */
 import { readdir, readFile } from "node:fs/promises";
-import { basename, join, relative } from "node:path";
-import { parse as parseYaml } from "yaml";
-import { z } from "zod";
+import { join } from "node:path";
 import {
-  BenchmarkFile,
-  CapabilitiesFile,
-  LicensesFile,
-  MetricsFile,
-  ModelsFile,
-  OrganizationsFile,
+  buildManifest,
+  canonicalJson,
+  convertCell,
+  parseCsv,
   RunImportV1,
-  SourcesFile,
-  type Evidence,
+  tableNames,
+  tables,
+  type Column,
+  type Row,
+  type TableName,
 } from "./contract.ts";
 
 export type Bundle = {
-  organizations: z.infer<typeof OrganizationsFile>;
-  capabilities: z.infer<typeof CapabilitiesFile>;
-  licenses: z.infer<typeof LicensesFile>;
-  metrics: z.infer<typeof MetricsFile>;
-  models: z.infer<typeof ModelsFile>;
-  sources: z.infer<typeof SourcesFile>;
-  benchmarks: BenchmarkFile[];
+  rows: Record<TableName, Row[]>;
   runs: RunImportV1[];
+  manifestMeta: { schema_version: string; research_date: string; package_status: string };
 };
 
 export class ValidationError extends Error {
@@ -38,239 +33,278 @@ export class ValidationError extends Error {
   }
 }
 
-async function listFiles(dir: string, ext: string): Promise<string[]> {
-  try {
-    return (await readdir(dir)).filter((f) => f.endsWith(ext) && !f.startsWith("_")).sort().map((f) => join(dir, f));
-  } catch (e) {
-    if ((e as NodeJS.ErrnoException).code === "ENOENT") return [];
-    throw e;
-  }
-}
+const DEFAULT_META = { schema_version: "0.2.0", research_date: "", package_status: "research_staging" };
 
-export async function loadResearch(root: string): Promise<Bundle> {
+/** Reads and type-checks every table. Throws ValidationError with all problems found. */
+export async function loadResearch(root: string, opts: { checkManifest?: boolean } = {}): Promise<Bundle> {
   const problems: string[] = [];
-  const rel = (p: string) => relative(process.cwd(), p);
+  const rows = {} as Record<TableName, Row[]>;
+  const lineOf = new Map<Row, number>();
 
-  async function read<T extends z.ZodType>(path: string, schema: T, kind: "yaml" | "json"): Promise<z.infer<T> | undefined> {
+  for (const name of tableNames) {
+    const spec = tables[name];
+    const where = `research/${spec.file}`;
+    rows[name] = [];
+    let text: string;
+    try {
+      text = await readFile(join(root, spec.file), "utf8");
+    } catch (e) {
+      problems.push(`${where}: file is missing${(e as NodeJS.ErrnoException).code === "ENOENT" ? " (create it with just the header row)" : ""}`);
+      continue;
+    }
+    let grid: string[][];
+    try {
+      grid = parseCsv(text);
+    } catch (e) {
+      problems.push(`${where}: could not parse CSV — ${(e as Error).message}`);
+      continue;
+    }
+    const expected = (spec.columns as Column[]).map((c) => c.name);
+    const header = grid[0] ?? [];
+    if (header.join(",") !== expected.join(",")) {
+      problems.push(`${where}: header must be exactly\n      ${expected.join(",")}\n    found\n      ${header.join(",")}`);
+      continue;
+    }
+    grid.slice(1).forEach((cells, i) => {
+      const line = i + 2;
+      if (cells.length !== expected.length) {
+        problems.push(`${where}:${line}: has ${cells.length} cells, expected ${expected.length}`);
+        return;
+      }
+      const row: Row = {};
+      (spec.columns as Column[]).forEach((col, j) => {
+        const [value, problem] = convertCell(col, cells[j]);
+        if (problem) problems.push(`${where}:${line}: ${col.name} ${problem}`);
+        row[col.name] = value;
+      });
+      rows[name].push(row);
+      lineOf.set(row, line);
+    });
+  }
+
+  const at = (table: TableName, row: Row) => `research/${tables[table].file}:${lineOf.get(row) ?? "?"}`;
+  const s = (row: Row, col: string) => row[col] as string | null;
+
+  /* ---------- keys and references ---------- */
+
+  const index = {} as Record<TableName, Map<string, Row>>;
+  for (const name of tableNames) {
+    index[name] = new Map();
+    for (const row of rows[name]) {
+      const key = tables[name].key.map((k) => String(row[k])).join("|");
+      if (index[name].has(key)) problems.push(`${at(name, row)}: duplicate key ${tables[name].key.join("+")} = ${key}`);
+      index[name].set(key, row);
+    }
+  }
+  for (const name of tableNames) {
+    for (const [col, toTable, toCol] of tables[name].refs) {
+      const target = toTable as TableName;
+      const lookup = tables[target].key.length === 1 && tables[target].key[0] === toCol ? index[target] : null;
+      for (const row of rows[name]) {
+        const v = s(row, col);
+        if (v === null) continue;
+        const found = lookup ? lookup.has(v) : rows[target].some((r) => r[toCol] === v);
+        if (!found) problems.push(`${at(name, row)}: ${col} "${v}" has no row in ${tables[target].file}`);
+      }
+    }
+  }
+
+  const benchmarks = index.benchmarks;
+  const versions = index.versions;
+  const claims = index.claims;
+
+  /* ---------- the package's import rules ---------- */
+
+  // A version must belong to the same benchmark as the row that names it.
+  for (const name of ["claims", "audits", "result_observations", "citations"] as const) {
+    for (const row of rows[name]) {
+      const v = s(row, "version_id");
+      const version = v ? versions.get(v) : undefined;
+      if (version && version.benchmark_id !== row.benchmark_id) {
+        problems.push(`${at(name, row)}: version ${v} belongs to ${version.benchmark_id}, not ${row.benchmark_id}`);
+      }
+    }
+  }
+
+  // Claim values must parse as their declared type.
+  for (const c of rows.claims) {
+    const v = s(c, "value")!;
+    if (c.value_type === "number" && !/^-?\d+(\.\d+)?$/.test(v)) problems.push(`${at("claims", c)}: value "${v}" is not a number`);
+    if (c.value_type === "date" && !/^\d{4}-\d{2}-\d{2}$/.test(v)) problems.push(`${at("claims", c)}: value "${v}" is not an ISO date`);
+  }
+
+  // Every claim needs at least one supporting evidence row.
+  const supported = new Set(rows.claim_evidence.filter((e) => e.evidence_role === "supports").map((e) => e.claim_id));
+  for (const c of rows.claims) {
+    if (!supported.has(c.claim_id)) problems.push(`${at("claims", c)}: claim ${c.claim_id} has no supporting evidence in claim_evidence.csv`);
+  }
+  for (const e of rows.claim_evidence) {
+    if (e.capture_kind === "quotation" && !e.excerpt) problems.push(`${at("claim_evidence", e)}: a quotation needs its excerpt`);
+  }
+
+  // Structured version/split facts need a source, and must agree with any explicit claim.
+  const explicit = (benchmarkId: unknown, versionId: unknown, predicate: string) =>
+    rows.claims.filter((c) => c.benchmark_id === benchmarkId && c.version_id === versionId && c.predicate === predicate);
+  for (const v of rows.versions) {
+    if ((v.release_date !== null || v.task_count !== null) && !v.source_id) {
+      problems.push(`${at("versions", v)}: release_date/task_count need a source_id as evidence`);
+    }
+    if (v.task_count !== null) {
+      for (const c of explicit(v.benchmark_id, v.version_id, "task_count")) {
+        if (Number(c.value) !== v.task_count) {
+          problems.push(`${at("versions", v)}: task_count ${v.task_count} disagrees with claim ${c.claim_id} (${c.value})`);
+        }
+      }
+    }
+  }
+  for (const sp of rows.splits) {
+    if (sp.task_count !== null && !sp.source_id) problems.push(`${at("splits", sp)}: task_count needs a source_id as evidence`);
+  }
+
+  // Relationships: never self-referential.
+  for (const r of rows.relationships) {
+    if (r.from_benchmark_id === r.to_benchmark_id) problems.push(`${at("relationships", r)}: an entry cannot relate to itself`);
+  }
+
+  // Audits and citations are carried by a claim about the same benchmark and version.
+  for (const name of ["audits", "citations"] as const) {
+    for (const row of rows[name]) {
+      const c = claims.get(s(row, "claim_id") ?? "");
+      if (!c) continue;
+      if (c.benchmark_id !== row.benchmark_id || (c.version_id ?? null) !== (row.version_id ?? null)) {
+        problems.push(`${at(name, row)}: claim ${c.claim_id} is about ${c.benchmark_id}${c.version_id ? `@${c.version_id}` : ""}, not this ${name.slice(0, -1)}'s subject`);
+      }
+    }
+  }
+  for (const a of rows.audits) {
+    const c = claims.get(s(a, "claim_id") ?? "");
+    if (c?.predicate === "audit_verdict" && c.value !== a.verdict) {
+      problems.push(`${at("audits", a)}: verdict "${a.verdict}" differs from claim ${c.claim_id} ("${c.value}")`);
+    }
+  }
+
+  // Result observations are staging data: a "ready" row must have nothing missing.
+  for (const o of rows.result_observations) {
+    if (o.score_percent !== null && ((o.score_percent as number) < 0 || (o.score_percent as number) > 100)) {
+      problems.push(`${at("result_observations", o)}: score_percent must be 0–100 (never a 0–1 fraction)`);
+    }
+    if (o.comparison_status === "ready" && o.missing_context) {
+      problems.push(`${at("result_observations", o)}: comparison_status "ready" with missing_context still listed`);
+    }
+  }
+
+  // Names and aliases resolve to exactly one entry.
+  const names = new Map<string, string>();
+  const claimName = (label: string, owner: string, where: string) => {
+    const k = label.toLowerCase();
+    const prior = names.get(k);
+    if (prior && prior !== owner) problems.push(`${where}: "${label}" already names ${prior}`);
+    names.set(k, owner);
+  };
+  for (const b of rows.benchmarks) claimName(s(b, "name")!, s(b, "benchmark_id")!, at("benchmarks", b));
+  for (const a of rows.benchmark_aliases) claimName(s(a, "alias")!, s(a, "benchmark_id")!, at("benchmark_aliases", a));
+
+  const slugs = new Map<string, Row>();
+  for (const b of rows.benchmarks) {
+    const prior = slugs.get(s(b, "slug")!);
+    if (prior) problems.push(`${at("benchmarks", b)}: slug "${b.slug}" is also used by ${prior.benchmark_id}`);
+    slugs.set(s(b, "slug")!, b);
+  }
+
+  const primaries = new Map<string, number>();
+  for (const bc of rows.benchmark_capabilities) {
+    if (bc.is_primary) primaries.set(s(bc, "benchmark_id")!, (primaries.get(s(bc, "benchmark_id")!) ?? 0) + 1);
+  }
+  for (const [b, n] of primaries) if (n > 1) problems.push(`research/benchmark_capabilities.csv: ${b} has ${n} primary capabilities (max 1)`);
+
+  /* ---------- publication rules ---------- */
+
+  const openP0 = new Set(rows.research_gaps.filter((g) => g.priority === "P0" && g.status === "open").map((g) => g.benchmark_id));
+  for (const b of rows.benchmarks) {
+    const where = at("benchmarks", b);
+    if (b.identity_status === "primary_source_located" && !b.primary_source_id) {
+      problems.push(`${where}: identity_status primary_source_located needs primary_source_id`);
+    }
+    if (b.maintenance_status !== null) {
+      const backed = rows.claims.some((c) => c.benchmark_id === b.benchmark_id && (c.predicate === "maintenance_notice" || c.predicate === "maintenance_status"));
+      if (!backed) problems.push(`${where}: maintenance_status "${b.maintenance_status}" needs a maintenance_notice or maintenance_status claim`);
+    }
+    if (b.review_state === "published") {
+      if (b.entity_kind === "unclassified") problems.push(`${where}: published entries need an entity_kind other than unclassified`);
+      if (!b.summary) problems.push(`${where}: published entries need a summary`);
+      if (!b.reviewed_on) problems.push(`${where}: published entries need reviewed_on`);
+      if (!b.checked_on) problems.push(`${where}: published entries need checked_on`);
+      if (b.identity_status !== "primary_source_located") problems.push(`${where}: published entries need identity_status primary_source_located`);
+      if (openP0.has(b.benchmark_id)) problems.push(`${where}: published entries cannot have open P0 research gaps`);
+    }
+  }
+
+  /* ---------- Frontier runs (JSON) ---------- */
+
+  const runs: RunImportV1[] = [];
+  const runsDir = join(root, "runs");
+  let runFiles: string[] = [];
+  try {
+    runFiles = (await readdir(runsDir)).filter((f) => f.endsWith(".json")).sort();
+  } catch (e) {
+    if ((e as NodeJS.ErrnoException).code !== "ENOENT") throw e;
+  }
+  const seenRuns = new Set<string>();
+  for (const f of runFiles) {
+    const where = `research/runs/${f}`;
     let raw: unknown;
     try {
-      const text = await readFile(path, "utf8");
-      raw = kind === "yaml" ? parseYaml(text) : JSON.parse(text);
+      raw = JSON.parse(await readFile(join(runsDir, f), "utf8"));
     } catch (e) {
-      if ((e as NodeJS.ErrnoException).code === "ENOENT") {
-        problems.push(`${rel(path)}: file is missing`);
-      } else {
-        problems.push(`${rel(path)}: could not parse — ${(e as Error).message}`);
-      }
-      return undefined;
+      problems.push(`${where}: could not parse — ${(e as Error).message}`);
+      continue;
     }
-    const result = schema.safeParse(raw ?? []);
-    if (!result.success) {
-      for (const issue of result.error.issues) {
-        problems.push(`${rel(path)}: ${issue.path.join(".") || "(root)"} — ${issue.message}`);
-      }
-      return undefined;
+    const parsed = RunImportV1.safeParse(raw);
+    if (!parsed.success) {
+      for (const issue of parsed.error.issues) problems.push(`${where}: ${issue.path.join(".") || "(root)"} — ${issue.message}`);
+      continue;
     }
-    return result.data;
-  }
-
-  const [organizations, capabilities, licenses, metrics, models, sources] = await Promise.all([
-    read(join(root, "organizations.yaml"), OrganizationsFile, "yaml"),
-    read(join(root, "capabilities.yaml"), CapabilitiesFile, "yaml"),
-    read(join(root, "licenses.yaml"), LicensesFile, "yaml"),
-    read(join(root, "metrics.yaml"), MetricsFile, "yaml"),
-    read(join(root, "models.yaml"), ModelsFile, "yaml"),
-    read(join(root, "sources.yaml"), SourcesFile, "yaml"),
-  ]);
-
-  const benchmarkPaths = await listFiles(join(root, "benchmarks"), ".yaml");
-  const benchmarks: { path: string; data: BenchmarkFile }[] = [];
-  for (const path of benchmarkPaths) {
-    const data = await read(path, BenchmarkFile, "yaml");
-    if (!data) continue;
-    if (basename(path, ".yaml") !== data.slug) problems.push(`${rel(path)}: file name must match slug "${data.slug}"`);
-    benchmarks.push({ path, data });
-  }
-
-  const runPaths = await listFiles(join(root, "runs"), ".json");
-  const runs: { path: string; data: RunImportV1 }[] = [];
-  for (const path of runPaths) {
-    const data = await read(path, RunImportV1, "json");
-    if (data) runs.push({ path, data });
-  }
-
-  // Stop before cross-references if a reference file itself failed to parse.
-  if (!organizations || !capabilities || !licenses || !metrics || !models || !sources) throw new ValidationError(problems);
-
-  /* ---------- uniqueness ---------- */
-
-  const dupes = (path: string, what: string, values: string[]) => {
-    const seen = new Set<string>();
-    for (const v of values) {
-      const k = v.toLowerCase();
-      if (seen.has(k)) problems.push(`${path}: duplicate ${what} "${v}"`);
-      seen.add(k);
+    const r = parsed.data;
+    if (seenRuns.has(r.experiment_id)) problems.push(`${where}: duplicate experiment_id ${r.experiment_id}`);
+    seenRuns.add(r.experiment_id);
+    const version = versions.get(r.benchmark.version_id);
+    if (!benchmarks.has(r.benchmark.benchmark_id)) problems.push(`${where}: unknown benchmark_id "${r.benchmark.benchmark_id}"`);
+    if (!version) problems.push(`${where}: unknown version_id "${r.benchmark.version_id}"`);
+    else if (version.benchmark_id !== r.benchmark.benchmark_id) problems.push(`${where}: version ${r.benchmark.version_id} belongs to ${version.benchmark_id}`);
+    if (r.benchmark.split_id !== null) {
+      const split = index.splits.get(r.benchmark.split_id);
+      if (!split) problems.push(`${where}: unknown split_id "${r.benchmark.split_id}"`);
+      else if (split.version_id !== r.benchmark.version_id) problems.push(`${where}: split ${r.benchmark.split_id} belongs to version ${split.version_id}`);
     }
-  };
-  dupes("research/organizations.yaml", "slug", organizations.map((o) => o.slug));
-  dupes("research/capabilities.yaml", "slug", capabilities.map((c) => c.slug));
-  dupes("research/licenses.yaml", "slug", licenses.map((l) => l.slug));
-  dupes("research/metrics.yaml", "id", metrics.map((m) => m.id));
-  dupes("research/models.yaml", "slug", models.map((m) => m.slug));
-  dupes("research/sources.yaml", "key", sources.map((s) => s.key));
-  dupes("research/sources.yaml", "url", sources.map((s) => s.url));
-  dupes("research/benchmarks", "slug", benchmarks.map((b) => b.data.slug));
-  dupes("research/benchmarks", "alias or name", benchmarks.flatMap((b) => [b.data.name, ...b.data.aliases]));
-  dupes("research/runs", "experiment_id", runs.map((r) => r.data.experiment_id));
-
-  /* ---------- reference checks ---------- */
-
-  const orgs = new Set(organizations.map((o) => o.slug));
-  const caps = new Set(capabilities.map((c) => c.slug));
-  const lics = new Set(licenses.map((l) => l.slug));
-  const modelSet = new Set(models.map((m) => m.slug));
-  const sourceByKey = new Map(sources.map((s) => [s.key, s]));
-  const familySlugs = new Set(benchmarks.map((b) => b.data.slug));
-  const metricById = new Map(metrics.map((m) => [m.id, m]));
-
-  for (const c of capabilities) {
-    if (c.parent && !caps.has(c.parent)) problems.push(`research/capabilities.yaml: ${c.slug} has unknown parent "${c.parent}"`);
-  }
-  for (const m of models) {
-    if (!orgs.has(m.provider)) problems.push(`research/models.yaml: ${m.slug} has unknown provider "${m.provider}"`);
-  }
-  for (const s of sources) {
-    if (s.publisher && !orgs.has(s.publisher)) problems.push(`research/sources.yaml: ${s.key} has unknown publisher "${s.publisher}"`);
-    dupes(`research/sources.yaml: ${s.key}`, "snapshot", s.snapshots.map((x) => new Date(x.retrieved_at).toISOString()));
-  }
-
-  const checkEvidence = (where: string, evidence: Evidence[], mustSupport: boolean) => {
-    for (const e of evidence) {
-      const src = sourceByKey.get(e.source);
-      if (!src) {
-        problems.push(`${where}: unknown source "${e.source}" (add it to research/sources.yaml)`);
-        continue;
-      }
-      if (e.retrieved_at && !src.snapshots.some((s) => Date.parse(s.retrieved_at) === Date.parse(e.retrieved_at!))) {
-        problems.push(`${where}: source "${e.source}" has no snapshot retrieved at ${e.retrieved_at}`);
-      }
-    }
-    if (mustSupport && !evidence.some((e) => e.role === "supports")) {
-      problems.push(`${where}: published, so it needs at least one supporting evidence entry`);
-    }
-  };
-
-  for (const { path, data: b } of benchmarks) {
-    const at = rel(path);
-    const published = b.review_state === "published";
-
-    if (published) {
-      if (b.kind === "unclassified") problems.push(`${at}: published entries must have a kind other than "unclassified"`);
-      if (!b.summary) problems.push(`${at}: published entries need a summary`);
-      if (!b.reviewed_on) problems.push(`${at}: published entries need reviewed_on`);
-      if (!b.last_verified_on) problems.push(`${at}: published entries need last_verified_on`);
-    }
-
-    if (b.maintainer) {
-      if (!orgs.has(b.maintainer.value)) problems.push(`${at}: maintainer "${b.maintainer.value}" is not in organizations.yaml`);
-      checkEvidence(`${at}: maintainer`, b.maintainer.evidence, published);
-    }
-    for (const c of b.capabilities) if (!caps.has(c)) problems.push(`${at}: unknown capability "${c}"`);
-    dupes(at, "capability", b.capabilities);
-    for (const r of b.relationships) {
-      if (!familySlugs.has(r.target)) problems.push(`${at}: relationship target "${r.target}" has no benchmark file`);
-      if (r.target === b.slug) problems.push(`${at}: a benchmark cannot relate to itself`);
-    }
-
-    const labels = new Set(b.versions.map((v) => v.label));
-    dupes(at, "version label", b.versions.map((v) => v.label));
-    if (b.versions.filter((v) => v.default).length > 1) problems.push(`${at}: only one version can be the default`);
-    for (const v of b.versions) {
-      if (v.released_on) checkEvidence(`${at}: version ${v.label} released_on`, v.released_on.evidence, published);
-      dupes(`${at}: version ${v.label}`, "split", v.splits.map((s) => s.name));
-      for (const s of v.splits) {
-        if (s.task_count) checkEvidence(`${at}: split ${v.label}/${s.name} task_count`, s.task_count.evidence, published);
-      }
-    }
-    const splitKeys = new Set(b.versions.flatMap((v) => v.splits.map((s) => `${v.label}/${s.name}`)));
-
-    for (const r of b.resources) {
-      if (r.license && !lics.has(r.license)) problems.push(`${at}: resource ${r.url} has unknown license "${r.license}"`);
-      if (r.version && !labels.has(r.version)) problems.push(`${at}: resource ${r.url} names unknown version "${r.version}"`);
-    }
-
-    dupes(at, "claim id", b.claims.map((c) => c.id));
-    for (const c of b.claims) {
-      const where = `${at}: claim ${c.id}`;
-      if (c.subject.startsWith("version:")) {
-        if (!labels.has(c.subject.slice(8))) problems.push(`${where}: unknown version in subject "${c.subject}"`);
-      } else if (c.subject.startsWith("split:")) {
-        if (!splitKeys.has(c.subject.slice(6))) problems.push(`${where}: unknown split in subject "${c.subject}"`);
-      } else if (c.subject !== "family") {
-        problems.push(`${where}: subject must be "family", "version:<label>" or "split:<label>/<name>"`);
-      }
-      if (["maintainer", "released_on", "task_count"].includes(c.field)) {
-        problems.push(`${where}: "${c.field}" is a structured field; set it on the benchmark, version or split instead`);
-      }
-      checkEvidence(where, c.evidence, published);
-    }
-
-    dupes(at, "citation id", b.citations.map((c) => c.id));
-    for (const c of b.citations) {
-      const where = `${at}: citation ${c.id}`;
-      if (!orgs.has(c.org)) problems.push(`${where}: unknown organization "${c.org}"`);
-      if (c.model && !modelSet.has(c.model)) problems.push(`${where}: unknown model "${c.model}" (add it to models.yaml)`);
-      if (c.version && !labels.has(c.version)) problems.push(`${where}: unknown version "${c.version}"`);
-      checkEvidence(where, c.evidence, published);
-    }
-    // The database deduplicates citations of one experiment; catch it here with a clearer message.
-    dupes(
-      at,
-      "citation (same org, model, version, kind and date)",
-      b.citations.map((c) => [c.org, c.model ?? "-", c.version ?? "-", c.kind, c.cited_on].join(" | ")),
-    );
-
-    dupes(at, "audit id", b.audits.map((a) => a.id));
-    for (const a of b.audits) {
-      const where = `${at}: audit ${a.id}`;
-      if (a.version && !labels.has(a.version)) problems.push(`${where}: unknown version "${a.version}"`);
-      checkEvidence(where, a.evidence, published);
-    }
-  }
-
-  const familyBySlug = new Map(benchmarks.map((b) => [b.data.slug, b.data]));
-  for (const { path, data: r } of runs) {
-    const at = rel(path);
-    const fam = familyBySlug.get(r.benchmark.family);
-    const ver = fam?.versions.find((v) => v.label === r.benchmark.version);
-    if (!fam) problems.push(`${at}: unknown benchmark family "${r.benchmark.family}"`);
-    else if (!ver) problems.push(`${at}: ${r.benchmark.family} has no version "${r.benchmark.version}"`);
-    else if (r.benchmark.split !== null && !ver.splits.some((s) => s.name === r.benchmark.split)) {
-      problems.push(`${at}: ${r.benchmark.family}@${r.benchmark.version} has no split "${r.benchmark.split}"`);
-    }
-    if (!modelSet.has(r.model.slug)) problems.push(`${at}: unknown model "${r.model.slug}"`);
-    if (!orgs.has(r.evaluator)) problems.push(`${at}: unknown evaluator "${r.evaluator}"`);
+    if (!index.models.has(r.model.model_id)) problems.push(`${where}: unknown model_id "${r.model.model_id}" (add it to models.csv)`);
+    if (!index.organizations.has(r.evaluator)) problems.push(`${where}: unknown evaluator "${r.evaluator}"`);
     for (const o of r.outcomes) {
-      const m = metricById.get(o.metric);
-      if (!m) problems.push(`${at}: unknown metric "${o.metric}"`);
-      else if (m.scope !== "evaluation") problems.push(`${at}: metric "${o.metric}" is not an evaluation metric`);
+      const m = index.metric_definitions.get(o.metric);
+      if (!m) problems.push(`${where}: unknown metric "${o.metric}"`);
+      else if (m.scope !== "evaluation") problems.push(`${where}: metric "${o.metric}" is not an evaluation metric`);
     }
-    dupes(at, "outcome metric", r.outcomes.map((o) => o.metric));
-    if (r.status !== "completed" && r.outcomes.length > 0 && r.status !== "incomplete") {
-      problems.push(`${at}: only completed or incomplete runs can carry outcomes`);
+    if (new Set(r.outcomes.map((o) => o.metric)).size !== r.outcomes.length) problems.push(`${where}: duplicate outcome metric`);
+    if (r.outcomes.length && r.status !== "completed" && r.status !== "incomplete") {
+      problems.push(`${where}: only completed or incomplete runs can carry outcomes`);
+    }
+    runs.push(r);
+  }
+
+  /* ---------- manifest ---------- */
+
+  let manifestMeta = DEFAULT_META;
+  if (opts.checkManifest !== false) {
+    try {
+      const current = JSON.parse(await readFile(join(root, "manifest.json"), "utf8"));
+      manifestMeta = { schema_version: current.schema_version, research_date: current.research_date, package_status: current.package_status };
+      if (!problems.length && canonicalJson(current) !== canonicalJson(buildManifest(rows, manifestMeta))) {
+        problems.push("research/manifest.json is out of date — run `npm run registry:manifest`");
+      }
+    } catch (e) {
+      problems.push(`research/manifest.json: ${(e as NodeJS.ErrnoException).code === "ENOENT" ? "missing — run `npm run registry:manifest`" : (e as Error).message}`);
     }
   }
 
   if (problems.length) throw new ValidationError(problems);
-
-  return {
-    organizations,
-    capabilities,
-    licenses,
-    metrics,
-    models,
-    sources,
-    benchmarks: benchmarks.map((b) => b.data),
-    runs: runs.map((r) => r.data),
-  };
+  return { rows, runs, manifestMeta };
 }

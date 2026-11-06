@@ -2,6 +2,7 @@
  * Benchmark registry CLI.
  *
  *   npm run registry:validate              Check research/ against the contract. No database needed.
+ *   npm run registry:manifest              Regenerate research/manifest.json from the files.
  *   npm run registry:migrate               Apply db/migrations (admin connection; run by a person, never in CI/Vercel).
  *   npm run registry:check-access          Show what the importer role can reach outside the benchmarks schema.
  *   npm run registry:import -- --dry-run   Validate, write inside a transaction, report, roll back.
@@ -12,9 +13,11 @@
  *   BENCHMARKS_DATABASE_URL    login role inheriting benchmarks_writer — import and check-access.
  */
 import { execFileSync } from "node:child_process";
-import { resolve } from "node:path";
+import { writeFile } from "node:fs/promises";
+import { join, resolve } from "node:path";
 import postgres from "postgres";
 import { assertIsolated, reachableOutsideBenchmarks } from "./access.ts";
+import { buildManifest } from "./contract.ts";
 import { loadResearch, ValidationError } from "./load.ts";
 import { migrate } from "./migrate.ts";
 import { importResearch } from "./write.ts";
@@ -70,16 +73,33 @@ async function main() {
     return;
   }
 
+  if (command === "manifest") {
+    const bundle = await loadResearch(RESEARCH_DIR, { checkManifest: false });
+    let meta = bundle.manifestMeta;
+    try {
+      const { readFile } = await import("node:fs/promises");
+      const prior = JSON.parse(await readFile(join(RESEARCH_DIR, "manifest.json"), "utf8"));
+      meta = { schema_version: prior.schema_version, research_date: prior.research_date, package_status: prior.package_status };
+    } catch {
+      // first manifest: defaults
+    }
+    await writeFile(join(RESEARCH_DIR, "manifest.json"), JSON.stringify(buildManifest(bundle.rows, meta), null, 2) + "\n");
+    console.log("✓ research/manifest.json regenerated");
+    return;
+  }
+
   if (command !== "validate" && command !== "import") {
-    console.error("usage: cli.ts validate | migrate | check-access | import [--dry-run] [--allow-dirty]");
+    console.error("usage: cli.ts validate | manifest | migrate | check-access | import [--dry-run] [--allow-dirty]");
     process.exit(2);
   }
 
   const bundle = await loadResearch(RESEARCH_DIR);
-  const published = bundle.benchmarks.filter((b) => b.review_state === "published").length;
+  const R = bundle.rows;
+  const published = R.benchmarks.filter((b) => b.review_state === "published").length;
   console.log(
-    `✓ research valid: ${bundle.benchmarks.length} benchmark families (${published} published), ` +
-      `${bundle.sources.length} sources, ${bundle.organizations.length} organizations, ${bundle.runs.length} runs`,
+    `✓ research valid: ${R.benchmarks.length} registry entries (${published} published), ${R.versions.length} versions, ` +
+      `${R.sources.length} sources, ${R.claims.length} claims, ${R.claim_evidence.length} evidence links, ${R.audits.length} audits, ` +
+      `${R.research_gaps.length} gaps, ${bundle.runs.length} runs`,
   );
   if (command === "validate") return;
 

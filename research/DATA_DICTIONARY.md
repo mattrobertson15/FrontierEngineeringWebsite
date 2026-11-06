@@ -53,3 +53,46 @@ This is a relational research-staging package. `manifest.json` enumerates every 
 ## research_gaps
 
 `gap_id`, `benchmark_id`: work item identity and subject. `priority`: P0 before publication, P1 follow-up. `gap_type`: editorial category of missing evidence. `status=open`: unresolved. `next_action`: concrete collection or reconciliation work. This table does not enumerate every empty field on all 35 profiles; registry_only entries still require the full research template.
+
+## Additions in v0.2 (import into the site database)
+
+Version 0.2 makes this package the editorial master. Batch 0.1 files are unchanged except as noted.
+
+**Added columns**
+
+- `benchmarks.maintenance_status`: active, unmaintained, superseded, deprecated or unknown. Blank means
+  not established. A value needs a `maintenance_notice` or `maintenance_status` claim. METR Time
+  Horizons is `unmaintained`, backed by c_054.
+- `benchmarks.review_state`: draft, in_review, published or retracted. `benchmarks.reviewed_on`: the
+  date an editor approved publication. Publishing rules are in `README.md`.
+- `claim_evidence.excerpt`: verbatim text, ≤ 500 characters. Required when `capture_kind = quotation`.
+  Blank for paraphrases.
+
+**Widened vocabularies**
+
+- `benchmarks.research_priority` adds `backlog` for entries kept in the registry but not yet researched.
+- `benchmarks.entity_kind` also accepts `unclassified`, until identity is checked.
+- `benchmarks.editorial_track`, `primary_source_id`, `summary` and `checked_on` may be blank while
+  `identity_status = not_checked`. `primary_source_located` requires a primary source.
+
+**Added tables** (reference data and mappings the site needs)
+
+- `organizations`: `org_id`, `name`, `type`, `website`. A source's `publisher` or an audit's `auditor`
+  is linked to an organization when its name matches exactly. Otherwise the name is kept as text.
+- `capabilities`, `benchmark_capabilities`: the capability/domain taxonomy and each entry's tags. At
+  most one tag per entry is primary.
+- `benchmark_aliases`: other names that resolve to one entry. Unique, case-insensitively, across all names.
+- `licenses`, `metric_definitions`, `models`: reference data. Metric IDs in `metric_snapshots.metric`
+  must exist in `metric_definitions`.
+- `splits`: named splits of a version, only when a source names them. `task_count` needs a `source_id`.
+- `citations`: one organization citing a benchmark in one experiment (`citation_kind`: mention,
+  explicit_adoption, score_report, reproduction, audit, frontier_run). `cited_on` may be `YYYY` or
+  `YYYY-MM`. Evidence comes from its `claim_id`. A mirrored report of the same experiment is the same
+  citation.
+
+**How rows become database records**
+
+- Each source becomes one immutable snapshot per (`checked_on`, `content_hash`). Capturing a hash later
+  adds a snapshot. Document type is set only when evident from the URL (GitHub repository, arXiv paper).
+- Facts carried on a row (a version's `release_date`/`task_count`, a split's `task_count`, a
+  relationship) are imported as claims whose evidence is the row's `source_id` at that source's `locator`.
