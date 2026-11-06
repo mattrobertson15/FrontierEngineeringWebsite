@@ -1,0 +1,4 @@
+"relationship_id","from_benchmark_id","relationship_type","to_benchmark_id","source_id"
+"rel_1","swe-bench-verified","variant_of","swe-bench","s_swe"
+"rel_2","swe-bench-multilingual","variant_of","swe-bench","s_swe"
+"rel_3","swe-bench-multimodal","variant_of","swe-bench","s_swe"
