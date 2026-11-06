@@ -4,6 +4,8 @@ export const caseStudiesHref = "/case-studies";
 
 export const careersHref = "/careers";
 
+export const benchmarksHref = "/benchmarks";
+
 /** Candidates write here; job applications stay out of the client contact form. */
 export const careersEmail = "info@frontier-engineering.ai";
 

@@ -1,0 +1,10 @@
+# Draft stub from the kickoff research list. Nothing here is verified yet.
+# Research note: Listed as 'τ-bench family': record each member as a version or a separate family once verified.
+slug: tau-bench
+name: "τ-bench"
+kind: unclassified
+profile_depth: detailed
+research_priority: high
+review_state: draft
+aliases: ["tau-bench"]
+capabilities: [tool-calling, multi-turn-interaction, customer-service]

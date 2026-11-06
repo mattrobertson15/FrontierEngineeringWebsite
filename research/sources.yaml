@@ -1,0 +1,12 @@
+# Every source that evidence points at. Record each time you read it as a snapshot:
+#   - key: swe-bench-paper            # lowercase, '-' and '.'; referenced from evidence
+#     url: https://arxiv.org/abs/...
+#     title: "..."
+#     kind: paper                     # paper | model_card | system_card | blog_post | leaderboard | repository | dataset_card | documentation | news | other
+#     publisher: openai               # optional organization slug
+#     published_on: "2023-10"         # optional; YYYY, YYYY-MM or YYYY-MM-DD
+#     snapshots:
+#       - retrieved_at: 2026-11-06T15:00:00Z
+#         archive_url: https://web.archive.org/...   # optional
+#         content_hash: <sha256>                     # optional
+[]

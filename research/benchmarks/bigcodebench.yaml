@@ -1,0 +1,8 @@
+# Draft stub from the kickoff research list. Nothing here is verified yet.
+slug: bigcodebench
+name: "BigCodeBench"
+kind: unclassified
+profile_depth: registry
+research_priority: medium
+review_state: draft
+capabilities: [code-generation]

@@ -1,0 +1,9 @@
+# Draft stub from the kickoff research list. Nothing here is verified yet.
+# Research note: May be a framework rather than a benchmark; classify kind accordingly.
+slug: browsergym
+name: "BrowserGym"
+kind: unclassified
+profile_depth: registry
+research_priority: medium
+review_state: draft
+capabilities: [web-navigation]

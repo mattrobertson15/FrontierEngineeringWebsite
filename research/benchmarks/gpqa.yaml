@@ -1,0 +1,9 @@
+# Draft stub from the kickoff research list. Nothing here is verified yet.
+# Research note: Diamond is a subset: model it as a split or version, not a separate family, unless sources say otherwise.
+slug: gpqa
+name: "GPQA"
+kind: unclassified
+profile_depth: registry
+research_priority: low
+review_state: draft
+capabilities: [reasoning, scientific-research]

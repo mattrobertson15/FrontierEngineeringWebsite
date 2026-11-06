@@ -1,0 +1,91 @@
+# Research template — copy to research/benchmarks/<slug>.yaml (files starting with "_" are ignored).
+#
+# Rules (see research/README.md):
+#   * Facts carry evidence. A fact is { value, status, evidence[] }, or null when unknown.
+#     Never write 0, "", or a guess for something you don't know.
+#   * status: verified (we checked it independently) | reported (the publisher says so) |
+#             estimated (derived; say how in the claim) | unverified (not yet checked).
+#   * Drafts may be incomplete. Setting review_state: published requires a classified kind,
+#     a summary, reviewed_on, last_verified_on, and supporting evidence on every fact and claim.
+#   * Quote version labels ("1.0") — YAML reads 1.0 as the number 1.
+#   * Dates are "YYYY", "YYYY-MM" or "YYYY-MM-DD" at the precision the source gives. Don't invent days.
+
+slug: example-bench                  # must match the file name
+name: ExampleBench
+kind: benchmark                      # benchmark | suite | framework | evaluation_study | index | unclassified
+summary: >-                          # ≤ 280 chars, plain language, editorial — keep numbers out of it
+  What it tests and why someone would care, in one or two sentences.
+description: >-                      # optional, longer editorial copy
+  ...
+maintainer:                          # organization slug from organizations.yaml, or null
+  value: example-org
+  status: reported
+  evidence:
+    - source: example-bench-paper    # key in sources.yaml
+      locator: "Author list, p. 1"   # page / section / table / line
+      excerpt: "..."                 # optional, ≤ 500 chars
+status: active                       # active | unmaintained | superseded | deprecated | unknown
+profile_depth: registry              # registry (directory row) | detailed (full profile page)
+research_priority: medium            # high | medium | low
+review_state: draft                  # draft | in_review | published | retracted
+reviewed_on: null                    # YYYY-MM-DD, set when publishing
+last_verified_on: null               # YYYY-MM-DD, when the facts were last checked against sources
+
+aliases: [ExBench]                   # other names that should resolve here (unique across families)
+capabilities: [coding, software-engineering]   # first one is primary
+
+relationships:                       # only relationships stated by a source; never infer from names
+  - { kind: variant_of, target: other-bench, notes: "..." }
+
+resources:
+  - { kind: paper, url: "https://arxiv.org/abs/0000.00000" }
+  - { kind: repository, url: "https://github.com/example/bench", license: mit }
+  - { kind: dataset, url: "https://huggingface.co/datasets/example/bench", version: "1.0", access: "Gated: accept terms" }
+
+versions:
+  - label: "1.0"
+    default: true
+    released_on:
+      value: "2025-03"
+      status: reported
+      evidence: [{ source: example-bench-paper, locator: "Abstract" }]
+    harness_commit: null
+    splits:
+      - name: test
+        visibility: public           # public | semi_private | private | unknown
+        task_count:
+          value: 500
+          status: reported
+          evidence: [{ source: example-bench-paper, locator: "Table 1" }]
+
+claims:                              # any other factual assertion: baselines, contamination, funding…
+  - id: human-baseline
+    field: human_baseline            # snake_case; what kind of fact this is
+    subject: family                  # family | version:<label> | split:<label>/<name>
+    statement: Expert annotators solved 72% of tasks.
+    value: 72
+    unit: percent
+    status: reported
+    evidence: [{ source: example-bench-paper, locator: "Section 4.2" }]
+
+citations:                           # one entry per experiment; mirrors of the same report = more evidence, not more citations
+  - id: example-lab-model-x
+    org: example-lab
+    kind: score_report               # mention | explicit_adoption | score_report | reproduction | audit | frontier_run
+    model: model-x                   # slug in models.yaml (optional)
+    version: "1.0"                   # optional
+    cited_on: "2026-05"
+    status: reported
+    evidence: [{ source: model-x-system-card, locator: "Table 3, row 'ExampleBench'" }]
+
+audits:
+  - id: grading-errors
+    title: Mis-graded tasks
+    issue: Some reference tests accept incorrect patches.
+    severity: medium                 # low | medium | high | critical
+    version: "1.0"
+    affected_tasks: 12
+    resolution: open                 # open | acknowledged | resolved | wont_fix | disputed
+    reported_on: "2026-01"
+    status: reported
+    evidence: [{ source: audit-blog-post, locator: "Findings" }]
