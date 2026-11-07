@@ -148,15 +148,26 @@ export function PageHero({
   title,
   lede,
   aside,
+  back,
 }: {
   eyebrow: string;
   title: ReactNode;
   lede: ReactNode;
   aside?: ReactNode;
+  /** Link back to the parent listing, shown above the eyebrow. */
+  back?: { href: string; label: string };
 }) {
   if (!aside) {
     return (
-      <Container className="flex flex-col gap-6 pt-24 pb-18">
+      <Container className={`flex flex-col gap-6 pb-18 ${back ? "pt-10" : "pt-24"}`}>
+        {back && (
+          <Link
+            href={back.href}
+            className="mb-8 inline-flex min-h-11 items-center self-start text-[15px] font-medium text-ink-2 hover:text-accent-ink"
+          >
+            ← {back.label}
+          </Link>
+        )}
         <Eyebrow>{eyebrow}</Eyebrow>
         <H1 className="max-w-[17ch]">{title}</H1>
         <Lede className="max-w-[58ch]">{lede}</Lede>
