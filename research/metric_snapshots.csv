@@ -1,0 +1,5 @@
+"snapshot_id","benchmark_id","metric","value","value_display","precision","source_id","observed_on"
+"ms_1","deepswe","github_stars","1900","1.9k","rounded","s_deep_repo","2026-11-06"
+"ms_2","deepswe","github_forks","131","131","displayed_integer","s_deep_repo","2026-11-06"
+"ms_3","workarena","github_stars","281","281","displayed_integer","s_workarena","2026-11-06"
+"ms_4","the-agent-company","github_stars","812","812","displayed_integer","s_company","2026-11-06"

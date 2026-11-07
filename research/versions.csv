@@ -1,0 +1,5 @@
+"version_id","benchmark_id","version_label","release_date","date_basis","task_count","source_id","revision_hash","pin_status"
+"deepswe-v1.1","deepswe","v1.1","2026-06-14","announcement","113","s_deep_v11",,"label_only"
+"terminal-bench-4.0.0","terminal-bench","4.0.0",,,,"s_tb_run",,"label_only"
+"bfcl-v4","bfcl","V4",,,,"s_bfcl","f7cf735","source_short_commit"
+"metr-th1.1","metr-time-horizons","1.1",,,,"s_metr",,"label_only"

@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
-import { careersHref, caseStudiesHref, offerings, practices, researchHref, siteUrl } from "@/lib/site";
+import { benchmarksHref, careersHref, caseStudiesHref, offerings, practices, researchHref, siteUrl } from "@/lib/site";
 import { caseStudies } from "@/content/case-studies";
+import { benchmarks, benchmarksLaunched } from "@/content/benchmarks";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -11,5 +12,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}${caseStudiesHref}`, priority: 0.7 },
     ...caseStudies.map((c) => ({ url: `${siteUrl}${caseStudiesHref}/${c.slug}`, priority: 0.6 })),
     { url: `${siteUrl}${careersHref}`, priority: 0.5 },
+    ...(benchmarksLaunched
+      ? [
+          { url: `${siteUrl}${benchmarksHref}`, priority: 0.7 },
+          ...benchmarks.map((b) => ({ url: `${siteUrl}${benchmarksHref}/${b.slug}`, priority: 0.5 })),
+        ]
+      : []),
   ];
 }

@@ -6,14 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "registry:validate": "node scripts/registry/cli.ts validate",
+    "registry:import": "node --env-file-if-exists=.env.local scripts/registry/cli.ts import",
+    "test:registry": "node --test \"scripts/registry/**/*.test.ts\"",
+    "registry:migrate": "node --env-file-if-exists=.env.local scripts/registry/cli.ts migrate",
+    "registry:check-access": "node --env-file-if-exists=.env.local scripts/registry/cli.ts check-access",
+    "registry:manifest": "node scripts/registry/cli.ts manifest"
   },
   "dependencies": {
     "geist": "^1.8.2",
     "next": "16.4.3",
+    "postgres": "^4.1.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "resend": "^6.35.0"
+    "resend": "^6.35.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",

@@ -1,0 +1,57 @@
+"claim_id","benchmark_id","version_id","predicate","value","value_type","unit","verification_status","checked_on","notes"
+"c_001","deepswe",,"scope_summary","Original long-horizon repository engineering tasks.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_002","terminal-bench",,"scope_summary","Measures agents completing tasks through a terminal.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_003","swe-bench-verified",,"scope_summary","Human-filtered subset of SWE-bench.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_004","swe-bench-pro",,"scope_summary","Evaluates difficult repository-based engineering tasks.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_005","swe-lancer",,"scope_summary","Freelance engineering and engineering-management tasks.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_006","osworld",,"scope_summary","Execution-based evaluation of computer-use tasks.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_007","bfcl",,"scope_summary","Evaluates function calling and agentic tool use.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_008","tau-bench",,"scope_summary","Benchmarks tool-agent-user interactions in realistic domains.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_009","webarena",,"scope_summary","Realistic web environments for evaluating autonomous agents.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_010","apex-agents",,"scope_summary","Cross-application professional work in banking, consulting and law.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_011","gdpval",,"scope_summary","Economically valuable work across professional occupations.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_012","the-agent-company",,"scope_summary","Agent tasks in a simulated software company.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_013","swe-bench-multilingual",,"scope_summary","Repository issue resolution across multiple programming languages.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_014","swe-bench-multimodal",,"scope_summary","SWE-bench variant with multimodal issue context.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_015","swe-rebench",,"scope_summary","Continuously collected software-engineering evaluation tasks.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_016","swe-bench-live",,"scope_summary","Live software-engineering benchmark project.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_017","livecodebench",,"scope_summary","Dated contest problems for code generation and related capabilities.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_018","bigcodebench",,"scope_summary","Practical programming tasks with Full/Hard and Complete/Instruct settings.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_019","aider-polyglot",,"scope_summary","Coding exercises across several languages evaluated with Aider.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_020","browsergym",,"scope_summary","Gym environment for web task automation.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_021","visualwebarena",,"scope_summary","Benchmark for multimodal web agents.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_022","gaia",,"scope_summary","Benchmark project for general AI agents.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_023","webvoyager",,"scope_summary","Project evaluating an end-to-end multimodal web agent.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_024","agentdojo",,"scope_summary","Environment for evaluating attacks and defenses for LLM agents.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_025","toolbench",,"scope_summary","Platform for training and evaluating tool-using language models.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_026","workarena",,"scope_summary","Web-agent evaluation of common knowledge-work tasks.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_027","apex-swe",,"scope_summary","Professional engineering tasks involving observability and integration.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_028","apex-accounting",,"scope_summary","Accounting deliverables assessed against expert-written rubrics.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_029","apex-1",,"scope_summary","Single-turn professional deliverables across four occupations.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_030","officebench",,"scope_summary","Office automation evaluation across multiple applications.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_031","metr-time-horizons",,"scope_summary","Measures task duration at specified predicted agent success rates.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_032","re-bench",,"scope_summary","METR RE-Bench research evaluation repository.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_033","hcast",,"scope_summary","Human-calibrated autonomy software tasks.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_034","cybergym",,"scope_summary","Agent evaluation on real-world vulnerability analysis tasks.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_035","agentbench",,"scope_summary","Evaluation of language models acting as agents.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_036","swe-bench",,"scope_summary","Family of repository issue-resolution benchmarks.","text",,"reported","2026-11-06","Editorial paraphrase; identity check is not methodology validation."
+"c_037","deepswe","deepswe-v1.1","task_count","113","number","tasks","reported","2026-11-06",
+"c_038","deepswe",,"repository_count","91","number","repositories","reported","2026-11-06",
+"c_039","deepswe",,"language_count","5","number","languages","reported","2026-11-06",
+"c_040","deepswe",,"repository_license_label","Apache-2.0","text",,"reported","2026-11-06","Underlying task repositories may carry separate licenses."
+"c_041","deepswe","deepswe-v1.1","grading_change","v1.1 grades committed patches in a separate clean container.","text",,"reported","2026-11-06",
+"c_042","deepswe",,"leaderboard_execution","Pier running mini-swe-agent on Modal","text",,"reported","2026-11-06",
+"c_043","terminal-bench","terminal-bench-4.0.0","version_label","4.0.0","text",,"reported","2026-11-06",
+"c_044","terminal-bench","terminal-bench-4.0.0","gpu_requirement","Official run instructions require a GPU-capable sandbox.","text",,"reported","2026-11-06",
+"c_045","terminal-bench","terminal-bench-4.0.0","leaderboard_metrics","Resolution rate, cost and tokens; score whiskers indicate 95% confidence intervals.","text",,"reported","2026-11-06",
+"c_046","swe-bench-verified",,"task_count","500","number","tasks","reported","2026-11-06",
+"c_047","swe-bench-multilingual",,"task_count","300","number","tasks","reported","2026-11-06",
+"c_048","swe-bench-multilingual",,"language_count","9","number","languages","reported","2026-11-06",
+"c_049","gdpval",,"occupation_count","44","number","occupations","reported","2026-11-06",
+"c_050","bfcl","bfcl-v4","overall_aggregation","Unweighted average of subcategory accuracies","text",,"reported","2026-11-06",
+"c_051","bfcl","bfcl-v4","cost_basis","Estimated USD cost for the entire benchmark","text",,"reported","2026-11-06",
+"c_052","apex-agents",,"task_count","240","number","tasks","reported","2026-11-06","Unresolved scope/version difference with paper; do not promote to canonical task count."
+"c_053","apex-agents",,"task_count","480","number","tasks","reported","2026-11-06","Unresolved scope/version difference with webpage; do not promote to canonical task count."
+"c_054","metr-time-horizons",,"maintenance_notice","Page is no longer actively updated; last updated September 8 2026.","text",,"reported","2026-11-06",
+"c_055","deepswe","deepswe-v1.1","audit_verdict","Flawed","text",,"reported","2026-11-06","Epoch AI verdict; not a Frontier reproduction."
+"c_056","terminal-bench","terminal-bench-4.0.0","audit_verdict","Flawed","text",,"reported","2026-11-06","Version-specific Epoch AI verdict; current remediation not checked."
