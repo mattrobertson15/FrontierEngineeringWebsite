@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
 import { benchmarksHref, careersHref, caseStudiesHref, offerings, practices, researchHref, siteUrl } from "@/lib/site";
 import { caseStudies } from "@/content/case-studies";
-import { benchmarks, benchmarksLaunched } from "@/content/benchmarks";
+import { getPublishedSlugs } from "@/lib/benchmarks/data";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const benchmarkSlugs = await getPublishedSlugs();
   return [
     { url: siteUrl, priority: 1 },
     ...offerings.map((o) => ({ url: `${siteUrl}${o.href}`, priority: 0.9 })),
@@ -11,12 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${siteUrl}${researchHref}`, priority: 0.7 },
     { url: `${siteUrl}${caseStudiesHref}`, priority: 0.7 },
     ...caseStudies.map((c) => ({ url: `${siteUrl}${caseStudiesHref}/${c.slug}`, priority: 0.6 })),
+    { url: `${siteUrl}${benchmarksHref}`, priority: 0.7 },
+    ...benchmarkSlugs.map((slug) => ({ url: `${siteUrl}${benchmarksHref}/${slug}`, priority: 0.5 })),
     { url: `${siteUrl}${careersHref}`, priority: 0.5 },
-    ...(benchmarksLaunched
-      ? [
-          { url: `${siteUrl}${benchmarksHref}`, priority: 0.7 },
-          ...benchmarks.map((b) => ({ url: `${siteUrl}${benchmarksHref}/${b.slug}`, priority: 0.5 })),
-        ]
-      : []),
   ];
 }

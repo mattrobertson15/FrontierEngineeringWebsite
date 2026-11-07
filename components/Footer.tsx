@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LogoMark } from "./Logo";
-import { careersHref, caseStudiesHref, offerings, practices, researchHref } from "@/lib/site";
+import { benchmarksHref, careersHref, caseStudiesHref, offerings, practices, researchHref } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -18,6 +18,9 @@ export function Footer() {
           ))}
           <Link href={researchHref} className="hover:text-paper">
             Research
+          </Link>
+          <Link href={benchmarksHref} className="hover:text-paper">
+            Benchmarks
           </Link>
           <Link href={caseStudiesHref} className="hover:text-paper">
             Case Studies
