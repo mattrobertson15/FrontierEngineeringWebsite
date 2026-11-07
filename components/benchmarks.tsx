@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { labs, type Lab, type Rating } from "@/content/benchmarks";
 
 /**
  * Collapsible section built on native <details>: keyboard and screen-reader accessible,
@@ -44,48 +43,12 @@ export function Chevron() {
   );
 }
 
-/** Muted placeholder for data that hasn't been pulled yet. */
+/** Muted marker for data we don't have. Unknown is shown as unknown, never as zero. */
 export function Pending({ children = "Pending" }: { children?: ReactNode }) {
   return <span className="font-mono text-[13px] font-normal text-muted">{children}</span>;
 }
 
-/** One row of dots, a filled dot per lab that reports this benchmark, in `labs` order. */
-export function LabDots({ reporting, size = "sm" }: { reporting: Lab[]; size?: "sm" | "md" }) {
-  const dot = size === "md" ? "size-3" : "size-2";
-  return (
-    <span
-      className="inline-flex items-center gap-1"
-      role="img"
-      aria-label={`${reporting.length} of ${labs.length} tracked labs report this benchmark`}
-    >
-      {labs.map((lab) => (
-        <span
-          key={lab}
-          title={lab}
-          className={`${dot} rounded-full ${reporting.includes(lab) ? "bg-accent" : "border border-line bg-surface"}`}
-        />
-      ))}
-    </span>
-  );
-}
-
-/** Three-step meter for an editorial rating; "Not yet reviewed" when null. */
-export function RatingMeter({ rating }: { rating: Rating }) {
-  if (rating === null) return <Pending>Not yet reviewed</Pending>;
-  const words = { 1: "Low", 2: "Medium", 3: "High" } as const;
-  return (
-    <span className="inline-flex items-center gap-3">
-      <span className="inline-flex gap-1" aria-hidden="true">
-        {[1, 2, 3].map((n) => (
-          <span key={n} className={`h-2 w-6 ${n <= rating ? "bg-accent" : "bg-line"}`} />
-        ))}
-      </span>
-      <span className="text-[15px] font-medium text-ink">{words[rating]}</span>
-    </span>
-  );
-}
-
-/** Small mono tag used for category and status. */
+/** Small mono tag used for track, kind and capability. */
 export function Tag({ children, tone = "accent" }: { children: ReactNode; tone?: "accent" | "muted" }) {
   return (
     <span

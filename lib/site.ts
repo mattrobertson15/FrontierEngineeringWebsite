@@ -41,6 +41,7 @@ export const navGroups = [
     children: [
       { href: researchHref, label: "Wharf Research", summary: "Thousands of attempts across models and agent harnesses." },
       { href: "/model-testing", label: "Model Testing & Evals", summary: "How we test models and harnesses before we choose a stack." },
+      { href: benchmarksHref, label: "Benchmark Directory", summary: "What each AI benchmark measures, with every fact sourced." },
     ],
   },
 ] as const;

@@ -3,58 +3,66 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { benchmarksHref, contactHref } from "@/lib/site";
+import { getProfile, getPublishedSlugs } from "@/lib/benchmarks/data";
 import {
-  assessmentAxes,
-  benchmark,
-  benchmarks,
-  benchmarksLaunched,
-  categories,
-  compact,
-  formatMonth,
-  labs,
-  labsReporting,
-  statuses,
-  type AssessmentAxis,
-} from "@/content/benchmarks";
-import { Expandable, LabDots, RatingMeter, Tag } from "@/components/benchmarks";
-import { ArrowLink, Container, CtaStrip, HairlineGrid, PageHero, StatGrid } from "@/components/ui";
+  factLabel,
+  formatDate,
+  kindLabels,
+  maintenanceLabels,
+  tracks,
+  verificationLabels,
+  type Fact,
+  type Profile,
+  type Source,
+} from "@/lib/benchmarks/types";
+import { Expandable, Pending, Tag } from "@/components/benchmarks";
+import { ArrowLink, Container, CtaStrip, PageHero, StatGrid } from "@/components/ui";
 
-export function generateStaticParams() {
-  return benchmarks.map((b) => ({ slug: b.slug }));
+/** Cache Components needs at least one param at build time, even before anything is published. */
+const NOTHING_PUBLISHED = "_none";
+
+export async function generateStaticParams() {
+  const slugs = await getPublishedSlugs();
+  return (slugs.length ? slugs : [NOTHING_PUBLISHED]).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/benchmarks/[slug]">): Promise<Metadata> {
-  const b = benchmark((await params).slug);
+  const b = await getProfile((await params).slug);
   if (!b) return {};
-  return {
-    title: `${b.name} — Benchmark Directory`,
-    description: b.summary,
-    robots: benchmarksLaunched ? undefined : { index: false, follow: false },
-  };
+  return { title: `${b.name} — Benchmark Directory`, description: b.summary };
 }
 
-const sections = [
-  { id: "overview", label: "Overview" },
-  { id: "methodology", label: "Methodology" },
-  { id: "adoption", label: "Lab adoption" },
-  { id: "assessment", label: "Our assessment" },
-  { id: "limitations", label: "Limitations" },
-  { id: "sources", label: "Sources" },
-] as const;
+const remediationLabels: Record<string, string> = {
+  not_checked: "Follow-up not yet checked",
+  open: "Open",
+  acknowledged: "Acknowledged by maintainers",
+  resolved: "Resolved",
+  wont_fix: "Won't fix",
+  disputed: "Disputed by maintainers",
+};
 
 export default async function BenchmarkPage({ params }: PageProps<"/benchmarks/[slug]">) {
-  const b = benchmark((await params).slug);
+  const b = await getProfile((await params).slug);
   if (!b) notFound();
 
-  const reporting = labsReporting(b);
-  const related = b.related.map((s) => benchmark(s)).filter((r) => r !== undefined);
-  const stars = compact(b.signals.githubStars);
-  const cites = compact(b.signals.paperCitations);
+  const tasks = b.facts.find((f) => f.field === "task_count" && !f.version)?.value ?? null;
+  const stars = b.githubStars;
+
+  const sections = [
+    { id: "overview", label: "Overview" },
+    { id: "facts", label: "Sourced facts" },
+    ...(b.versions.length ? [{ id: "versions", label: "Versions" }] : []),
+    { id: "adoption", label: "Adoption signals" },
+    { id: "audits", label: "Audits & limitations" },
+    ...(b.openGaps.length ? [{ id: "gaps", label: "Still being checked" }] : []),
+    { id: "sources", label: "Sources" },
+  ];
+  const num = (id: string) => sections.findIndex((s) => s.id === id) + 1;
 
   return (
     <>
       <PageHero
-        eyebrow={`Benchmark directory — ${categories[b.category]}`}
+        eyebrow={`Benchmark directory${b.track ? ` — ${tracks[b.track]}` : ""}`}
         title={b.name}
         lede={b.summary}
       />
@@ -62,15 +70,15 @@ export default async function BenchmarkPage({ params }: PageProps<"/benchmarks/[
       <Container className="pb-16">
         <StatGrid
           items={[
-            { label: "GITHUB STARS", value: stars ?? "Pending", small: !stars },
             {
-              label: b.signals.citationSource ? `CITATIONS · ${b.signals.citationSource.toUpperCase()}` : "PAPER CITATIONS",
-              value: cites ?? "Pending",
-              small: !cites,
+              label: "GITHUB STARS",
+              value: stars ? `${stars.rounded ? "≈" : ""}${stars.display}` : "Not measured",
+              small: !stars,
             },
-            { label: "LABS REPORTING", value: `${reporting.length} of ${labs.length}` },
-            { label: "RELEASED", value: formatMonth(b.released) },
-            { label: "STATUS", value: statuses[b.status], small: true },
+            { label: "TASKS", value: tasks ?? "Not established", small: !tasks },
+            { label: "SOURCED FACTS", value: String(b.facts.length) },
+            { label: "AUDITS", value: String(b.audits.length) },
+            { label: "LAST CHECKED", value: formatDate(b.checkedOn) ?? "Unknown", small: true },
           ]}
         />
       </Container>
@@ -94,184 +102,119 @@ export default async function BenchmarkPage({ params }: PageProps<"/benchmarks/[
           </nav>
 
           <div className="flex min-w-0 flex-col gap-20">
-            <Section id="overview" n={1} title="Overview">
-              <div className="grid gap-8 md:grid-cols-2">
-                <div className="flex flex-col gap-2">
-                  <SubLabel>What it measures</SubLabel>
-                  <p className="m-0 text-[18px] text-ink-2">{b.measures}</p>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <SubLabel>Why it&apos;s different</SubLabel>
-                  <p className="m-0 text-[18px] text-ink-2">{b.positioning}</p>
-                </div>
-              </div>
-              <p className="m-0 font-mono text-[13px] text-muted">
-                Maintained by {b.maintainer}
-                {b.fullName && <> · {b.fullName}</>}
-              </p>
+            <Section id="overview" n={num("overview")} title="Overview">
+              <Overview b={b} />
             </Section>
 
-            <Section id="methodology" n={2} title="Methodology">
-              <dl className="m-0 border-b border-line">
-                {(
-                  [
-                    ["Task format", b.methodology.format],
-                    ["Size", b.methodology.size],
-                    ["Scoring", b.methodology.scoring],
-                    ["Environment", b.methodology.environment],
-                    ["Contamination controls", b.methodology.contaminationControls],
-                  ] as const
-                ).map(([k, v]) => (
-                  <div key={k} className="grid gap-1 border-t border-line py-4 sm:grid-cols-[200px_1fr] sm:gap-6">
-                    <dt className="font-mono text-xs tracking-[0.08em] text-muted uppercase sm:pt-1">{k}</dt>
-                    <dd className="m-0 text-ink-2">{v}</dd>
-                  </div>
-                ))}
-              </dl>
-              {b.methodology.deepDive.length > 0 && (
-                <div>
-                  <SubLabel>Go deeper</SubLabel>
-                  <div className="mt-2">
-                    {b.methodology.deepDive.map((d) => (
-                      <Expandable key={d.title} title={d.title}>
-                        <p className="m-0">{d.body}</p>
-                      </Expandable>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </Section>
-
-            <Section id="adoption" n={3} title="Lab adoption">
-              <div className="flex flex-wrap items-center gap-4">
-                <LabDots reporting={reporting} size="md" />
-                <span className="text-ink-2">
-                  {reporting.length} of {labs.length} tracked frontier labs have reported a result.
-                </span>
-              </div>
-              <ul className="m-0 grid list-none grid-cols-2 gap-px border border-line bg-line p-0 sm:grid-cols-4">
-                {labs.map((lab) => {
-                  const n = b.labReports.filter((r) => r.lab === lab).length;
-                  return (
-                    <li key={lab} className="flex flex-col gap-1 bg-surface p-4">
-                      <span className="text-[15px] font-medium">{lab}</span>
-                      <span className={`font-mono text-[12px] ${n ? "text-accent-ink" : "text-muted"}`}>
-                        {n ? `${n} report${n > 1 ? "s" : ""}` : "None found"}
-                      </span>
-                    </li>
-                  );
-                })}
-              </ul>
-              {b.labReports.length === 0 ? (
-                <p className="m-0 border-l-2 border-accent pl-4 font-mono text-[13px] text-muted">
-                  Lab citation data is being collected for this benchmark.
-                </p>
-              ) : (
-                <Expandable title="Every reported result" meta={`${b.labReports.length} entries`}>
-                  <div className="overflow-x-auto">
-                    <table className="w-full min-w-[560px] border-collapse text-[15px]">
-                      <thead>
-                        <tr className="border-b border-ink text-left">
-                          {["Lab", "Model", "Score", "Source", "Date"].map((h) => (
-                            <th key={h} scope="col" className="py-2 pr-4 font-mono text-xs font-normal text-muted uppercase">
-                              {h}
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[...b.labReports]
-                          .sort((x, y) => y.date.localeCompare(x.date))
-                          .map((r, i) => (
-                            <tr key={i} className="border-b border-line">
-                              <td className="py-2.5 pr-4 font-medium text-ink">{r.lab}</td>
-                              <td className="py-2.5 pr-4">{r.model ?? "—"}</td>
-                              <td className="py-2.5 pr-4 font-mono">{r.score ?? "—"}</td>
-                              <td className="py-2.5 pr-4">
-                                <a href={r.url} target="_blank" rel="noopener noreferrer" className="text-ink hover:text-accent-ink">
-                                  {r.source} ↗
-                                </a>
-                              </td>
-                              <td className="py-2.5 font-mono text-[13px]">{formatMonth(r.date)}</td>
-                            </tr>
-                          ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </Expandable>
-              )}
-            </Section>
-
-            <Section id="assessment" n={4} title="Our assessment">
+            <Section id="facts" n={num("facts")} title="Sourced facts">
               <p className="m-0 max-w-[62ch] text-ink-2">
-                Our editorial read, kept separate from the measured signals above.
+                Each fact links to where it came from. <em>Reported</em> means the source says so; we haven&apos;t reproduced it.
               </p>
-              <dl className="m-0 border-b border-line">
-                {(Object.keys(assessmentAxes) as AssessmentAxis[]).map((axis) => (
-                  <div key={axis} className="grid gap-2 border-t border-line py-5 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-8">
-                    <dt className="flex flex-col gap-1">
-                      <span className="font-medium">{assessmentAxes[axis].label}</span>
-                      <span className="text-[15px] text-ink-2">{assessmentAxes[axis].help}</span>
-                    </dt>
-                    <dd className="m-0">
-                      <RatingMeter rating={b.assessment[axis]} />
-                    </dd>
-                  </div>
-                ))}
-              </dl>
+              <Facts facts={b.facts} />
             </Section>
 
-            <Section id="limitations" n={5} title="Limitations & critiques">
-              <div>
-                {b.limitations.map((l) => (
-                  <Expandable key={l.title} title={l.title}>
-                    <p className="m-0">{l.body}</p>
-                  </Expandable>
-                ))}
-              </div>
+            {b.versions.length > 0 && (
+              <Section id="versions" n={num("versions")} title="Versions">
+                <Table
+                  caption={`Known versions of ${b.name}`}
+                  head={["Version", "Released", "Tasks", "Pinned"]}
+                  rows={b.versions.map((v) => [
+                    <span key="l" className="font-medium text-ink">
+                      {v.label}
+                      {v.isDefault && <span className="ml-2 font-mono text-[12px] text-muted">default</span>}
+                    </span>,
+                    formatDate(v.releasedOn) ?? <Pending key="r">Unknown</Pending>,
+                    v.taskCount !== null ? new Intl.NumberFormat("en").format(v.taskCount) : <Pending key="t">Unknown</Pending>,
+                    v.pinned ? "Exact revision" : <Pending key="p">Not pinned</Pending>,
+                  ])}
+                />
+              </Section>
+            )}
+
+            <Section id="adoption" n={num("adoption")} title="Adoption signals">
+              {b.signals.length ? (
+                <Table
+                  caption={`Measured signals for ${b.name}`}
+                  head={["Signal", "Value", "As of"]}
+                  rows={b.signals.map((s) => [
+                    s.name,
+                    <span key="v" className="font-mono">
+                      {s.rounded ? "≈" : ""}
+                      {s.display}
+                    </span>,
+                    formatDate(s.observedOn),
+                  ])}
+                />
+              ) : (
+                <Note>No popularity measurements recorded yet.</Note>
+              )}
+              <Note>
+                Lab adoption (which frontier labs report results on {b.name}) is still being collected from original model
+                cards and launch posts. We won&apos;t show it until each report is sourced.
+              </Note>
             </Section>
 
-            <Section id="sources" n={6} title="Sources">
-              <ul className="m-0 flex list-none flex-wrap gap-3 p-0">
-                {Object.entries(b.links).map(([kind, url]) => (
-                  <li key={kind}>
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex min-h-11 items-center gap-2 border border-ink px-4 text-[15px] font-medium text-ink capitalize hover:bg-ink hover:text-paper"
+            <Section id="audits" n={num("audits")} title="Audits & limitations">
+              {b.audits.length ? (
+                <div>
+                  {b.audits.map((a, i) => (
+                    <Expandable
+                      key={i}
+                      title={`${a.auditor}${a.version ? ` — ${a.version}` : ""}`}
+                      meta={[a.verdict, formatDate(a.date)].filter(Boolean).join(" · ")}
+                      defaultOpen
                     >
-                      {kind} ↗
-                    </a>
-                  </li>
-                ))}
-              </ul>
+                      <div className="flex flex-col gap-3">
+                        {a.summary && <p className="m-0">{a.summary}</p>}
+                        {a.affectedTasks !== null && (
+                          <p className="m-0 font-mono text-[13px] text-muted">
+                            At least {a.affectedTasks}
+                            {a.reviewedTasks !== null && ` of ${a.reviewedTasks} reviewed`} tasks affected
+                          </p>
+                        )}
+                        <p className="m-0 font-mono text-[13px] text-muted">
+                          {remediationLabels[a.remediation] ?? a.remediation}
+                        </p>
+                      </div>
+                    </Expandable>
+                  ))}
+                </div>
+              ) : (
+                <Note>No independent audits of {b.name} recorded yet.</Note>
+              )}
+            </Section>
+
+            {b.openGaps.length > 0 && (
+              <Section id="gaps" n={num("gaps")} title="Still being checked">
+                <p className="m-0 max-w-[62ch] text-ink-2">
+                  Open research on this entry. Until it&apos;s done, these areas are missing from the profile rather than guessed.
+                </p>
+                <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
+                  {b.openGaps.map((g, i) => (
+                    <li key={i}>
+                      <Tag tone="muted">{g.label}</Tag>
+                    </li>
+                  ))}
+                </ul>
+              </Section>
+            )}
+
+            <Section id="sources" n={num("sources")} title="Sources">
+              {b.sources.length ? (
+                <ul className="m-0 flex list-none flex-col p-0">
+                  {b.sources.map((s) => (
+                    <li key={s.key} className="border-t border-line py-4 last:border-b">
+                      <SourceLink source={s} primary={s.key === b.primarySource?.key} />
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <Note>No sources recorded.</Note>
+              )}
             </Section>
           </div>
         </div>
       </Container>
-
-      {related.length > 0 && (
-        <section className="border-t border-line bg-surface">
-          <Container className="flex flex-col gap-8 py-20">
-            <SubLabel>Related benchmarks</SubLabel>
-            <HairlineGrid min={280} as="ul">
-              {related.map((r) => (
-                <li key={r.slug} className="flex">
-                  <Link href={`${benchmarksHref}/${r.slug}`} className="group flex flex-1 flex-col gap-3 bg-paper p-7 hover:bg-surface">
-                    <span className="flex flex-wrap gap-2">
-                      <Tag>{categories[r.category]}</Tag>
-                    </span>
-                    <span className="text-[20px] font-semibold group-hover:text-accent-ink">{r.name}</span>
-                    <span className="flex-1 text-[15px] text-ink-2">{r.summary}</span>
-                    <LabDots reporting={labsReporting(r)} />
-                  </Link>
-                </li>
-              ))}
-            </HairlineGrid>
-          </Container>
-        </section>
-      )}
 
       <Container className="py-10">
         <ArrowLink href={benchmarksHref}>All benchmarks</ArrowLink>
@@ -279,6 +222,145 @@ export default async function BenchmarkPage({ params }: PageProps<"/benchmarks/[
 
       <CtaStrip title="Benchmarks rank models. Your workload picks one." href={contactHref} label="Request a discovery call" />
     </>
+  );
+}
+
+function Overview({ b }: { b: Profile }) {
+  const rows: [string, ReactNode][] = [];
+  if (kindLabels[b.kind]) rows.push(["Type", kindLabels[b.kind]]);
+  if (b.relationships.length)
+    rows.push([
+      "Related",
+      <ul key="r" className="m-0 flex list-none flex-col gap-1 p-0">
+        {b.relationships.map((r) => (
+          <li key={`${r.label}-${r.slug}`}>
+            {r.label}{" "}
+            {r.published ? (
+              <Link href={`${benchmarksHref}/${r.slug}`} className="font-medium text-ink underline hover:text-accent-ink">
+                {r.name}
+              </Link>
+            ) : (
+              <span className="font-medium text-ink">{r.name}</span>
+            )}
+          </li>
+        ))}
+      </ul>,
+    ]);
+  if (b.aliases.length) rows.push(["Also known as", b.aliases.join(", ")]);
+  rows.push(["Maintenance", b.maintenance ? maintenanceLabels[b.maintenance] : <Pending key="m">Not established</Pending>]);
+
+  return (
+    <>
+      {b.capabilities.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <SubLabel>Capabilities measured</SubLabel>
+          <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
+            {b.capabilities.map((c) => (
+              <li key={c.slug}>
+                <Tag tone={c.primary ? "accent" : "muted"}>{c.name}</Tag>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <dl className="m-0 border-b border-line">
+        {rows.map(([k, v]) => (
+          <div key={k} className="grid gap-1 border-t border-line py-4 sm:grid-cols-[200px_1fr] sm:gap-6">
+            <dt className="font-mono text-xs tracking-[0.08em] text-muted uppercase sm:pt-1">{k}</dt>
+            <dd className="m-0 text-ink-2">{v}</dd>
+          </div>
+        ))}
+      </dl>
+      {b.reviewedOn && (
+        <p className="m-0 font-mono text-[13px] text-muted">Profile reviewed {formatDate(b.reviewedOn)}</p>
+      )}
+    </>
+  );
+}
+
+function Facts({ facts }: { facts: Fact[] }) {
+  if (!facts.length) return <Note>No sourced facts published yet.</Note>;
+  return (
+    <dl className="m-0 border-b border-line">
+      {facts.map((f, i) => {
+        const disputed = f.evidence.some((e) => e.role === "disputes");
+        return (
+          <div key={i} className="grid gap-2 border-t border-line py-5 sm:grid-cols-[200px_1fr] sm:gap-6">
+            <dt className="flex flex-col gap-1.5 sm:pt-1">
+              <span className="font-mono text-xs tracking-[0.08em] text-muted uppercase">{factLabel(f.field)}</span>
+              {f.version && <span className="font-mono text-[12px] text-muted">Version {f.version}</span>}
+            </dt>
+            <dd className="m-0 flex flex-col gap-2">
+              <span className="text-[17px] text-ink">{f.value}</span>
+              <span className="flex flex-wrap items-center gap-2">
+                <Tag tone={f.status === "verified" ? "accent" : "muted"}>{verificationLabels[f.status]}</Tag>
+                {disputed && <Tag>Disputed by another source</Tag>}
+              </span>
+              {f.evidence.map((e, j) => (
+                <span key={j} className="text-[14px] text-ink-2">
+                  {e.role === "disputes" ? "Disputed by " : e.role === "context" ? "Context: " : "Source: "}
+                  <a href={e.source.url} target="_blank" rel="noopener noreferrer" className="text-ink underline hover:text-accent-ink">
+                    {e.source.title} ↗
+                  </a>
+                  {e.locator && <span className="text-muted"> — {e.locator}</span>}
+                  {e.excerpt && <q className="mt-1 block text-ink-2 italic">{e.excerpt}</q>}
+                </span>
+              ))}
+            </dd>
+          </div>
+        );
+      })}
+    </dl>
+  );
+}
+
+function SourceLink({ source: s, primary }: { source: Source; primary: boolean }) {
+  return (
+    <div className="flex flex-col gap-1">
+      <a
+        href={s.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[17px] font-medium text-ink hover:text-accent-ink"
+      >
+        {s.title} ↗
+      </a>
+      <span className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[12px] text-muted">
+        {s.publisher && <span>{s.publisher}</span>}
+        {s.retrievedOn && <span>Read {formatDate(s.retrievedOn)}</span>}
+        {primary && <span className="text-accent-ink">Primary source</span>}
+      </span>
+    </div>
+  );
+}
+
+function Table({ caption, head, rows }: { caption: string; head: string[]; rows: ReactNode[][] }) {
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full min-w-[480px] border-collapse text-[15px]">
+        <caption className="sr-only">{caption}</caption>
+        <thead>
+          <tr className="border-b border-ink text-left">
+            {head.map((h) => (
+              <th key={h} scope="col" className="py-2 pr-4 font-mono text-xs font-normal text-muted uppercase">
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr key={i} className="border-b border-line">
+              {r.map((c, j) => (
+                <td key={j} className="py-2.5 pr-4 text-ink-2">
+                  {c}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
 
@@ -298,4 +380,8 @@ function Section({ id, n, title, children }: { id: string; n: number; title: str
 
 function SubLabel({ children }: { children: ReactNode }) {
   return <p className="m-0 font-mono text-xs tracking-[0.08em] text-muted uppercase">{children}</p>;
+}
+
+function Note({ children }: { children: ReactNode }) {
+  return <p className="m-0 border-l-2 border-accent pl-4 font-mono text-[13px] text-muted">{children}</p>;
 }

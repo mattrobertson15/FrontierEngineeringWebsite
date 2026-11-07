@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { contactHref } from "@/lib/site";
+import { benchmarksHref, contactHref } from "@/lib/site";
 import { CostQualityChart } from "@/components/CostQualityChart";
 import {
   passRate,
@@ -293,8 +293,9 @@ export default function WharfResearchPage() {
           <div className="flex flex-col gap-4">
             <Eyebrow>Limitations</Eyebrow>
             <H2>What these results don&apos;t tell you.</H2>
-            <div>
+            <div className="flex flex-col items-start">
               <ArrowLink href={wharfSource}>Code, raw data &amp; methodology on GitHub</ArrowLink>
+              <ArrowLink href={benchmarksHref}>How other benchmarks compare, in our benchmark directory</ArrowLink>
             </div>
           </div>
           <ul className="m-0 flex list-none flex-col border-b border-line p-0">

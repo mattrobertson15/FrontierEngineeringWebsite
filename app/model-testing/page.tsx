@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { researchHref } from "@/lib/site";
+import { benchmarksHref, researchHref } from "@/lib/site";
 import { passRate, pct, run, runs, taskCount, totalPlanned, usd, wharfDate } from "@/content/wharf";
 import {
   ArrowLink,
@@ -180,8 +180,9 @@ export default function ModelTestingPage() {
               </FeatureCard>
             ))}
           </HairlineGrid>
-          <div>
+          <div className="flex flex-wrap gap-x-8">
             <ArrowLink href={researchHref}>Read the full Wharf research</ArrowLink>
+            <ArrowLink href={benchmarksHref}>Browse the benchmark directory</ArrowLink>
           </div>
         </Container>
       </section>
