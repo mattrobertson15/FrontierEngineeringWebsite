@@ -21,6 +21,8 @@ import {
 } from "@/content/wharf-swe";
 import { HarnessDumbbell } from "@/components/wharf/HarnessDumbbell";
 import { RevisionChart, type Series } from "@/components/wharf/RevisionChart";
+import taskResults from "@/content/wharf-swe-task-results.json";
+import { TaskHeatmap, type TaskComparison } from "@/components/wharf/TaskHeatmap";
 import { SweTable } from "@/components/wharf/ResultTables";
 import { WharfSwitcher } from "@/components/wharf/WharfSwitcher";
 import {
@@ -69,6 +71,22 @@ const widest = crossHarness.reduce((a, b) => (gap(b) > gap(a) ? b : a));
 const [widestHigh, widestLow] = [...widest.runs].sort((a, b) => sweRate(b) - sweRate(a));
 const opusRow = crossHarness.find((r) => r.model === "Claude Opus 5.5");
 const opusOn = (h: HarnessKey) => opusRow?.runs.find((r) => r.harness === h);
+
+const outcomes: Record<string, { id: string; checksum: string | null; attempts: number; passes: number }[]> = taskResults;
+const taskComparisons = crossHarness.flatMap(({ model, runs }): TaskComparison[] => {
+  const copilot = runs.find((run) => run.harness === "copilot-cli");
+  const codex = runs.find((run) => run.harness === "codex");
+  if (!copilot || !codex) return [];
+
+  const tasks = sweTasks.flatMap((task) => {
+    const a = outcomes[copilot.id]?.find((result) => result.id === task.id);
+    const b = outcomes[codex.id]?.find((result) => result.id === task.id);
+    if (!a?.checksum || a.checksum !== b?.checksum || a.attempts !== 4 || b.attempts !== 4) return [];
+    return [{ id: task.id, title: task.title, attempts: a.attempts, copilot: a.passes, codex: b.passes }];
+  });
+  if (tasks.length !== sweTasks.length) return [];
+  return [{ model, copilotVersion: copilot.version, codexVersion: codex.version, tasks }];
+});
 
 /* ---------- across Copilot releases ---------- */
 
@@ -177,8 +195,12 @@ export default function WharfSwePage() {
                 <div className="grid grid-cols-[minmax(0,9rem)_1fr] gap-4 border-t border-line py-4">
                   <dt className="font-medium">Cost</dt>
                   <dd className="m-0 text-ink-2">
-                    A full run is about $15 and ten minutes, against roughly $547 and six hours for
-                    a comparable DeepSWE run — cheap enough to repeat on every harness release.
+                    In Wharf&apos;s published HydraFusion comparison, four attempts per task cost
+                    $15.01 and took about 9.5 minutes on WharfSWE. The DeepSWE run on Copilot 1.0.98
+                    recorded $546.71 in known cost and took about six hours.{" "}
+                    <a className="underline" href={`https://github.com/bartr/wharf/blob/${wharfSweCommit}/docs/RETRO.md#wharfswe-benchmark-net-coverage-at-a-fraction-of-the-cost`}>
+                      See the run comparison
+                    </a>.
                   </dd>
                 </div>
               </dl>
@@ -219,8 +241,8 @@ export default function WharfSwePage() {
             <Eyebrow>Across harnesses</Eyebrow>
             <H2>Same model, different harness.</H2>
             <p className="m-0 max-w-[60ch] text-ink-2">
-              Each row is one model at its newest run on every harness we tested it on. The rule
-              between the dots is the gap the harness alone appears to make.
+              Each row is one model at its newest run on every harness we tested it on. The line
+              between the dots shows the observed gap between configurations.
             </p>
           </div>
           <figure className="m-0 flex flex-col gap-3">
@@ -238,6 +260,21 @@ export default function WharfSwePage() {
           </figure>
         </Container>
       </section>
+
+      {taskComparisons.length > 0 && (
+        <section className="border-t border-line">
+          <Container className="flex flex-col gap-8 py-26">
+            <div className="flex flex-col gap-4">
+              <Eyebrow>By task</Eyebrow>
+              <H2>Which tasks did each configuration solve?</H2>
+              <p className="m-0 max-w-[60ch] text-ink-2">
+                Compare Copilot and Codex runs of the same model on identical task versions.
+              </p>
+            </div>
+            <TaskHeatmap comparisons={taskComparisons} />
+          </Container>
+        </section>
+      )}
 
       <section className="border-t border-line">
         <Container className="flex flex-col gap-10 py-26">

@@ -89,7 +89,7 @@ const method = [
 const limitations = [
   `These results describe ${taskCount} open-source coding tasks. Your workload may rank the same configurations differently — that's the point of testing on it.`,
   "Harness comparisons change more than one thing at once: the harness release, its prompts and its tools all differ.",
-  `Attempts on the same task are correlated. These runs do not isolate harness changes from run-to-run variation: Luna scored ${pct(passRate(luna))} and ${pct(passRate(run("copilot-gpt-5.6-luna-max-1.0.91")))} on consecutive Copilot releases.`,
+  `Attempts on the same task are correlated. These runs do not isolate harness changes from run-to-run variation: Luna scored ${pct(passRate(luna))} and ${pct(passRate(run("copilot-gpt-5.6-luna-max-1.0.91")))} on Copilot releases 1.0.77 and 1.0.91.`,
   `Cost is missing for some attempts — ${Math.round((1 - opus55.costCoverage) * 100)}% of the Opus 5.5 run and all of the Muse Spark run. Missing costs are excluded from averages, never counted as zero.`,
   "Regression counts cover attempts where existing tests could be measured. Unmeasured is unknown, not clean.",
   `Models and harnesses ship monthly. This is a ${wharfDate} snapshot.`,
@@ -135,23 +135,23 @@ export default function WharfResearchPage() {
         <Container className="flex flex-col gap-10 py-26">
           <div className="flex flex-col gap-4">
             <Eyebrow>Results</Eyebrow>
-            <H2>Quality against cost, every configuration.</H2>
+            <H2>Which configurations offer the most for their cost?</H2>
             <p className="m-0 max-w-[60ch] text-ink-2">
-              Each dot is a complete configuration — model, harness release and reasoning effort.
-              Up and to the left is better. The copper line joins Claude Opus 5 under two
-              harnesses.
+              Each dot is a model, harness release and reasoning effort. The copper line highlights
+              configurations where no other run was at least as accurate and cheaper, or more
+              accurate at the same cost.
             </p>
           </div>
           <figure className="m-0 flex flex-col gap-3">
-            <div className="overflow-x-auto border border-line bg-surface p-4">
+            <div className="border border-line bg-surface p-4">
               <CostQualityChart
                 runs={runs}
                 pair={[opusCopilot.id, opusClaudeCode.id]}
                 labels={[
-                  { id: luna.id, text: "GPT-5.6 Luna" },
+                  { id: luna.id, text: "GPT-5.6 Luna · 1.0.77" },
+                  { id: "copilot-gpt-5.6-luna-max-1.0.91", text: "GPT-5.6 Luna · 1.0.91", dy: 12 },
                   { id: opusCopilot.id, text: "Opus 5 · Copilot", anchor: "end" },
                   { id: opusClaudeCode.id, text: "Opus 5 · Claude Code", anchor: "end" },
-                  { id: auto.id, text: "Copilot Auto" },
                 ]}
               />
             </div>

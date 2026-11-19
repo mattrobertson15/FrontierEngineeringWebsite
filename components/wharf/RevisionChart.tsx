@@ -22,7 +22,10 @@ type Metric = {
   axis: string;
 };
 
-const mmss = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, "0")}`;
+const mmss = (s: number) => {
+  const seconds = Math.round(s);
+  return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+};
 
 const metrics: Metric[] = [
   {

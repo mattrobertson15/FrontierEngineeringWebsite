@@ -7,7 +7,7 @@
  * DeepSWE: content/wharf.ts is hand-curated (display names, run ids quoted by pages), so this
  * only checks it against docs/pass-at-1-vs-cost.csv and reports any drift to fix by hand.
  * WharfSWE: content/wharf-swe.json is generated in full from wharf-swe/data/manifest.json,
- * plus the Codex API-equivalent estimates from each Codex arm's JSONL.
+ * plus Codex API-equivalent estimates from the trial exports. Task outcomes are written separately.
  */
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
@@ -69,29 +69,68 @@ type ManifestArm = {
 const dataDir = join(repo, "wharf-swe/data");
 const manifest: ManifestArm[] = JSON.parse(readFileSync(join(dataDir, "manifest.json"), "utf8"));
 
-/** Mean API-equivalent estimate per trial; null unless every trial has one (no partial estimates). */
-function apiEstimate(arm: string): number | null {
-  const lines = readFileSync(join(dataDir, `${arm}.jsonl`), "utf8").trim().split("\n");
-  const values = lines.map((l) => JSON.parse(l).estimated_cost_usd as number | null | undefined);
-  if (values.some((v) => v == null)) return null;
-  return Number(((values as number[]).reduce((a, b) => a + b, 0) / values.length).toFixed(4));
+type Trial = {
+  task_id: string;
+  task_checksum?: string;
+  reward: number | null;
+  estimated_cost_usd?: number | null;
+};
+
+function readTrials(arm: string): Trial[] {
+  return readFileSync(join(dataDir, `${arm}.jsonl`), "utf8").trim().split("\n")
+    .map((line) => JSON.parse(line) as Trial);
 }
 
-const arms = manifest.map((m) => ({
-  id: m.arm,
-  model: m.model,
-  harness: m.cli,
-  version: m.cli_version,
-  effort: m.effort,
-  passes: m.passes,
-  trials: m.trials,
-  p2pErrors: m.p2p_errors,
-  score: Number(Number(m.score).toFixed(4)),
-  costPerTrial: m.cost_per_trial_usd,
-  costCoverage: m.trials ? Number((m.with_cost / m.trials).toFixed(4)) : 0,
-  apiEstimatePerTrial: m.cli === "codex" ? apiEstimate(m.arm) : null,
-  agentSeconds: m.average_agent_seconds,
-}));
+/** Mean API-equivalent estimate per trial; null unless every trial has one. */
+function apiEstimate(trials: Trial[]): number | null {
+  const values = trials.map((trial) => trial.estimated_cost_usd);
+  if (values.some((value) => value == null)) return null;
+  return Number((values.reduce<number>((sum, value) => sum + (value ?? 0), 0) / values.length).toFixed(4));
+}
+
+function taskResults(arm: ManifestArm, trials: Trial[]) {
+  const groups = new Map<string, Trial[]>();
+  for (const trial of trials) {
+    const group = groups.get(trial.task_id) ?? [];
+    group.push(trial);
+    groups.set(trial.task_id, group);
+  }
+  const tasks = [...groups].map(([id, rows]) => {
+    const checksum = rows[0].task_checksum;
+    return {
+      id,
+      checksum: checksum && rows.every((row) => row.task_checksum === checksum) ? checksum : null,
+      attempts: rows.length,
+      passes: rows.filter((row) => (row.reward ?? 0) > 0).length,
+    };
+  });
+  if (trials.length !== arm.trials || tasks.length !== arm.tasks ||
+      tasks.reduce((sum, task) => sum + task.passes, 0) !== arm.passes) {
+    throw new Error(`Trial outcomes do not match manifest for ${arm.arm}`);
+  }
+  return tasks;
+}
+
+const tasksByArm: Record<string, ReturnType<typeof taskResults>> = {};
+const arms = manifest.map((m) => {
+  const trials = readTrials(m.arm);
+  tasksByArm[m.arm] = taskResults(m, trials);
+  return {
+    id: m.arm,
+    model: m.model,
+    harness: m.cli,
+    version: m.cli_version,
+    effort: m.effort,
+    passes: m.passes,
+    trials: m.trials,
+    p2pErrors: m.p2p_errors,
+    score: Number(Number(m.score).toFixed(4)),
+    costPerTrial: m.cost_per_trial_usd,
+    costCoverage: m.trials ? Number((m.with_cost / m.trials).toFixed(4)) : 0,
+    apiEstimatePerTrial: m.cli === "codex" ? apiEstimate(trials) : null,
+    agentSeconds: m.average_agent_seconds,
+  };
+});
 
 const out = {
   source: "https://github.com/bartr/wharf/tree/main/wharf-swe",
@@ -102,6 +141,9 @@ const out = {
 };
 const outPath = new URL("../../content/wharf-swe.json", import.meta.url);
 writeFileSync(outPath, JSON.stringify(out, null, 2) + "\n");
+
+const taskPath = new URL("../../content/wharf-swe-task-results.json", import.meta.url);
+writeFileSync(taskPath, JSON.stringify(tasksByArm, null, 2) + "\n");
 
 console.log(`Wharf @ ${commit} (${commitDate})`);
 console.log(`WharfSWE: wrote ${arms.length} arms to content/wharf-swe.json`);
