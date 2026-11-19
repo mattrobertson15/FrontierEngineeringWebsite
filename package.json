@@ -12,11 +12,12 @@
     "test:registry": "node --test \"scripts/registry/**/*.test.ts\"",
     "registry:migrate": "node --env-file-if-exists=.env.local scripts/registry/cli.ts migrate",
     "registry:check-access": "node --env-file-if-exists=.env.local scripts/registry/cli.ts check-access",
-    "registry:manifest": "node scripts/registry/cli.ts manifest"
+    "registry:manifest": "node scripts/registry/cli.ts manifest",
+    "wharf:sync": "node scripts/wharf/sync.ts"
   },
   "dependencies": {
     "geist": "^1.8.2",
-    "next": "16.4.3",
+    "next": "^16.4.6",
     "postgres": "^4.1.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
@@ -30,7 +31,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.4.3",
+    "eslint-config-next": "^16.4.6",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

@@ -1,0 +1,5076 @@
+{
+  "claude-claude-opus-5-5-default-2.1.326": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "codex-gpt-6-astra-default-0.169.0": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "codex-gpt-6-luna-default-0.169.0": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "codex-gpt-6.1-sol-default-0.169.0": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-claude-opus-5-default-1.0.91": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-claude-opus-5.5-default-1.0.102": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-claude-opus-5.5-default-1.0.105": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-claude-opus-5.5-default-1.0.108": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-claude-opus-5.5-default-1.0.113": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-claude-opus-5.5-default-1.0.91": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-claude-opus-5.5-default-1.0.95": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gemini-3.8-flash-default-1.0.95": [
+    {
+      "id": "wharf-agent",
+      "checksum": "4ed401a194a55f0045085ae3e39a28012a076ef22a240abef3b49bcfeaee8fb3",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "509bb87cabf1c271e465994c441827f7b354b4a44170902868c4e9de50256c10",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "4bd55a27239dfbe2618ded81e067b2ffb1f6bacbe14613a3d85030197c98f021",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "2e7f0ef50bb336093889c63f61b2c78df331962cf532f641a4e228e69957b607",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "11439f94f666b38e3bd8d7c374b458df38b6dbd4fe5a99787529adf2b527a976",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "e9cc2aaec954145f3654121593cae3bad3565ce90d8c6a0e0a12c7426e0bcb4a",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "036eabbc7f96fa6e349a55fe66727c013916ed75a8d2e9711f09cae35883463d",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "c144ad1f14ff9751dd3b659bf983cbc395e595e0cd2c363a207a53f23f8e2bf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "37810abd4fa8eccb679575d3da88cd11e64eafeaa165ca18a4b44f56faa0abca",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "6bc23b2cad50f9a7844014a2c77b686e9d155570432cb58842f3109636fff575",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "8bce513627df71e2d552072ef88885cb19c641596443ed78893df61060527357",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "a13b6d30ed5401da65593f4cb572063661dbe1598fa11d0554a3ad9c9d82acf4",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "fc917587a0b460d48c194d53f0aee51bb800e6fcc4ada3c061c741f53d073059",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "bf3d0a93c1ae6178dc6c2649744c0761782fecdbbfe6ce6d608ddde6491e60d7",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-5.6-luna-default-1.0.95": [
+    {
+      "id": "wharf-agent",
+      "checksum": "4ed401a194a55f0045085ae3e39a28012a076ef22a240abef3b49bcfeaee8fb3",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "509bb87cabf1c271e465994c441827f7b354b4a44170902868c4e9de50256c10",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "4bd55a27239dfbe2618ded81e067b2ffb1f6bacbe14613a3d85030197c98f021",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "2e7f0ef50bb336093889c63f61b2c78df331962cf532f641a4e228e69957b607",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "11439f94f666b38e3bd8d7c374b458df38b6dbd4fe5a99787529adf2b527a976",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "e9cc2aaec954145f3654121593cae3bad3565ce90d8c6a0e0a12c7426e0bcb4a",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "036eabbc7f96fa6e349a55fe66727c013916ed75a8d2e9711f09cae35883463d",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "c144ad1f14ff9751dd3b659bf983cbc395e595e0cd2c363a207a53f23f8e2bf0",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "37810abd4fa8eccb679575d3da88cd11e64eafeaa165ca18a4b44f56faa0abca",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "6bc23b2cad50f9a7844014a2c77b686e9d155570432cb58842f3109636fff575",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "8bce513627df71e2d552072ef88885cb19c641596443ed78893df61060527357",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "a13b6d30ed5401da65593f4cb572063661dbe1598fa11d0554a3ad9c9d82acf4",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "fc917587a0b460d48c194d53f0aee51bb800e6fcc4ada3c061c741f53d073059",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "bf3d0a93c1ae6178dc6c2649744c0761782fecdbbfe6ce6d608ddde6491e60d7",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-5.6-terra-default-1.0.96": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-astra-default-1.0.102": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-astra-default-1.0.105": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-astra-default-1.0.108": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-astra-default-1.0.113": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-astra-default-1.0.95": [
+    {
+      "id": "wharf-agent",
+      "checksum": "4ed401a194a55f0045085ae3e39a28012a076ef22a240abef3b49bcfeaee8fb3",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "509bb87cabf1c271e465994c441827f7b354b4a44170902868c4e9de50256c10",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "4bd55a27239dfbe2618ded81e067b2ffb1f6bacbe14613a3d85030197c98f021",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "2e7f0ef50bb336093889c63f61b2c78df331962cf532f641a4e228e69957b607",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "11439f94f666b38e3bd8d7c374b458df38b6dbd4fe5a99787529adf2b527a976",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "e9cc2aaec954145f3654121593cae3bad3565ce90d8c6a0e0a12c7426e0bcb4a",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "036eabbc7f96fa6e349a55fe66727c013916ed75a8d2e9711f09cae35883463d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "c144ad1f14ff9751dd3b659bf983cbc395e595e0cd2c363a207a53f23f8e2bf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "37810abd4fa8eccb679575d3da88cd11e64eafeaa165ca18a4b44f56faa0abca",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "6bc23b2cad50f9a7844014a2c77b686e9d155570432cb58842f3109636fff575",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "8bce513627df71e2d552072ef88885cb19c641596443ed78893df61060527357",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "a13b6d30ed5401da65593f4cb572063661dbe1598fa11d0554a3ad9c9d82acf4",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "fc917587a0b460d48c194d53f0aee51bb800e6fcc4ada3c061c741f53d073059",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "bf3d0a93c1ae6178dc6c2649744c0761782fecdbbfe6ce6d608ddde6491e60d7",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-luna-default-1.0.102": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-luna-default-1.0.105": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-luna-default-1.0.108": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-luna-default-1.0.109": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-luna-default-1.0.110": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-luna-default-1.0.111": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-luna-default-1.0.112": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-luna-default-1.0.113": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-luna-default-1.0.114": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6-luna-default-1.0.95": [
+    {
+      "id": "wharf-agent",
+      "checksum": "4ed401a194a55f0045085ae3e39a28012a076ef22a240abef3b49bcfeaee8fb3",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "509bb87cabf1c271e465994c441827f7b354b4a44170902868c4e9de50256c10",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "4bd55a27239dfbe2618ded81e067b2ffb1f6bacbe14613a3d85030197c98f021",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "2e7f0ef50bb336093889c63f61b2c78df331962cf532f641a4e228e69957b607",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "11439f94f666b38e3bd8d7c374b458df38b6dbd4fe5a99787529adf2b527a976",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "e9cc2aaec954145f3654121593cae3bad3565ce90d8c6a0e0a12c7426e0bcb4a",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "036eabbc7f96fa6e349a55fe66727c013916ed75a8d2e9711f09cae35883463d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "c144ad1f14ff9751dd3b659bf983cbc395e595e0cd2c363a207a53f23f8e2bf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "37810abd4fa8eccb679575d3da88cd11e64eafeaa165ca18a4b44f56faa0abca",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "6bc23b2cad50f9a7844014a2c77b686e9d155570432cb58842f3109636fff575",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "8bce513627df71e2d552072ef88885cb19c641596443ed78893df61060527357",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "a13b6d30ed5401da65593f4cb572063661dbe1598fa11d0554a3ad9c9d82acf4",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "fc917587a0b460d48c194d53f0aee51bb800e6fcc4ada3c061c741f53d073059",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "bf3d0a93c1ae6178dc6c2649744c0761782fecdbbfe6ce6d608ddde6491e60d7",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6.1-sol-default-1.0.102": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6.1-sol-default-1.0.105": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 3
+    }
+  ],
+  "copilot-gpt-6.1-sol-default-1.0.108": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6.1-sol-default-1.0.109": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6.1-sol-default-1.0.110": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6.1-sol-default-1.0.111": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6.1-sol-default-1.0.112": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6.1-sol-default-1.0.113": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6.1-sol-default-1.0.114": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-gpt-6.1-sol-default-1.0.95": [
+    {
+      "id": "wharf-agent",
+      "checksum": "4ed401a194a55f0045085ae3e39a28012a076ef22a240abef3b49bcfeaee8fb3",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "509bb87cabf1c271e465994c441827f7b354b4a44170902868c4e9de50256c10",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "4bd55a27239dfbe2618ded81e067b2ffb1f6bacbe14613a3d85030197c98f021",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "2e7f0ef50bb336093889c63f61b2c78df331962cf532f641a4e228e69957b607",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "11439f94f666b38e3bd8d7c374b458df38b6dbd4fe5a99787529adf2b527a976",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "e9cc2aaec954145f3654121593cae3bad3565ce90d8c6a0e0a12c7426e0bcb4a",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "036eabbc7f96fa6e349a55fe66727c013916ed75a8d2e9711f09cae35883463d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "c144ad1f14ff9751dd3b659bf983cbc395e595e0cd2c363a207a53f23f8e2bf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "37810abd4fa8eccb679575d3da88cd11e64eafeaa165ca18a4b44f56faa0abca",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "6bc23b2cad50f9a7844014a2c77b686e9d155570432cb58842f3109636fff575",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "8bce513627df71e2d552072ef88885cb19c641596443ed78893df61060527357",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "a13b6d30ed5401da65593f4cb572063661dbe1598fa11d0554a3ad9c9d82acf4",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "fc917587a0b460d48c194d53f0aee51bb800e6fcc4ada3c061c741f53d073059",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "bf3d0a93c1ae6178dc6c2649744c0761782fecdbbfe6ce6d608ddde6491e60d7",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.100": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.101": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.102": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.103": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.104": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.105": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.106": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.107": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.108": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.109": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.110": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.111": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.112": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.113": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.114": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.95": [
+    {
+      "id": "wharf-agent",
+      "checksum": "4ed401a194a55f0045085ae3e39a28012a076ef22a240abef3b49bcfeaee8fb3",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "509bb87cabf1c271e465994c441827f7b354b4a44170902868c4e9de50256c10",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "4bd55a27239dfbe2618ded81e067b2ffb1f6bacbe14613a3d85030197c98f021",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "2e7f0ef50bb336093889c63f61b2c78df331962cf532f641a4e228e69957b607",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "11439f94f666b38e3bd8d7c374b458df38b6dbd4fe5a99787529adf2b527a976",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "e9cc2aaec954145f3654121593cae3bad3565ce90d8c6a0e0a12c7426e0bcb4a",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "036eabbc7f96fa6e349a55fe66727c013916ed75a8d2e9711f09cae35883463d",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "c144ad1f14ff9751dd3b659bf983cbc395e595e0cd2c363a207a53f23f8e2bf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "37810abd4fa8eccb679575d3da88cd11e64eafeaa165ca18a4b44f56faa0abca",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "6bc23b2cad50f9a7844014a2c77b686e9d155570432cb58842f3109636fff575",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "8bce513627df71e2d552072ef88885cb19c641596443ed78893df61060527357",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "a13b6d30ed5401da65593f4cb572063661dbe1598fa11d0554a3ad9c9d82acf4",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "fc917587a0b460d48c194d53f0aee51bb800e6fcc4ada3c061c741f53d073059",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "bf3d0a93c1ae6178dc6c2649744c0761782fecdbbfe6ce6d608ddde6491e60d7",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.96": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.97": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-hydrafusion-default-1.0.98": [
+    {
+      "id": "wharf-agent",
+      "checksum": "dac4176ffa34f30cf803e4ddf2bc9271bc21704793091135cf4670e65205cb84",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "470015dea946aa9dd23aab56d63eb0f3164c88684080ed259fcb80810c3f9495",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "0d7b26c7ab01e65d01295a75e377f49a914ab711ccd68ffd88c00a631c0164ba",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "387f55dd25eea4edec9c00ef461975af3818acf51f6244b354ea7f7001d7f98d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "571af49df171a36c06287dece17342d52bbab1dd561a4517a295a75e56e7ac31",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "edbb5fde5049b2295d9dbdd17d68b4466338ef1449c5193934156f223b643c81",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "b563022581e10fcf8e2b0ca7d74abbf63990699fec85be6aebde8b825937787d",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "7480e024d2162842172bec704b064366654a057a592fc4f8d5dadb4230873c4f",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "42745d22361af71ab2a96b03caec328135ec541a760be21a047a4bd4972daaf0",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "f33c812d3bad9ba7eed55ef48ea08bd337317d2867f61edd1294fe869005d4ab",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "e927caea7981bf150fbe6a1e26469f337d53ac9229759475eb6d19a8d8841951",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "49a01b53f3596b4f494a3091e8db685453b0b0dde0e4307e98c49ee538aa7b31",
+      "attempts": 4,
+      "passes": 3
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "64b432f788680cc3b7764ef155c1dc7ff773b679e132afae7728f1b17be53884",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "4b0c2c25ef164c5178372849a1c734d6790fb11036590e223d0dc62e9682ec6b",
+      "attempts": 4,
+      "passes": 4
+    }
+  ],
+  "copilot-mai-code-1.1-flash-default-1.0.95": [
+    {
+      "id": "wharf-agent",
+      "checksum": "4ed401a194a55f0045085ae3e39a28012a076ef22a240abef3b49bcfeaee8fb3",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-audit",
+      "checksum": "509bb87cabf1c271e465994c441827f7b354b4a44170902868c4e9de50256c10",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-copilot",
+      "checksum": "4bd55a27239dfbe2618ded81e067b2ffb1f6bacbe14613a3d85030197c98f021",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-derived-image",
+      "checksum": "2e7f0ef50bb336093889c63f61b2c78df331962cf532f641a4e228e69957b607",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-execution",
+      "checksum": "11439f94f666b38e3bd8d7c374b458df38b6dbd4fe5a99787529adf2b527a976",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-host-profile",
+      "checksum": "e9cc2aaec954145f3654121593cae3bad3565ce90d8c6a0e0a12c7426e0bcb4a",
+      "attempts": 4,
+      "passes": 1
+    },
+    {
+      "id": "wharf-image-pull",
+      "checksum": "036eabbc7f96fa6e349a55fe66727c013916ed75a8d2e9711f09cae35883463d",
+      "attempts": 4,
+      "passes": 0
+    },
+    {
+      "id": "wharf-operations",
+      "checksum": "c144ad1f14ff9751dd3b659bf983cbc395e595e0cd2c363a207a53f23f8e2bf0",
+      "attempts": 4,
+      "passes": 2
+    },
+    {
+      "id": "wharf-packaging",
+      "checksum": "37810abd4fa8eccb679575d3da88cd11e64eafeaa165ca18a4b44f56faa0abca",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-recovery",
+      "checksum": "6bc23b2cad50f9a7844014a2c77b686e9d155570432cb58842f3109636fff575",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-reporting",
+      "checksum": "8bce513627df71e2d552072ef88885cb19c641596443ed78893df61060527357",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-scheduler",
+      "checksum": "a13b6d30ed5401da65593f4cb572063661dbe1598fa11d0554a3ad9c9d82acf4",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-smoke",
+      "checksum": "fc917587a0b460d48c194d53f0aee51bb800e6fcc4ada3c061c741f53d073059",
+      "attempts": 4,
+      "passes": 4
+    },
+    {
+      "id": "wharf-verifier",
+      "checksum": "bf3d0a93c1ae6178dc6c2649744c0761782fecdbbfe6ce6d608ddde6491e60d7",
+      "attempts": 4,
+      "passes": 3
+    }
+  ]
+}

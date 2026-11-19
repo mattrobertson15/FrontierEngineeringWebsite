@@ -65,6 +65,7 @@ export default async function BenchmarkPage({ params }: PageProps<"/benchmarks/[
         eyebrow={`Benchmark directory${b.track ? ` — ${tracks[b.track]}` : ""}`}
         title={b.name}
         lede={b.summary}
+        back={{ href: benchmarksHref, label: "All benchmarks" }}
       />
 
       <Container className="pb-16">
@@ -99,6 +100,12 @@ export default async function BenchmarkPage({ params }: PageProps<"/benchmarks/[
                 </li>
               ))}
             </ul>
+            <Link
+              href={benchmarksHref}
+              className="mt-6 hidden min-h-9 items-center text-[15px] font-medium text-ink hover:text-accent-ink lg:inline-flex"
+            >
+              ← All benchmarks
+            </Link>
           </nav>
 
           <div className="flex min-w-0 flex-col gap-20">

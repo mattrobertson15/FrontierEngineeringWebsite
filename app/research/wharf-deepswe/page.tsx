@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import { benchmarksHref, contactHref } from "@/lib/site";
+import Link from "next/link";
+import { benchmarksHref, contactHref, researchHref, wharfSweHref } from "@/lib/site";
 import { CostQualityChart } from "@/components/CostQualityChart";
+import { DeepSweTable } from "@/components/wharf/ResultTables";
+import { WharfSwitcher } from "@/components/wharf/WharfSwitcher";
+import { sweRuns, wharfSweTaskCount } from "@/content/wharf-swe";
 import {
   passRate,
   pct,
@@ -85,53 +89,16 @@ const method = [
 const limitations = [
   `These results describe ${taskCount} open-source coding tasks. Your workload may rank the same configurations differently — that's the point of testing on it.`,
   "Harness comparisons change more than one thing at once: the harness release, its prompts and its tools all differ.",
-  `Attempts on the same task are correlated. These runs do not isolate harness changes from run-to-run variation: Luna scored ${pct(passRate(luna))} and ${pct(passRate(run("copilot-gpt-5.6-luna-max-1.0.91")))} on consecutive Copilot releases.`,
+  `Attempts on the same task are correlated. These runs do not isolate harness changes from run-to-run variation: Luna scored ${pct(passRate(luna))} and ${pct(passRate(run("copilot-gpt-5.6-luna-max-1.0.91")))} on Copilot releases 1.0.77 and 1.0.91.`,
   `Cost is missing for some attempts — ${Math.round((1 - opus55.costCoverage) * 100)}% of the Opus 5.5 run and all of the Muse Spark run. Missing costs are excluded from averages, never counted as zero.`,
   "Regression counts cover attempts where existing tests could be measured. Unmeasured is unknown, not clean.",
   `Models and harnesses ship monthly. This is a ${wharfDate} snapshot.`,
 ];
 
-function ResultsTable() {
-  const cell = "border-b border-line px-3 py-2.5 whitespace-nowrap";
-  const head = ["model", "harness", "effort", "passed", "pass@1", "broke tests", "$/attempt", "costed"];
-  return (
-    <div className="overflow-x-auto border border-line bg-surface">
-      <table className="w-full border-collapse font-mono text-[13px]">
-        <thead>
-          <tr className="text-left text-muted">
-            {head.map((h, i) => (
-              <th key={h} className={`${cell} font-normal ${i > 2 ? "text-right" : ""}`}>
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="text-ink-2">
-          {runs.map((r) => (
-            <tr key={r.id}>
-              <td className={`${cell} text-ink`}>{r.model}</td>
-              <td className={cell}>
-                {r.harness} {r.version}
-              </td>
-              <td className={cell}>{r.effort}</td>
-              <td className={`${cell} text-right`}>
-                {r.passing}/{r.planned}
-              </td>
-              <td className={`${cell} text-right text-ink`}>{pct(passRate(r))}</td>
-              <td className={`${cell} text-right`}>{r.regressions}</td>
-              <td className={`${cell} text-right`}>{usd(r.costPerAttempt)}</td>
-              <td className={`${cell} text-right`}>{Math.round(r.costCoverage * 100)}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
 export default function WharfResearchPage() {
   return (
     <>
+      <WharfSwitcher active={researchHref} />
       <PageHero
         eyebrow="Research — Wharf / DeepSWE"
         title={`What ${totalPlanned.toLocaleString("en-US")} planned coding-agent attempts reveal.`}
@@ -168,40 +135,62 @@ export default function WharfResearchPage() {
         <Container className="flex flex-col gap-10 py-26">
           <div className="flex flex-col gap-4">
             <Eyebrow>Results</Eyebrow>
-            <H2>Quality against cost, every configuration.</H2>
+            <H2>Which configurations offer the most for their cost?</H2>
             <p className="m-0 max-w-[60ch] text-ink-2">
-              Each dot is a complete configuration — model, harness release and reasoning effort.
-              Up and to the left is better. The copper line joins Claude Opus 5 under two
-              harnesses.
+              Each dot is a model, harness release and reasoning effort. Switch between cost
+              and duration to see which configurations reach each pass rate with the least
+              spending or agent time.
             </p>
           </div>
           <figure className="m-0 flex flex-col gap-3">
-            <div className="overflow-x-auto border border-line bg-surface p-4">
+            <div className="border border-line bg-surface p-4">
               <CostQualityChart
                 runs={runs}
                 pair={[opusCopilot.id, opusClaudeCode.id]}
                 labels={[
-                  { id: luna.id, text: "GPT-5.6 Luna" },
+                  { id: luna.id, text: "GPT-5.6 Luna · 1.0.77" },
+                  { id: "copilot-gpt-5.6-luna-max-1.0.91", text: "GPT-5.6 Luna · 1.0.91", dy: 12 },
                   { id: opusCopilot.id, text: "Opus 5 · Copilot", anchor: "end" },
                   { id: opusClaudeCode.id, text: "Opus 5 · Claude Code", anchor: "end" },
-                  { id: auto.id, text: "Copilot Auto" },
                 ]}
               />
             </div>
             <figcaption className="font-mono text-xs text-muted">
-              Muse Spark is omitted from the chart: no cost was recorded for it. Hover or tab
+              Muse Spark appears in the Duration view because no cost was recorded. Hover or tab
               through the dots for details.
             </figcaption>
           </figure>
-          <ResultsTable />
+          <DeepSweTable />
           <p className="m-0 font-mono text-xs text-muted">
             pass@1 = passing attempts ÷ planned attempts. Broke tests = attempts where at least one
-            pre-existing test failed. $/attempt = mean over attempts with cost data. Source:{" "}
+            pre-existing test failed. $/attempt = mean over attempts with cost data. Select a column
+            header to sort. Source:{" "}
             <a href={wharfSource} className="underline hover:text-ink">
               Wharf @ {wharfCommit}
             </a>
             .
           </p>
+        </Container>
+      </section>
+
+      <section className="border-t border-line bg-ink text-night-text">
+        <Container className="flex flex-wrap items-end justify-between gap-8 py-16">
+          <div className="flex max-w-[60ch] flex-col gap-3">
+            <Eyebrow dark>Same method, our own code — WharfSWE</Eyebrow>
+            <p className="m-0 font-display text-[clamp(26px,3vw,36px)] leading-[1.1] text-paper">
+              {sweRuns.length} more runs on .NET code, cheap enough to repeat on every Copilot release.
+            </p>
+            <p className="m-0 text-night-muted">
+              The same task format, runner and verifier, on {wharfSweTaskCount} C# tasks rebuilt from
+              Wharf&apos;s own release history — enterprise-style .NET code that DeepSWE doesn&apos;t cover.
+            </p>
+          </div>
+          <Link
+            href={wharfSweHref}
+            className="inline-flex min-h-12 items-center bg-accent px-[22px] font-medium text-white transition-colors hover:bg-paper hover:text-ink"
+          >
+            See the WharfSWE results →
+          </Link>
         </Container>
       </section>
 

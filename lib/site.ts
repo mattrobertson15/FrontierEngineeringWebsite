@@ -1,5 +1,10 @@
 export const researchHref = "/research/wharf-deepswe";
 
+export const wharfSweHref = "/research/wharf-swe";
+
+/** Every page under this path belongs to Wharf research and lights up its menu entry. */
+export const researchSection = "/research/";
+
 export const caseStudiesHref = "/case-studies";
 
 export const careersHref = "/careers";
@@ -39,7 +44,8 @@ export const navGroups = [
     overview: "Case Studies",
     summary: "Client engagements: the problem, the approach, the outcome.",
     children: [
-      { href: researchHref, label: "Wharf Research", summary: "Thousands of attempts across models and agent harnesses." },
+      // One entry for all of Wharf; its pages link to each other through WharfSwitcher.
+      { href: researchHref, label: "Wharf Research", summary: "Thousands of coding-agent attempts on open-source tasks and our own codebase." },
       { href: "/model-testing", label: "Model Testing & Evals", summary: "How we test models and harnesses before we choose a stack." },
       { href: benchmarksHref, label: "Benchmark Directory", summary: "What each AI benchmark measures, with every fact sourced." },
     ],

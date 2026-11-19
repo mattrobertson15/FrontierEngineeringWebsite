@@ -1,14 +1,18 @@
 /**
  * Wharf DeepSWE results — the single source for every benchmark figure on the site.
  *
- * Source: github.com/bartr/wharf, docs/pass-at-1-vs-cost.csv and the README results
- * table, commit 661b6e3 (Oct 28, 2026). Use these runs only; RESULTS.md reports
- * different runs and must not be mixed in. When Wharf publishes new results, update
- * this file and the commit above, then re-read every page that quotes a number.
+ * Source: github.com/bartr/wharf, docs/pass-at-1-vs-cost.csv, re-verified at commit
+ * 3ba4b18 (Nov 18, 2026). The runs date from Oct 2026 and are unchanged since 661b6e3;
+ * the README results table they were first read from has since been removed. Use these
+ * runs only; docs/RESULTS.md reports different runs and must not be mixed in.
+ *
+ * To update: `npm run wharf:sync -- <wharf checkout>` checks every run here against the
+ * CSV and regenerates the separate WharfSWE dataset (content/wharf-swe.json). Fix any
+ * reported drift here by hand, bump the commit, then re-read every page that quotes a number.
  */
 
 export const wharfSource = "https://github.com/bartr/wharf";
-export const wharfCommit = "661b6e3";
+export const wharfCommit = "3ba4b18";
 export const wharfDate = "Oct 2026";
 export const taskCount = 113;
 

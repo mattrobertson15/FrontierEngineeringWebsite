@@ -23,6 +23,14 @@
   --color-night-muted: #b7c0c5;
   --color-night-dim: #8e9ba3;
 
+  /* Chart series, in fixed order — never cycled. Validated with the dataviz palette
+     checker against bg-surface (lightness band, chroma, CVD and contrast all pass). */
+  --color-series-1: #1c6fb5; /* blue */
+  --color-series-2: #c16839; /* copper */
+  --color-series-3: #0e9478; /* teal */
+  --color-series-4: #a04db8; /* purple */
+  --color-series-5: #8a8f14; /* olive */
+
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-display: var(--font-newsreader), Georgia, serif; /* H1/H2 only */
