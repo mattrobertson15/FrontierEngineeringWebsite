@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { LogoMark } from "./Logo";
-import { contactHref, navGroups } from "@/lib/site";
+import { contactHref, navGroups, researchSection } from "@/lib/site";
 
 export function Header() {
   const pathname = usePathname();
@@ -13,7 +13,11 @@ export function Header() {
 
   const groups = navGroups.map((g) => ({
     ...g,
-    active: pathname === g.href || g.children.some((c) => c.href === pathname),
+    active:
+      pathname === g.href ||
+      g.children.some(
+        (c) => c.href === pathname || (c.href.startsWith(researchSection) && pathname.startsWith(researchSection)),
+      ),
   }));
 
   return (

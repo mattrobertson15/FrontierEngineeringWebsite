@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { benchmarksHref, careersHref, caseStudiesHref, offerings, practices, researchHref, siteUrl } from "@/lib/site";
+import { benchmarksHref, careersHref, caseStudiesHref, offerings, practices, researchHref, siteUrl, wharfSweHref } from "@/lib/site";
 import { caseStudies } from "@/content/case-studies";
 import { getPublishedSlugs } from "@/lib/benchmarks/data";
 
@@ -10,6 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...offerings.map((o) => ({ url: `${siteUrl}${o.href}`, priority: 0.9 })),
     ...practices.map((p) => ({ url: `${siteUrl}${p.href}`, priority: 0.8 })),
     { url: `${siteUrl}${researchHref}`, priority: 0.7 },
+    { url: `${siteUrl}${wharfSweHref}`, priority: 0.7 },
     { url: `${siteUrl}${caseStudiesHref}`, priority: 0.7 },
     ...caseStudies.map((c) => ({ url: `${siteUrl}${caseStudiesHref}/${c.slug}`, priority: 0.6 })),
     { url: `${siteUrl}${benchmarksHref}`, priority: 0.7 },

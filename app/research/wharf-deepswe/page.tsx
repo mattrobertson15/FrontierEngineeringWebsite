@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
-import { benchmarksHref, contactHref } from "@/lib/site";
+import Link from "next/link";
+import { benchmarksHref, contactHref, researchHref, wharfSweHref } from "@/lib/site";
 import { CostQualityChart } from "@/components/CostQualityChart";
+import { DeepSweTable } from "@/components/wharf/ResultTables";
+import { WharfSwitcher } from "@/components/wharf/WharfSwitcher";
+import { sweRuns, wharfSweTaskCount } from "@/content/wharf-swe";
 import {
   passRate,
   pct,
@@ -91,47 +95,10 @@ const limitations = [
   `Models and harnesses ship monthly. This is a ${wharfDate} snapshot.`,
 ];
 
-function ResultsTable() {
-  const cell = "border-b border-line px-3 py-2.5 whitespace-nowrap";
-  const head = ["model", "harness", "effort", "passed", "pass@1", "broke tests", "$/attempt", "costed"];
-  return (
-    <div className="overflow-x-auto border border-line bg-surface">
-      <table className="w-full border-collapse font-mono text-[13px]">
-        <thead>
-          <tr className="text-left text-muted">
-            {head.map((h, i) => (
-              <th key={h} className={`${cell} font-normal ${i > 2 ? "text-right" : ""}`}>
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="text-ink-2">
-          {runs.map((r) => (
-            <tr key={r.id}>
-              <td className={`${cell} text-ink`}>{r.model}</td>
-              <td className={cell}>
-                {r.harness} {r.version}
-              </td>
-              <td className={cell}>{r.effort}</td>
-              <td className={`${cell} text-right`}>
-                {r.passing}/{r.planned}
-              </td>
-              <td className={`${cell} text-right text-ink`}>{pct(passRate(r))}</td>
-              <td className={`${cell} text-right`}>{r.regressions}</td>
-              <td className={`${cell} text-right`}>{usd(r.costPerAttempt)}</td>
-              <td className={`${cell} text-right`}>{Math.round(r.costCoverage * 100)}%</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
 export default function WharfResearchPage() {
   return (
     <>
+      <WharfSwitcher active={researchHref} />
       <PageHero
         eyebrow="Research — Wharf / DeepSWE"
         title={`What ${totalPlanned.toLocaleString("en-US")} planned coding-agent attempts reveal.`}
@@ -193,15 +160,37 @@ export default function WharfResearchPage() {
               through the dots for details.
             </figcaption>
           </figure>
-          <ResultsTable />
+          <DeepSweTable />
           <p className="m-0 font-mono text-xs text-muted">
             pass@1 = passing attempts ÷ planned attempts. Broke tests = attempts where at least one
-            pre-existing test failed. $/attempt = mean over attempts with cost data. Source:{" "}
+            pre-existing test failed. $/attempt = mean over attempts with cost data. Select a column
+            header to sort. Source:{" "}
             <a href={wharfSource} className="underline hover:text-ink">
               Wharf @ {wharfCommit}
             </a>
             .
           </p>
+        </Container>
+      </section>
+
+      <section className="border-t border-line bg-ink text-night-text">
+        <Container className="flex flex-wrap items-end justify-between gap-8 py-16">
+          <div className="flex max-w-[60ch] flex-col gap-3">
+            <Eyebrow dark>Same method, our own code — WharfSWE</Eyebrow>
+            <p className="m-0 font-display text-[clamp(26px,3vw,36px)] leading-[1.1] text-paper">
+              {sweRuns.length} more runs on .NET code, cheap enough to repeat on every Copilot release.
+            </p>
+            <p className="m-0 text-night-muted">
+              The same task format, runner and verifier, on {wharfSweTaskCount} C# tasks rebuilt from
+              Wharf&apos;s own release history — enterprise-style .NET code that DeepSWE doesn&apos;t cover.
+            </p>
+          </div>
+          <Link
+            href={wharfSweHref}
+            className="inline-flex min-h-12 items-center bg-accent px-[22px] font-medium text-white transition-colors hover:bg-paper hover:text-ink"
+          >
+            See the WharfSWE results →
+          </Link>
         </Container>
       </section>
 
