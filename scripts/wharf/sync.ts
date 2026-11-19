@@ -13,6 +13,7 @@ import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { runs as deepSweRuns } from "../../content/wharf.ts";
+import { modelName, taskComparisons } from "../../content/wharf-swe-tasks.ts";
 
 const repo = process.argv[2];
 if (!repo) {
@@ -147,6 +148,18 @@ writeFileSync(taskPath, JSON.stringify(tasksByArm, null, 2) + "\n");
 
 console.log(`Wharf @ ${commit} (${commitDate})`);
 console.log(`WharfSWE: wrote ${arms.length} arms to content/wharf-swe.json`);
+
+// The "By task" heatmap leaves out any comparison it can't show fairly; say so here, not silently.
+const { comparisons, problems } = taskComparisons(
+  arms.map((a) => ({ ...a, model: modelName(a.model) })),
+  tasksByArm,
+);
+console.log(`WharfSWE: ${comparisons.length} per-task harness comparison(s) for the heatmap`);
+if (problems.length) {
+  console.log(`WharfSWE: ${problems.length} comparison(s) left off the heatmap:`);
+  for (const p of problems) console.log(`  - ${p}`);
+  process.exitCode = 2;
+}
 if (drift.length) {
   console.log(`DeepSWE: ${drift.length} difference(s) from content/wharf.ts — update it by hand:`);
   for (const d of drift) console.log(`  - ${d}`);

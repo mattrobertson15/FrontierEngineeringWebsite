@@ -137,9 +137,9 @@ export default function WharfResearchPage() {
             <Eyebrow>Results</Eyebrow>
             <H2>Which configurations offer the most for their cost?</H2>
             <p className="m-0 max-w-[60ch] text-ink-2">
-              Each dot is a model, harness release and reasoning effort. The copper line highlights
-              configurations where no other run was at least as accurate and cheaper, or more
-              accurate at the same cost.
+              Each dot is a model, harness release and reasoning effort. Switch between cost
+              and duration to see which configurations reach each pass rate with the least
+              spending or agent time.
             </p>
           </div>
           <figure className="m-0 flex flex-col gap-3">
@@ -156,7 +156,7 @@ export default function WharfResearchPage() {
               />
             </div>
             <figcaption className="font-mono text-xs text-muted">
-              Muse Spark is omitted from the chart: no cost was recorded for it. Hover or tab
+              Muse Spark appears in the Duration view because no cost was recorded. Hover or tab
               through the dots for details.
             </figcaption>
           </figure>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { passRate, pct, usd, type WharfRun } from "@/content/wharf";
 
-/* Pass rate vs cost per attempt, log-scale x. Hover or focus a dot for its run. */
+/* Pass rate against cost or agent time. Hover or focus a dot for its run. */
 
 const W = 720;
 const H = 440;
@@ -15,7 +15,7 @@ const yMax = 0.8;
 const xTicks = [0.2, 0.5, 1, 2, 5, 10];
 const yTicks = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8];
 
-const x = (cost: number) =>
+const costX = (cost: number) =>
   pad.left +
   ((Math.log(cost) - Math.log(xMin)) / (Math.log(xMax) - Math.log(xMin))) *
     (W - pad.left - pad.right);
@@ -35,30 +35,53 @@ export function CostQualityChart({
   pair: [string, string];
 }) {
   const [active, setActive] = useState<string | null>(null);
+  const [duration, setDuration] = useState(false);
   const [showPair, setShowPair] = useState(false);
-  const plotted = runs.flatMap((run) =>
-    run.costPerAttempt != null && run.costPerAttempt > 0 ? [{ ...run, costPerAttempt: run.costPerAttempt }] : [],
-  );
+  const plotted = runs.flatMap((run) => {
+    const value = duration ? run.agentSeconds / 60 : run.costPerAttempt;
+    return value != null && value > 0 ? [{ ...run, value }] : [];
+  });
+  const durationMax = Math.ceil(Math.max(10, ...plotted.map((run) => run.value)) / 10) * 10;
+  const ticks = duration ? Array.from({ length: durationMax / 10 + 1 }, (_, i) => i * 10) : xTicks;
+  const x = (value: number) => duration
+    ? pad.left + (value / durationMax) * (W - pad.left - pad.right)
+    : costX(value);
   const frontier = plotted.filter((run) => !plotted.some((other) =>
-    other.costPerAttempt <= run.costPerAttempt && passRate(other) >= passRate(run) &&
-      (other.costPerAttempt < run.costPerAttempt || passRate(other) > passRate(run)),
-  )).sort((a, b) => a.costPerAttempt - b.costPerAttempt);
+    other.value <= run.value && passRate(other) >= passRate(run) &&
+      (other.value < run.value || passRate(other) > passRate(run)),
+  )).sort((a, b) => a.value - b.value);
   const frontierIds = new Set(frontier.map((run) => run.id));
-  const at = (run: (typeof plotted)[number]) => ({ cx: x(run.costPerAttempt), cy: y(passRate(run)) });
+  const at = (run: (typeof plotted)[number]) => ({ cx: x(run.value), cy: y(passRate(run)) });
   const [a, b] = pair.map((id) => plotted.find((run) => run.id === id));
-  const labelRuns = showPair ? [...frontier, ...plotted.filter((run) => pair.includes(run.id) && !frontierIds.has(run.id))] : frontier;
+  const labelRuns = [...frontier, ...plotted.filter((run) =>
+    !frontierIds.has(run.id) && ((showPair && pair.includes(run.id)) ||
+      (duration && run.costPerAttempt === null)),
+  )];
   const hovered = plotted.find((r) => r.id === active);
   // The chart sits in a scroll container that clips overflow, so near either edge the
   // tooltip grows inward from the dot instead of centring on it.
-  const hx = hovered ? x(hovered.costPerAttempt) / W : 0;
+  const hx = hovered ? x(hovered.value) / W : 0;
   const alignX = hx < 0.3 ? "-translate-x-[14px]" : hx > 0.7 ? "-translate-x-[calc(100%-14px)]" : "-translate-x-1/2";
 
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line px-2 pb-3 font-mono text-xs">
+        <div role="group" aria-label="Horizontal axis" className="flex border border-line">
+          {["Cost", "Duration"].map((label) => {
+            const isDuration = label === "Duration";
+            const selected = duration === isDuration;
+            return (
+              <button key={label} type="button" aria-pressed={selected}
+                onClick={() => { setDuration(isDuration); setActive(null); }}
+                className={`min-h-9 px-3 ${selected ? "bg-ink text-paper" : "text-ink-2 hover:text-ink"}`}>
+                {label}
+              </button>
+            );
+          })}
+        </div>
         <span className="flex items-center gap-2 text-ink-2">
           <span aria-hidden="true" className="h-0.5 w-5 bg-accent" />
-          Cost–quality frontier
+          {duration ? "Duration–quality frontier" : "Cost–quality frontier"}
         </span>
         <label className="flex items-center gap-2 text-ink-2">
           <input type="checkbox" className="accent-ink" checked={showPair} onChange={(event) => setShowPair(event.target.checked)} />
@@ -71,7 +94,7 @@ export function CostQualityChart({
             viewBox={`0 0 ${W} ${H}`}
             className="block h-auto w-full font-mono"
             role="group"
-            aria-label="Scatter plot of pass rate against mean cost per attempt for each agent configuration. The frontier highlights the highest observed pass rates available at each cost. Full data in the table below."
+            aria-label={`Scatter plot of pass rate against ${duration ? "mean agent duration" : "mean cost per costed attempt"}. Full data in the table below.`}
           >
             {yTicks.map((t) => (
               <g key={t}>
@@ -81,13 +104,13 @@ export function CostQualityChart({
                 </text>
               </g>
             ))}
-            {xTicks.map((t) => (
+            {ticks.map((t) => (
               <text key={t} x={x(t)} y={H - pad.bottom + 22} textAnchor="middle" className="fill-muted text-[12px]">
-                ${t}
+                {duration ? t : `$${t}`}
               </text>
             ))}
             <text x={(pad.left + W - pad.right) / 2} y={H - 8} textAnchor="middle" className="fill-muted text-[12px]">
-              mean cost per attempt (log scale) →
+              {duration ? "mean agent time per attempt (minutes) →" : "mean cost per costed attempt (log scale) →"}
             </text>
             <text transform={`translate(14 ${(pad.top + H - pad.bottom) / 2}) rotate(-90)`} textAnchor="middle" className="fill-muted text-[12px]">
               pass@1 →
@@ -118,7 +141,7 @@ export function CostQualityChart({
                   key={r.id}
                   tabIndex={0}
                   role="img"
-                  aria-label={`${r.model}, ${r.harness} ${r.version}: ${pct(passRate(r))} pass rate, ${usd(r.costPerAttempt)} per attempt`}
+                  aria-label={`${r.model}, ${r.harness} ${r.version}: ${pct(passRate(r))} pass rate, ${duration ? `${(r.agentSeconds / 60).toFixed(1)} minutes` : `${usd(r.costPerAttempt)} per costed attempt`}`}
                   onPointerEnter={focus}
                   onPointerLeave={blur}
                   onClick={focus}
@@ -176,7 +199,9 @@ export function CostQualityChart({
                 {hovered.passing}/{hovered.planned} passed · {pct(passRate(hovered))}
               </p>
               <p className="m-0">
-                {usd(hovered.costPerAttempt)}/attempt · {Math.round(hovered.costCoverage * 100)}% costed
+                {duration
+                  ? `${(hovered.agentSeconds / 60).toFixed(1)} min mean agent time`
+                  : `${usd(hovered.costPerAttempt)}/attempt · ${Math.round(hovered.costCoverage * 100)}% costed`}
               </p>
             </div>
           )}

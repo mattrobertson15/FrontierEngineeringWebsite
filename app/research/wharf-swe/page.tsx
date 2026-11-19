@@ -22,7 +22,8 @@ import {
 import { HarnessDumbbell } from "@/components/wharf/HarnessDumbbell";
 import { RevisionChart, type Series } from "@/components/wharf/RevisionChart";
 import taskResults from "@/content/wharf-swe-task-results.json";
-import { TaskHeatmap, type TaskComparison } from "@/components/wharf/TaskHeatmap";
+import { TaskHeatmap } from "@/components/wharf/TaskHeatmap";
+import { taskComparisons, type TaskOutcome } from "@/content/wharf-swe-tasks";
 import { SweTable } from "@/components/wharf/ResultTables";
 import { WharfSwitcher } from "@/components/wharf/WharfSwitcher";
 import {
@@ -72,21 +73,12 @@ const [widestHigh, widestLow] = [...widest.runs].sort((a, b) => sweRate(b) - swe
 const opusRow = crossHarness.find((r) => r.model === "Claude Opus 5.5");
 const opusOn = (h: HarnessKey) => opusRow?.runs.find((r) => r.harness === h);
 
-const outcomes: Record<string, { id: string; checksum: string | null; attempts: number; passes: number }[]> = taskResults;
-const taskComparisons = crossHarness.flatMap(({ model, runs }): TaskComparison[] => {
-  const copilot = runs.find((run) => run.harness === "copilot-cli");
-  const codex = runs.find((run) => run.harness === "codex");
-  if (!copilot || !codex) return [];
-
-  const tasks = sweTasks.flatMap((task) => {
-    const a = outcomes[copilot.id]?.find((result) => result.id === task.id);
-    const b = outcomes[codex.id]?.find((result) => result.id === task.id);
-    if (!a?.checksum || a.checksum !== b?.checksum || a.attempts !== 4 || b.attempts !== 4) return [];
-    return [{ id: task.id, title: task.title, attempts: a.attempts, copilot: a.passes, codex: b.passes }];
-  });
-  if (tasks.length !== sweTasks.length) return [];
-  return [{ model, copilotVersion: copilot.version, codexVersion: codex.version, tasks }];
-});
+const outcomes: Record<string, TaskOutcome[]> = taskResults;
+/** Every fair Copilot-vs-other-harness pairing; the sync script reports any it has to leave out. */
+const taskPairs = taskComparisons(sweRuns, outcomes).comparisons.map((c) => ({
+  ...c,
+  otherLabel: harnessLabel[c.harness as HarnessKey],
+}));
 
 /* ---------- across Copilot releases ---------- */
 
@@ -261,17 +253,18 @@ export default function WharfSwePage() {
         </Container>
       </section>
 
-      {taskComparisons.length > 0 && (
+      {taskPairs.length > 0 && (
         <section className="border-t border-line">
           <Container className="flex flex-col gap-8 py-26">
             <div className="flex flex-col gap-4">
               <Eyebrow>By task</Eyebrow>
               <H2>Which tasks did each configuration solve?</H2>
               <p className="m-0 max-w-[60ch] text-ink-2">
-                Compare Copilot and Codex runs of the same model on identical task versions.
+                Each model&apos;s newest Copilot run beside its run on another harness, on identical
+                task versions. Pick a pairing to see where the attempts were won and lost.
               </p>
             </div>
-            <TaskHeatmap comparisons={taskComparisons} />
+            <TaskHeatmap comparisons={taskPairs} />
           </Container>
         </section>
       )}
@@ -283,8 +276,9 @@ export default function WharfSwePage() {
             <H2>Release by release on Copilot.</H2>
             <p className="m-0 max-w-[60ch] text-ink-2">
               Every Copilot CLI release from 1.0.{firstChartedRevision} to 1.0.{latestCopilotRevision} we ran, for the
-              models we track. Switch the metric, select a model to isolate it, and hover — or
-              focus the chart and use the arrow keys — to read every model at one release.
+              models we track. Use the change view to compare each run with that model&apos;s
+              prior tested release. Hover over a release or use the arrow keys on the chart
+              to see the values and which versions were compared.
             </p>
           </div>
           <div className="border border-line bg-surface p-5">
