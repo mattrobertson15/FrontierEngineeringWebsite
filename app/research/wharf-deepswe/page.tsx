@@ -3,11 +3,14 @@ import Link from "next/link";
 import { benchmarksHref, contactHref, researchHref, wharfSweHref } from "@/lib/site";
 import { CostQualityChart } from "@/components/CostQualityChart";
 import { ConsistencyChart } from "@/components/wharf/ConsistencyChart";
+import { CostPerFix } from "@/components/wharf/CostPerFix";
+import { DeepSweTaskHeatmap } from "@/components/wharf/DeepSweTaskHeatmap";
 import { Glance, glanceConsistencyPair } from "@/components/wharf/Glance";
 import { DeepSweTable } from "@/components/wharf/ResultTables";
 import { WharfSwitcher } from "@/components/wharf/WharfSwitcher";
 import { sweRuns, wharfSweTaskCount } from "@/content/wharf-swe";
 import {
+  costPerPass,
   guidancePairs,
   metaComparisons,
   metaSource,
@@ -23,7 +26,7 @@ import {
   wharfDate,
   wharfSource,
 } from "@/content/wharf";
-import { pairedDiff, signed } from "@/content/wharf-stats";
+import { pairedDiff, passesByRun, signed, taskLanguages } from "@/content/wharf-stats";
 import {
   ArrowLink,
   AutoGrid,
@@ -51,6 +54,31 @@ const hydra = run("copilot-hydrafusion-default-1.0.105");
 const [hydraRun1, hydraRun2] = [run("copilot-hydrafusion-max-1.0.95"), run("copilot-hydrafusion-max-1.0.95-all-2")];
 
 const lunaGap = pairedDiff(lunaNext.id, luna.id);
+
+// Task-by-configuration grid: per-task passes for every main run, best pass rate first.
+const heatRuns = [...runs].sort((a, b) => passRate(b) - passRate(a));
+const taskIds = Object.keys(taskLanguages);
+const heatTasks = taskIds.map((id) => ({
+  id,
+  language: taskLanguages[id],
+  mean: heatRuns.reduce((sum, r) => sum + (passesByRun[r.id][id] ?? 0) / r.attemptsPerTask, 0) / heatRuns.length,
+}));
+const heatRows = heatRuns.map((r) => ({
+  id: r.id,
+  label: r.model,
+  sub: r.harness === "Copilot" ? r.version : `${r.harness} ${r.version}`,
+  attempts: r.attemptsPerTask,
+  passes: taskIds.map((id) => passesByRun[r.id][id] ?? 0),
+}));
+const fullBySome = taskIds.filter((id) => heatRuns.some((r) => passesByRun[r.id][id] === r.attemptsPerTask)).length;
+const reachedByAll = taskIds.filter((id) => heatRuns.every((r) => (passesByRun[r.id][id] ?? 0) > 0)).length;
+const hardest = [...heatTasks].sort((a, b) => a.mean - b.mean)[0];
+const hardestReach = heatRuns.filter((r) => (passesByRun[r.id][hardest.id] ?? 0) > 0).length;
+
+const fixCosts = runs.flatMap((r) => (costPerPass(r) === null ? [] : [{ r, c: costPerPass(r)! }]));
+const cheapestFix = fixCosts.reduce((a, b) => (b.c < a.c ? b : a));
+const dearestFix = fixCosts.reduce((a, b) => (b.c > a.c ? b : a));
+const underDollar = fixCosts.filter((x) => x.c < 1).length;
 const range = (d: { lo: number; hi: number }) => `${signed(d.lo)} to ${signed(d.hi)}`;
 
 const guidance = guidancePairs.map(({ base, guided }) => ({ base, guided, change: pairedDiff(base.id, guided.id) }));
@@ -174,7 +202,31 @@ export default function WharfResearchPage() {
         </Container>
       </section>
 
-      <section id="consistency" className="border-t border-line bg-surface">
+      <section id="cost" className="border-t border-line bg-surface">
+        <Container className="flex flex-col gap-10 py-26">
+          <div className="flex max-w-[64ch] flex-col gap-4">
+            <Eyebrow>Cost per fix</Eyebrow>
+            <H2>What one verified fix costs.</H2>
+            <p className="m-0 text-ink-2">
+              Cost per attempt hides how often an attempt works. Divide spend by passing attempts and
+              the range opens up: from {usd(cheapestFix.c)} for {cheapestFix.r.model} to{" "}
+              {usd(dearestFix.c)} for {dearestFix.r.model} in {dearestFix.r.harness}, about{" "}
+              {Math.round(dearestFix.c / cheapestFix.c)}× apart. {underDollar} of {fixCosts.length}{" "}
+              configurations cost under a dollar per fix.
+            </p>
+            <p className="m-0 text-ink-2">
+              The same model can sit at both ends. Claude Opus 5 costs {usd(costPerPass(opusCopilot))} per
+              fix in Copilot and {usd(costPerPass(opusClaudeCode))} in Claude Code.
+            </p>
+          </div>
+          <CostPerFix
+            highlight={[opusCopilot.id, opusClaudeCode.id]}
+            highlightNote="Copper bars: Claude Opus 5 in Copilot and in Claude Code."
+          />
+        </Container>
+      </section>
+
+      <section id="consistency" className="border-t border-line">
         <Container className="flex flex-col gap-10 py-26">
           <div className="flex max-w-[64ch] flex-col gap-4">
             <Eyebrow>Consistency</Eyebrow>
@@ -192,6 +244,27 @@ export default function WharfResearchPage() {
             </p>
           </div>
           <ConsistencyChart highlight={glanceConsistencyPair} />
+        </Container>
+      </section>
+
+      <section id="tasks" className="border-t border-line bg-surface">
+        <Container className="flex flex-col gap-10 py-26">
+          <div className="flex max-w-[64ch] flex-col gap-4">
+            <Eyebrow>Task by task</Eyebrow>
+            <H2>Every task is solvable. None is easy for everyone.</H2>
+            <p className="m-0 text-ink-2">
+              Each column is one of the {taskIds.length} tasks; each row one configuration. Darker means
+              more of that run&apos;s attempts passed. {fullBySome} of {taskIds.length} tasks were solved
+              on every attempt by at least one configuration, and no task was solved on every attempt by
+              all of them. Only {reachedByAll} were solved at least once by every configuration.
+            </p>
+            <p className="m-0 text-ink-2">
+              The hardest task, <code className="font-mono text-[0.9em]">{hardest.id}</code>, was solved by{" "}
+              {hardestReach} of {heatRuns.length} configurations. Which configuration is best depends on
+              which tasks you have, which is why we test on yours.
+            </p>
+          </div>
+          <DeepSweTaskHeatmap rows={heatRows} tasks={heatTasks} />
         </Container>
       </section>
 
@@ -235,7 +308,7 @@ export default function WharfResearchPage() {
         </Container>
       </section>
 
-      <section id="guidance" className="border-t border-line">
+      <section id="guidance" className="border-t border-line bg-surface">
         <Container className="flex flex-col gap-10 py-26">
           <div className="flex max-w-[64ch] flex-col gap-4">
             <Eyebrow>Added guidance</Eyebrow>

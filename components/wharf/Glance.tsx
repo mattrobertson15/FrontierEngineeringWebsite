@@ -84,7 +84,7 @@ export function Glance() {
         tag="02 · cost"
         big={`${Math.round(dearest.c / cheapest.c)}×`}
         title="The spread in what one fix costs."
-        href="#results"
+        href="#cost"
         chart={
           <Strip
             log

@@ -6,7 +6,10 @@ import { run, taskCount } from "./wharf";
  * Components, so the per-task table stays out of client bundles.
  */
 
-const passesByRun: Record<string, Record<string, number>> = tasks;
+/** Passing attempts per task, by run id. */
+export const passesByRun: Record<string, Record<string, number>> = tasks.passes;
+/** Each task's main language. */
+export const taskLanguages: Record<string, string> = tasks.languages;
 
 /**
  * Difference in pass rate (b − a) with a 95% range, in percentage points. Each task's pass rate is

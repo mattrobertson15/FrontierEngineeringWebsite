@@ -44,6 +44,7 @@ type DeepTrial = {
   p2p_passed: number | null;
   p2p_total: number | null;
   n_input_tokens: number | null;
+  language: string;
 };
 type DeepManifestArm = { arm: string; trials: number; tasks: number; with_cost: number };
 
@@ -58,6 +59,7 @@ const meanIfCovered = (values: (number | null)[], planned: number) => {
 };
 
 const deepTasks: Record<string, Record<string, number>> = {};
+const taskLanguages: Record<string, string> = {};
 const deepArms = readdirSync(deepDir).filter((f) => f.endsWith(".jsonl")).sort().map((file) => {
   const id = file.slice(0, -".jsonl".length);
   const trials: DeepTrial[] = readFileSync(join(deepDir, file), "utf8").trim().split("\n")
@@ -94,6 +96,7 @@ const deepArms = readdirSync(deepDir).filter((f) => f.endsWith(".jsonl")).sort()
     const timed = rows.filter((t) => t.agent_seconds != null);
     return timed.reduce((sum, t) => sum + t.agent_seconds!, 0) / Math.max(1, timed.length);
   });
+  for (const t of trials) taskLanguages[t.task_id] ??= t.language;
   deepTasks[id] = Object.fromEntries([...byTask].sort().map(([task, rows]) => [task, rows.filter(passed).length]));
 
   return {
@@ -132,7 +135,11 @@ const deepOut = {
   arms: deepArms,
 };
 writeFileSync(new URL("../../content/wharf-deepswe.json", import.meta.url), JSON.stringify(deepOut, null, 2) + "\n");
-writeFileSync(new URL("../../content/wharf-deepswe-tasks.json", import.meta.url), JSON.stringify(deepTasks) + "\n");
+const sortedLanguages = Object.fromEntries(Object.entries(taskLanguages).sort(([a], [b]) => a.localeCompare(b)));
+writeFileSync(
+  new URL("../../content/wharf-deepswe-tasks.json", import.meta.url),
+  JSON.stringify({ languages: sortedLanguages, passes: deepTasks }) + "\n",
+);
 
 /* ---------- WharfSWE: regenerate ---------- */
 
