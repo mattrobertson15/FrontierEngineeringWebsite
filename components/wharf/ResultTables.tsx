@@ -7,6 +7,62 @@ import { SortableTable, type Column } from "./SortableTable";
 
 const usd4 = (x: number) => `$${x.toFixed(x < 0.1 ? 4 : 2)}`;
 
+/* ---------- Preview wrapper ---------- */
+
+/**
+ * A sortable table that opens as a preview of its first rows under the current sort, with a
+ * button to show the rest. No button when everything already fits.
+ */
+function PreviewTable<T extends { id: string }>({
+  rows,
+  columns,
+  initial,
+  caption,
+  preview,
+  noun,
+}: {
+  rows: T[];
+  columns: Column<T>[];
+  initial: (a: T, b: T) => number;
+  caption: string;
+  preview: number;
+  /** Plural label for the button, e.g. "configurations". */
+  noun: string;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  const clipped = rows.length > preview;
+
+  const toggle = () => {
+    setExpanded((cur) => !cur);
+    // Collapsing from the bottom of a long table would strand the reader below it.
+    if (expanded) requestAnimationFrame(() => ref.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }));
+  };
+
+  return (
+    <div ref={ref} className="scroll-mt-24">
+      <SortableTable
+        rows={rows}
+        columns={columns}
+        initial={initial}
+        limit={expanded || !clipped ? undefined : preview}
+        caption={`${caption}${clipped && !expanded ? ` Showing the first ${preview} of ${rows.length}.` : ""}`}
+      />
+      {clipped && (
+        <button
+          type="button"
+          aria-expanded={expanded}
+          onClick={toggle}
+          className="flex min-h-11 w-full items-center justify-center gap-2 border border-t-0 border-line bg-surface font-mono text-xs text-ink-2 transition-colors hover:bg-paper hover:text-ink"
+        >
+          {expanded ? `Show first ${preview} only` : `Show all ${rows.length} ${noun}`}
+          <span aria-hidden className={`inline-block transition-transform ${expanded ? "rotate-180" : ""}`}>↓</span>
+        </button>
+      )}
+    </div>
+  );
+}
+
 /* ---------- DeepSWE ---------- */
 
 const byPassRate = (a: WharfRun, b: WharfRun) => passRate(b) - passRate(a);
@@ -91,19 +147,9 @@ const deepColumns: Column<WharfRun>[] = [
  * The table, then its footnotes and definitions folded into one disclosure so scrolling readers
  * aren't met by a wall of small print. Selecting a footnote mark in the table opens it at that note.
  */
-/** Rows shown before "Show all": enough to see who leads under the current sort. */
-const deepPreviewRows = 5;
 
 export function DeepSweTable({ definitions, source }: { definitions: ReactNode; source: ReactNode }) {
   const [open, setOpen] = useState(false);
-  const [expanded, setExpanded] = useState(false);
-  const tableRef = useRef<HTMLDivElement>(null);
-
-  const toggleRows = () => {
-    setExpanded((cur) => !cur);
-    // Collapsing from the bottom of a long table would strand the reader below it.
-    if (expanded) requestAnimationFrame(() => tableRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }));
-  };
 
   const openNote = (event: MouseEvent<HTMLDivElement>) => {
     const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#deepswe-note-"]');
@@ -120,24 +166,14 @@ export function DeepSweTable({ definitions, source }: { definitions: ReactNode; 
 
   return (
     <div className="flex flex-col gap-4" onClick={openNote}>
-      <div ref={tableRef} className="scroll-mt-24">
-        <SortableTable
-          rows={runs}
-          columns={deepColumns}
-          initial={byPassRate}
-          limit={expanded ? undefined : deepPreviewRows}
-          caption={`DeepSWE results${expanded ? " for every configuration" : `, top ${deepPreviewRows} of ${runs.length} in the current sort`}. Select a column header to sort.`}
-        />
-        <button
-          type="button"
-          aria-expanded={expanded}
-          onClick={toggleRows}
-          className="flex min-h-11 w-full items-center justify-center gap-2 border border-t-0 border-line bg-surface font-mono text-xs text-ink-2 transition-colors hover:bg-paper hover:text-ink"
-        >
-          {expanded ? "Show top 5 only" : `Show all ${runs.length} configurations`}
-          <span aria-hidden className={`inline-block transition-transform ${expanded ? "rotate-180" : ""}`}>↓</span>
-        </button>
-      </div>
+      <PreviewTable
+        rows={runs}
+        columns={deepColumns}
+        initial={byPassRate}
+        preview={5}
+        noun="configurations"
+        caption="DeepSWE results for every configuration. Select a column header to sort."
+      />
       <div className="relative font-mono text-xs text-muted">
         {/* Kept outside <summary> so following the link doesn't also toggle the notes. */}
         <span className="mb-1 block sm:absolute sm:top-0 sm:right-0 sm:mb-0 sm:inline-flex sm:min-h-8 sm:items-center sm:gap-1">{source}</span>
@@ -275,10 +311,14 @@ export function SweTable({ runs }: { runs: SweRun[] }) {
         {shown.length} of {runs.length} runs
       </p>
       {shown.length ? (
-        <SortableTable
+        <PreviewTable
+          // Remount when the filters change, so a new selection opens as a preview again.
+          key={`${harness}|${model}`}
           rows={shown}
           columns={sweColumns}
           initial={sweOrder}
+          preview={8}
+          noun="runs"
           caption="WharfSWE results for every run. Select a column header to sort."
         />
       ) : (

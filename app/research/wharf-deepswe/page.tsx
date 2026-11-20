@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { benchmarksHref, contactHref, researchHref, wharfSweHref } from "@/lib/site";
 import { CostQualityChart } from "@/components/CostQualityChart";
+import { SectionNav } from "@/components/SectionNav";
 import { ConsistencyChart } from "@/components/wharf/ConsistencyChart";
 import { CostPerFix } from "@/components/wharf/CostPerFix";
 import { DeepSweTaskHeatmap } from "@/components/wharf/DeepSweTaskHeatmap";
@@ -139,7 +140,21 @@ export default function WharfResearchPage() {
         }
       />
 
-      <section className="border-t border-line bg-surface">
+      <SectionNav
+        links={[
+          { id: "summary", label: "Summary" },
+          { id: "results", label: "Results" },
+          { id: "cost", label: "Cost per fix" },
+          { id: "consistency", label: "Consistency" },
+          { id: "tasks", label: "By task" },
+          { id: "meta", label: "Meta check" },
+          { id: "guidance", label: "Guidance" },
+          { id: "method", label: "Method" },
+          { id: "limitations", label: "Limitations" },
+        ]}
+      />
+
+      <section id="summary" className="scroll-mt-12 border-t border-line bg-surface">
         <Container className="flex flex-col gap-12 py-26">
           <div className="flex flex-col gap-4">
             <Eyebrow>At a glance</Eyebrow>
@@ -149,7 +164,7 @@ export default function WharfResearchPage() {
         </Container>
       </section>
 
-      <section id="results" className="border-t border-line">
+      <section id="results" className="scroll-mt-12 border-t border-line">
         <Container className="flex flex-col gap-10 py-26">
           <div className="flex flex-col gap-4">
             <Eyebrow>Results</Eyebrow>
@@ -202,7 +217,7 @@ export default function WharfResearchPage() {
         </Container>
       </section>
 
-      <section id="cost" className="border-t border-line bg-surface">
+      <section id="cost" className="scroll-mt-12 border-t border-line bg-surface">
         <Container className="flex flex-col gap-10 py-26">
           <div className="flex max-w-[64ch] flex-col gap-4">
             <Eyebrow>Cost per fix</Eyebrow>
@@ -226,7 +241,7 @@ export default function WharfResearchPage() {
         </Container>
       </section>
 
-      <section id="consistency" className="border-t border-line">
+      <section id="consistency" className="scroll-mt-12 border-t border-line">
         <Container className="flex flex-col gap-10 py-26">
           <div className="flex max-w-[64ch] flex-col gap-4">
             <Eyebrow>Consistency</Eyebrow>
@@ -247,7 +262,7 @@ export default function WharfResearchPage() {
         </Container>
       </section>
 
-      <section id="tasks" className="border-t border-line bg-surface">
+      <section id="tasks" className="scroll-mt-12 border-t border-line bg-surface">
         <Container className="flex flex-col gap-10 py-26">
           <div className="flex max-w-[64ch] flex-col gap-4">
             <Eyebrow>Task by task</Eyebrow>
@@ -268,7 +283,7 @@ export default function WharfResearchPage() {
         </Container>
       </section>
 
-      <section id="meta" className="border-t border-line">
+      <section id="meta" className="scroll-mt-12 border-t border-line">
         <Container className="flex flex-col gap-10 py-26">
           <div className="flex max-w-[64ch] flex-col gap-4">
             <Eyebrow>External check</Eyebrow>
@@ -308,7 +323,7 @@ export default function WharfResearchPage() {
         </Container>
       </section>
 
-      <section id="guidance" className="border-t border-line bg-surface">
+      <section id="guidance" className="scroll-mt-12 border-t border-line bg-surface">
         <Container className="flex flex-col gap-10 py-26">
           <div className="flex max-w-[64ch] flex-col gap-4">
             <Eyebrow>Added guidance</Eyebrow>
@@ -422,7 +437,7 @@ export default function WharfResearchPage() {
       </section>
 
       <DarkBand>
-        <Container className="py-26">
+        <Container className="scroll-mt-12 py-26" id="method">
           <AutoGrid min={320} className="items-start gap-14">
             <div className="flex flex-col gap-4">
               <Eyebrow dark>Methodology</Eyebrow>
@@ -447,7 +462,7 @@ export default function WharfResearchPage() {
         </Container>
       </DarkBand>
 
-      <Container className="py-26">
+      <Container className="scroll-mt-12 py-26" id="limitations">
         <AutoGrid min={320} className="items-start gap-14">
           <div className="flex flex-col gap-4">
             <Eyebrow>Limitations</Eyebrow>

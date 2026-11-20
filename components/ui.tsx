@@ -6,11 +6,18 @@ import type { CSSProperties, ReactNode } from "react";
 export function Container({
   children,
   className = "",
+  id,
 }: {
   children: ReactNode;
   className?: string;
+  /** For in-page anchors. */
+  id?: string;
 }) {
-  return <div className={`mx-auto max-w-[1200px] px-8 ${className}`}>{children}</div>;
+  return (
+    <div id={id} className={`mx-auto max-w-[1200px] px-8 ${className}`}>
+      {children}
+    </div>
+  );
 }
 
 /** Responsive grid: as many columns of at least `min` px as fit. */

@@ -98,140 +98,202 @@ export function DeepSweTaskHeatmap({ rows, tasks }: { rows: HeatRow[]; tasks: He
   const cell = active && { row: rows[active.r], task: tasks[columns[active.c]], t: columns[active.c] };
 
   return (
-    <figure className="m-0 flex flex-col gap-3">
-      <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-ink-2">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-          <span className="text-muted">attempts passed</span>
-          <span className="flex items-center gap-[2px]" aria-hidden>
-            {heat.map((c, i) => (
-              <span key={i} className="h-3 w-5 first:rounded-l-[4px] last:rounded-r-[4px]" style={{ background: c }} />
-            ))}
-          </span>
-          <span>none → all</span>
-          <span className="ml-2 flex flex-wrap items-center gap-x-3 gap-y-1">
-            {languageOrder.map((lang) => (
-              <span key={lang} className="flex items-center gap-1.5">
-                <span aria-hidden className="h-2.5 w-2.5 rounded-[2px]" style={{ background: languageColor[lang] }} />
-                {languageName[lang]}
-              </span>
-            ))}
-          </span>
-        </div>
-        <div role="group" aria-label="Order tasks" className="flex items-center gap-2 text-muted">
-          tasks
-          <div className="flex border border-line">
-            {(["difficulty", "language"] as const).map((o) => (
-              <button
-                key={o}
-                type="button"
-                aria-pressed={order === o}
-                onClick={() => setOrder(o)}
-                className={`min-h-8 px-2.5 ${order === o ? "bg-ink text-paper" : "text-ink-2 hover:text-ink"}`}
-              >
-                {o === "difficulty" ? "Easiest first" : "By language"}
-              </button>
-            ))}
+    <>
+      <TaskReachSummary rows={rows} tasks={tasks} />
+      <figure className="m-0 hidden flex-col gap-3 md:flex">
+        <div className="flex flex-wrap items-center justify-between gap-3 font-mono text-xs text-ink-2">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <span className="text-muted">attempts passed</span>
+            <span className="flex items-center gap-[2px]" aria-hidden>
+              {heat.map((c, i) => (
+                <span key={i} className="h-3 w-5 first:rounded-l-[4px] last:rounded-r-[4px]" style={{ background: c }} />
+              ))}
+            </span>
+            <span>none → all</span>
+            <span className="ml-2 flex flex-wrap items-center gap-x-3 gap-y-1">
+              {languageOrder.map((lang) => (
+                <span key={lang} className="flex items-center gap-1.5">
+                  <span aria-hidden className="h-2.5 w-2.5 rounded-[2px]" style={{ background: languageColor[lang] }} />
+                  {languageName[lang]}
+                </span>
+              ))}
+            </span>
+          </div>
+          <div role="group" aria-label="Order tasks" className="flex items-center gap-2 text-muted">
+            tasks
+            <div className="flex border border-line">
+              {(["difficulty", "language"] as const).map((o) => (
+                <button
+                  key={o}
+                  type="button"
+                  aria-pressed={order === o}
+                  onClick={() => setOrder(o)}
+                  className={`min-h-8 px-2.5 ${order === o ? "bg-ink text-paper" : "text-ink-2 hover:text-ink"}`}
+                >
+                  {o === "difficulty" ? "Easiest first" : "By language"}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="relative overflow-x-auto border border-line bg-surface p-3">
-        <div className="relative min-w-[900px]">
-          <svg
-            viewBox={`0 0 ${W} ${H}`}
-            className="block h-auto w-full font-mono outline-none focus-visible:ring-2 focus-visible:ring-ink"
-            tabIndex={0}
-            role="img"
-            aria-label={`Heatmap of ${rows.length} configurations by ${tasks.length} tasks: the share of attempts that passed on each task. Use the arrow keys to read cells.`}
-            onPointerMove={locate}
-            onPointerLeave={() => setActive(null)}
-            onKeyDown={move}
-            onBlur={() => setActive(null)}
-          >
-            {/* Difficulty: mean pass share across all configurations, per task. */}
-            <text x={labelW - 8} y={diffH / 2} dy="0.32em" textAnchor="end" className="fill-muted text-[10px]">
-              all configs
-            </text>
-            {columns.map((t, c) => {
-              const h = Math.max(1, tasks[t].mean * diffH);
-              return <rect key={t} x={x(c)} y={diffH - h} width={cellW} height={h} rx={1} className="fill-slate/70" />;
-            })}
-
-            {rows.map((row, r) => (
-              <g key={row.id}>
-                <text
-                  x={labelW - 8}
-                  y={y(r) + cellH / 2}
-                  dy="0.32em"
-                  textAnchor="end"
-                  className={`text-[10.5px] ${active?.r === r ? "fill-ink font-semibold" : "fill-ink-2"}`}
-                >
-                  {row.label}
-                  <tspan className="fill-muted"> · {row.sub}</tspan>
-                </text>
-                {columns.map((t, c) => (
-                  <rect
-                    key={t}
-                    x={x(c)}
-                    y={y(r)}
-                    width={cellW}
-                    height={cellH}
-                    rx={1.5}
-                    style={{ fill: heat[bin(row.passes[t] / row.attempts)] }}
-                  />
-                ))}
-              </g>
-            ))}
-
-            {columns.map((t, c) => (
-              <rect key={t} x={x(c)} y={langY} width={cellW} height={6} rx={1} style={{ fill: languageColor[tasks[t].language] }} />
-            ))}
-            {languageGroups.map((g) => (
-              <text
-                key={g.lang}
-                x={(x(g.from) + x(g.to) + cellW) / 2}
-                y={langY + 19}
-                textAnchor="middle"
-                className="fill-ink-2 text-[10.5px]"
-              >
-                {g.n * pitchX < 90 ? languageShort[g.lang] : `${languageName[g.lang]} (${g.n})`}
-              </text>
-            ))}
-
-            {active && (
-              <g className="pointer-events-none" fill="none">
-                <rect x={x(active.c) - 1.5} y={top - 2} width={cellW + 3} height={gridH + 2} className="stroke-accent" strokeWidth={1} />
-                <rect x={labelW - 2} y={y(active.r) - 1.5} width={gridW + 2} height={cellH + 3} className="stroke-accent" strokeWidth={1} />
-                <rect x={x(active.c) - 1.5} y={y(active.r) - 1.5} width={cellW + 3} height={cellH + 3} className="stroke-surface" strokeWidth={2} />
-              </g>
-            )}
-          </svg>
-
-          {cell && (
-            <div
-              className={`pointer-events-none absolute z-10 w-max max-w-[280px] border border-line bg-paper px-3 py-2 font-mono text-xs text-ink-2 shadow-sm ${
-                active!.c > columns.length * 0.6 ? "-translate-x-[calc(100%+12px)]" : "translate-x-3"
-              }`}
-              style={{ left: `${((x(active!.c) + cellW) / W) * 100}%`, top: `${((y(active!.r) + cellH) / H) * 100}%` }}
+        <div className="relative overflow-x-auto border border-line bg-surface p-3">
+          <div className="relative min-w-[900px]">
+            <svg
+              viewBox={`0 0 ${W} ${H}`}
+              className="block h-auto w-full font-mono outline-none focus-visible:ring-2 focus-visible:ring-ink"
+              tabIndex={0}
+              role="img"
+              aria-label={`Heatmap of ${rows.length} configurations by ${tasks.length} tasks: the share of attempts that passed on each task. Use the arrow keys to read cells.`}
+              onPointerMove={locate}
+              onPointerLeave={() => setActive(null)}
+              onKeyDown={move}
+              onBlur={() => setActive(null)}
             >
-              <p className="m-0 font-sans text-sm font-semibold break-words text-ink">{cell.task.id}</p>
-              <p className="m-0">
-                {languageName[cell.task.language]} · {Math.round(cell.task.mean * 100)}% passed across all configs
-              </p>
-              <p className="m-0 mt-1 text-ink">
-                {cell.row.label} · {cell.row.sub}
-              </p>
-              <p className="m-0">
-                {cell.row.passes[cell.t]}/{cell.row.attempts} attempts passed ({binLabels[bin(cell.row.passes[cell.t] / cell.row.attempts)]})
-              </p>
-            </div>
-          )}
+              {/* Difficulty: mean pass share across all configurations, per task. */}
+              <text x={labelW - 8} y={diffH / 2} dy="0.32em" textAnchor="end" className="fill-muted text-[10px]">
+                all configs
+              </text>
+              {columns.map((t, c) => {
+                const h = Math.max(1, tasks[t].mean * diffH);
+                return <rect key={t} x={x(c)} y={diffH - h} width={cellW} height={h} rx={1} className="fill-slate/70" />;
+              })}
+
+              {rows.map((row, r) => (
+                <g key={row.id}>
+                  <text
+                    x={labelW - 8}
+                    y={y(r) + cellH / 2}
+                    dy="0.32em"
+                    textAnchor="end"
+                    className={`text-[10.5px] ${active?.r === r ? "fill-ink font-semibold" : "fill-ink-2"}`}
+                  >
+                    {row.label}
+                    <tspan className="fill-muted"> · {row.sub}</tspan>
+                  </text>
+                  {columns.map((t, c) => (
+                    <rect
+                      key={t}
+                      x={x(c)}
+                      y={y(r)}
+                      width={cellW}
+                      height={cellH}
+                      rx={1.5}
+                      style={{ fill: heat[bin(row.passes[t] / row.attempts)] }}
+                    />
+                  ))}
+                </g>
+              ))}
+
+              {columns.map((t, c) => (
+                <rect key={t} x={x(c)} y={langY} width={cellW} height={6} rx={1} style={{ fill: languageColor[tasks[t].language] }} />
+              ))}
+              {languageGroups.map((g) => (
+                <text
+                  key={g.lang}
+                  x={(x(g.from) + x(g.to) + cellW) / 2}
+                  y={langY + 19}
+                  textAnchor="middle"
+                  className="fill-ink-2 text-[10.5px]"
+                >
+                  {g.n * pitchX < 90 ? languageShort[g.lang] : `${languageName[g.lang]} (${g.n})`}
+                </text>
+              ))}
+
+              {active && (
+                <g className="pointer-events-none" fill="none">
+                  <rect x={x(active.c) - 1.5} y={top - 2} width={cellW + 3} height={gridH + 2} className="stroke-accent" strokeWidth={1} />
+                  <rect x={labelW - 2} y={y(active.r) - 1.5} width={gridW + 2} height={cellH + 3} className="stroke-accent" strokeWidth={1} />
+                  <rect x={x(active.c) - 1.5} y={y(active.r) - 1.5} width={cellW + 3} height={cellH + 3} className="stroke-surface" strokeWidth={2} />
+                </g>
+              )}
+            </svg>
+
+            {cell && (
+              <div
+                className={`pointer-events-none absolute z-10 w-max max-w-[280px] border border-line bg-paper px-3 py-2 font-mono text-xs text-ink-2 shadow-sm ${
+                  active!.c > columns.length * 0.6 ? "-translate-x-[calc(100%+12px)]" : "translate-x-3"
+                }`}
+                style={{ left: `${((x(active!.c) + cellW) / W) * 100}%`, top: `${((y(active!.r) + cellH) / H) * 100}%` }}
+              >
+                <p className="m-0 font-sans text-sm font-semibold break-words text-ink">{cell.task.id}</p>
+                <p className="m-0">
+                  {languageName[cell.task.language]} · {Math.round(cell.task.mean * 100)}% passed across all configs
+                </p>
+                <p className="m-0 mt-1 text-ink">
+                  {cell.row.label} · {cell.row.sub}
+                </p>
+                <p className="m-0">
+                  {cell.row.passes[cell.t]}/{cell.row.attempts} attempts passed ({binLabels[bin(cell.row.passes[cell.t] / cell.row.attempts)]})
+                </p>
+              </div>
+            )}
+          </div>
         </div>
+        <figcaption className="font-mono text-xs text-muted">
+          Rows: configurations, best pass rate first. Columns: the {tasks.length} tasks. Top strip: share of
+          attempts that passed on each task across all configurations. Hover a cell, or focus the chart and use
+          the arrow keys.
+        </figcaption>
+      </figure>
+    </>
+  );
+}
+
+/**
+ * The heatmap's story for small screens: how many configurations solved each task at least once,
+ * grouped, plus the hardest tasks by name. Single series, so one colour; every bar is labelled.
+ */
+function TaskReachSummary({ rows, tasks }: { rows: HeatRow[]; tasks: HeatTask[] }) {
+  const n = rows.length;
+  const reach = tasks.map((_, t) => rows.filter((r) => r.passes[t] > 0).length);
+  const groups = [
+    { label: `All ${n}`, test: (k: number) => k === n },
+    { label: `${n - 5}–${n - 1}`, test: (k: number) => k >= n - 5 && k < n },
+    { label: `${n - 10}–${n - 6}`, test: (k: number) => k >= n - 10 && k < n - 5 },
+    { label: `${n - 15}–${n - 11}`, test: (k: number) => k >= n - 15 && k < n - 10 },
+    { label: `1–${n - 16}`, test: (k: number) => k >= 1 && k < n - 15 },
+    { label: "None", test: (k: number) => k === 0 },
+  ].map((g) => ({ ...g, count: reach.filter(g.test).length }));
+  const most = Math.max(...groups.map((g) => g.count));
+  const hardest = tasks
+    .map((task, t) => ({ task, reach: reach[t] }))
+    .sort((a, b) => a.reach - b.reach || a.task.mean - b.task.mean)
+    .slice(0, 3);
+
+  return (
+    <figure className="m-0 flex flex-col gap-4 md:hidden">
+      <div className="border border-line bg-surface p-4">
+        <p className="m-0 mb-3 font-mono text-xs text-muted">
+          Tasks by how many of the {n} configurations solved them at least once
+        </p>
+        <ol className="m-0 flex list-none flex-col gap-2 p-0">
+          {groups.map((g) => (
+            <li key={g.label} className="grid grid-cols-[4.5rem_1fr_2rem] items-center gap-3 font-mono text-xs">
+              <span className="text-ink-2">{g.label}</span>
+              <span className="flex h-3 items-center">
+                {g.count > 0 && <span className="h-3 rounded-r-[4px] bg-ink" style={{ width: `${(g.count / most) * 100}%` }} />}
+              </span>
+              <span className="text-right tabular-nums text-ink">{g.count}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div className="border border-line bg-surface p-4">
+        <p className="m-0 mb-2 font-mono text-xs text-muted">Hardest tasks</p>
+        <ul className="m-0 flex list-none flex-col gap-1.5 p-0 text-sm">
+          {hardest.map(({ task, reach: k }) => (
+            <li key={task.id} className="flex flex-col">
+              <code className="font-mono text-[13px] break-words text-ink">{task.id}</code>
+              <span className="font-mono text-xs text-muted">
+                solved by {k} of {n} configurations · {Math.round(task.mean * 100)}% of attempts passed
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
       <figcaption className="font-mono text-xs text-muted">
-        Rows: configurations, best pass rate first. Columns: the {tasks.length} tasks. Top strip: share of
-        attempts that passed on each task across all configurations. Hover a cell, or focus the chart and use
-        the arrow keys.
+        The full task-by-configuration grid shows on a larger screen.
       </figcaption>
     </figure>
   );
