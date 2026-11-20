@@ -33,8 +33,11 @@ const metrics: Metric[] = [
     label: "Passing trials",
     value: (r) => r.passes,
     format: (v) => `${v}/56`,
-    ticks: [44, 48, 52, 56],
-    axis: "passing trials of 56 (axis starts at 44)",
+    // The lowest observed result is 48/56; starting at 47 keeps every run on the plot without
+    // spending a quarter of it on empty space. The axis label says the axis is cut.
+    ticks: [48, 50, 52, 54, 56],
+    domain: [47, 56],
+    axis: "passing trials of 56 (axis starts at 47)",
   },
   {
     key: "cost",
@@ -55,6 +58,37 @@ const metrics: Metric[] = [
     axis: "mean agent time per trial (m:ss)",
   },
 ];
+
+/*
+ * One hollow marker shape per series, in series order. Shape is a second cue beside colour, and
+ * hollow shapes stay readable where several models land on the same value at the same release.
+ */
+const shapes = ["circle", "triangle", "diamond", "square", "triangle-down"] as const;
+type Shape = (typeof shapes)[number];
+
+function Marker({ shape, cx, cy, r, color }: { shape: Shape; cx: number; cy: number; r: number; color: string }) {
+  const common = { fill: "var(--color-surface)", stroke: color, strokeWidth: 1.75, strokeLinejoin: "round" as const };
+  if (shape === "circle") return <circle cx={cx} cy={cy} r={r} {...common} />;
+  if (shape === "square") return <rect x={cx - r * 0.9} y={cy - r * 0.9} width={r * 1.8} height={r * 1.8} {...common} />;
+  const k = r * 1.25;
+  const pts =
+    shape === "diamond"
+      ? [[cx, cy - k], [cx + k, cy], [cx, cy + k], [cx - k, cy]]
+      : shape === "triangle"
+        ? [[cx, cy - k], [cx + k, cy + k * 0.8], [cx - k, cy + k * 0.8]]
+        : [[cx, cy + k], [cx + k, cy - k * 0.8], [cx - k, cy - k * 0.8]];
+  return <polygon points={pts.map((pt) => pt.join(",")).join(" ")} {...common} />;
+}
+
+/** A line-and-marker swatch for the legend and tooltip. */
+function Swatch({ shape, color }: { shape: Shape; color: string }) {
+  return (
+    <svg viewBox="0 0 20 12" className="h-3 w-5 shrink-0" aria-hidden>
+      <line x1={0} x2={20} y1={6} y2={6} stroke={color} strokeWidth={2} />
+      <Marker shape={shape} cx={10} cy={6} r={3.5} color={color} />
+    </svg>
+  );
+}
 
 const W = 720;
 const H = 380;
@@ -96,7 +130,9 @@ export function RevisionChart({ series }: { series: Series[] }) {
   const t = (v: number) => (metric.log && !showChange ? Math.log(v) : v);
   const y = (v: number) => pad.top + (1 - (t(v) - t(lo)) / (t(hi) - t(lo))) * (H - pad.top - pad.bottom);
 
-  const xTicks = revs.filter((r) => r % 5 === 0 || r === rMin || r === rMax);
+  // Every tested release gets a label: the series are sparse, so counting gridlines is no help.
+  const xTicks = revs;
+  const shapeOf = (model: string) => shapes[series.findIndex((s) => s.model === model) % shapes.length];
   const nearest = (px: number) => revs.reduce((best, r) => (Math.abs(x(r) - px) < Math.abs(x(best) - px) ? r : best), rMin);
   const atRev = hoverRev === null ? [] : observed.flatMap((s) => {
     const point = s.points.find((p) => p.rev === hoverRev);
@@ -140,7 +176,7 @@ export function RevisionChart({ series }: { series: Series[] }) {
                 className={`flex min-h-9 items-center gap-2 border px-2.5 font-mono text-xs transition-colors ${
                   focusModel === s.model ? "border-ink text-ink" : "border-transparent text-ink-2 hover:text-ink"
                 } ${dim(s.model) ? "opacity-50" : ""}`}>
-                <span className="h-0.5 w-4 rounded-full" style={{ background: s.color }} aria-hidden />
+                <Swatch shape={shapeOf(s.model)} color={s.color} />
                 {s.model}
               </button>
             </li>
@@ -161,7 +197,7 @@ export function RevisionChart({ series }: { series: Series[] }) {
               </g>
             ))}
             {xTicks.map((r) => (
-              <text key={r} x={x(r)} y={H - pad.bottom + 22} textAnchor="middle" className="fill-muted text-[12px]">
+              <text key={r} x={x(r)} y={H - pad.bottom + 22} textAnchor="middle" className="fill-muted text-[10.5px]">
                 .{r}
               </text>
             ))}
@@ -191,8 +227,8 @@ export function RevisionChart({ series }: { series: Series[] }) {
                   )) : <>
                     <path d={d} fill="none" stroke={s.color} strokeWidth={2} strokeLinejoin="round" />
                     {pts.map((p) => (
-                      <circle key={p.rev} cx={x(p.rev)} cy={y(p.plotted)} r={p.rev === hoverRev ? 5.5 : 4}
-                        fill={s.color} className="stroke-surface" strokeWidth={2} />
+                      <Marker key={p.rev} shape={shapeOf(s.model)} cx={x(p.rev)} cy={y(p.plotted)}
+                        r={p.rev === hoverRev ? 5.5 : 4.5} color={s.color} />
                     ))}
                   </>}
                 </g>
@@ -224,7 +260,7 @@ export function RevisionChart({ series }: { series: Series[] }) {
               ) : (
                 atRev.map(({ s, point }) => (
                   <p key={s.model} className="m-0 flex items-center gap-2">
-                    <span className="size-2 rounded-full" style={{ background: s.color }} aria-hidden />
+                    <Swatch shape={shapeOf(s.model)} color={s.color} />
                     <span className="grow">{s.model}</span>
                     {showChange && point.previous && <span className="text-muted">{point.previous.run.version} → {point.run.version}</span>}
                     <span className="text-ink tabular-nums">{showChange ? formatChange(point.plotted, true) : metric.format(point.plotted)}</span>

@@ -108,6 +108,16 @@ const meanRate = (model: string) => {
 };
 const costRatio = Math.round(meanCost("GPT-6 Astra") / meanCost("GPT-6 Luna"));
 
+// Agent time at one Copilot release against each tracked model's previous tested release.
+const slowdownRev = 113;
+const slowdown = trackedModels.flatMap((model) => {
+  const rs = copilotRuns.filter((r) => r.model === model).sort((a, b) => revision(a) - revision(b));
+  const i = rs.findIndex((r) => revision(r) === slowdownRev);
+  return i > 0 ? [{ model, before: rs[i - 1], after: rs[i] }] : [];
+});
+const slowed = slowdown.filter((s) => s.after.agentSeconds > s.before.agentSeconds);
+const mmss = (s: number) => `${Math.floor(Math.round(s) / 60)}:${String(Math.round(s) % 60).padStart(2, "0")}`;
+
 const findings = [
   {
     tag: "01 · harness",
@@ -127,6 +137,13 @@ const findings = [
     tag: "03 · cost",
     title: "The last few points are expensive.",
     body: `On Copilot, GPT-6 Astra averaged ${pct(meanRate("GPT-6 Astra"))} at about $${meanCost("GPT-6 Astra").toFixed(2)} a trial. GPT-6 Luna averaged ${pct(meanRate("GPT-6 Luna"))} at about $${meanCost("GPT-6 Luna").toFixed(3)}: roughly ${costRatio}× cheaper. Whether that gap is worth paying for depends on the work.`,
+  },
+  {
+    tag: "04 · releases",
+    title: `${slowed.length === slowdown.length ? "Every model" : `${slowed.length} of ${slowdown.length} models`} slowed down at Copilot 1.0.${slowdownRev}.`,
+    body: `Mean agent time per trial against each model's previous tested release: ${slowdown
+      .map((s) => `${s.model} ${mmss(s.before.agentSeconds)} → ${mmss(s.after.agentSeconds)}`)
+      .join(", ")}. Several models moving together points at the harness release more than any one model. Host and parallelism settings also changed across these runs, so treat it as an observation to retest, not a proven cause.`,
   },
 ];
 
