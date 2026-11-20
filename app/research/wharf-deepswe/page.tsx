@@ -2,12 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { benchmarksHref, contactHref, researchHref, wharfSweHref } from "@/lib/site";
 import { CostQualityChart } from "@/components/CostQualityChart";
+import { ConsistencyChart } from "@/components/wharf/ConsistencyChart";
+import { Glance, glanceConsistencyPair } from "@/components/wharf/Glance";
 import { DeepSweTable } from "@/components/wharf/ResultTables";
 import { WharfSwitcher } from "@/components/wharf/WharfSwitcher";
 import { sweRuns, wharfSweTaskCount } from "@/content/wharf-swe";
 import {
+  guidancePairs,
+  metaComparisons,
+  metaSource,
   passRate,
   pct,
+  range95,
   run,
   runs,
   taskCount,
@@ -17,6 +23,7 @@ import {
   wharfDate,
   wharfSource,
 } from "@/content/wharf";
+import { pairedDiff, signed } from "@/content/wharf-stats";
 import {
   ArrowLink,
   AutoGrid,
@@ -24,9 +31,7 @@ import {
   CtaStrip,
   DarkBand,
   Eyebrow,
-  FeatureCard,
   H2,
-  HairlineGrid,
   PageHero,
   StatGrid,
 } from "@/components/ui";
@@ -40,28 +45,18 @@ export const metadata: Metadata = {
 const opusCopilot = run("copilot-claude-opus-5-max-1.0.77");
 const opusClaudeCode = run("cc-claude-opus-5-max-2.1.220");
 const luna = run("copilot-gpt-5.6-luna-max-1.0.77");
+const lunaNext = run("copilot-gpt-5.6-luna-max-1.0.91");
 const opus55 = run("copilot-claude-opus-5.5-max-1.0.95");
-const astra = run("copilot-gpt-6-astra-max-1.0.91");
-const auto = run("copilot-auto-max-1.0.77");
-const hydra = run("copilot-hydrafusion-default-1.0.98");
+const hydra = run("copilot-hydrafusion-default-1.0.105");
+const [hydraRun1, hydraRun2] = [run("copilot-hydrafusion-max-1.0.95"), run("copilot-hydrafusion-max-1.0.95-all-2")];
 
-const findings = [
-  {
-    tag: "01 · harness",
-    title: "The harness is part of the product.",
-    body: `Claude Opus 5 passed ${pct(passRate(opusCopilot))} of attempts inside GitHub Copilot and ${pct(passRate(opusClaudeCode))} inside Claude Code, at ${usd(opusCopilot.costPerAttempt)} versus ${usd(opusClaudeCode.costPerAttempt)} per attempt. Same model; different tools, context handling and prompts around it.`,
-  },
-  {
-    tag: "02 · cost",
-    title: "More expensive isn't more effective.",
-    body: `GPT-5.6 Luna passed ${pct(passRate(luna))} at ${usd(luna.costPerAttempt)} per attempt. Claude Opus 5.5 passed ${pct(passRate(opus55))} at ${usd(opus55.costPerAttempt)}. Routing is no shortcut either: Copilot's Auto router passed ${pct(passRate(auto))}, its HydraFusion router ${pct(passRate(hydra))}.`,
-  },
-  {
-    tag: "03 · regressions",
-    title: "Passing the task isn't enough.",
-    body: `GPT-6 Astra and Claude Opus 5 (Copilot) passed almost the same number of attempts — ${astra.passing} and ${opusCopilot.passing}. But ${astra.regressions} of Astra's attempts broke existing tests, against ${opusCopilot.regressions} for Opus 5.`,
-  },
-];
+const lunaGap = pairedDiff(lunaNext.id, luna.id);
+const range = (d: { lo: number; hi: number }) => `${signed(d.lo)} to ${signed(d.hi)}`;
+
+const guidance = guidancePairs.map(({ base, guided }) => ({ base, guided, change: pairedDiff(base.id, guided.id) }));
+const metaGap = (c: (typeof metaComparisons)[number]) => (passRate(c.run) - c.meta) * 100;
+const sameHarness = metaComparisons.filter((c) => c.run.harness === c.metaHarness);
+const maxSameGap = Math.max(...sameHarness.map((c) => Math.abs(metaGap(c))));
 
 const example = [
   ["Login", "Pass", "Pass"],
@@ -79,9 +74,9 @@ const metrics = [
 ];
 
 const method = [
-  ["01", "Fixed task set", `${taskCount} DeepSWE tasks, 4–5 planned attempts each. Every planned attempt stays in the denominator — a crash or a missing attempt counts as a failure.`],
+  ["01", "Fixed task set", `${taskCount} DeepSWE tasks, 4–5 planned attempts each. Every planned attempt stays in the denominator — an attempt that never ran counts as a failure.`],
   ["02", "Isolated agent run", "Each attempt runs in its own clean environment. The agent's only output is a patch."],
-  ["03", "Independent verifier", "A separate environment applies the patch and runs the task's tests. An attempt passes only on a positive verifier result; a timeout scores zero."],
+  ["03", "Independent verifier", "A separate environment applies the patch and runs the task's tests. An attempt passes only on a positive verifier result. An agent that runs out of time is still graded on the patch it left."],
   ["04", "Regression check", "Pre-existing tests run too. Breaking them is recorded separately, not hidden inside the pass rate."],
   ["05", "Evidence retained", "Patches, logs, agent trajectories, verifier output, timing, token usage and cost — for every attempt."],
 ];
@@ -89,10 +84,11 @@ const method = [
 const limitations = [
   `These results describe ${taskCount} open-source coding tasks. Your workload may rank the same configurations differently — that's the point of testing on it.`,
   "Harness comparisons change more than one thing at once: the harness release, its prompts and its tools all differ.",
-  `Attempts on the same task are correlated. These runs do not isolate harness changes from run-to-run variation: Luna scored ${pct(passRate(luna))} and ${pct(passRate(run("copilot-gpt-5.6-luna-max-1.0.91")))} on Copilot releases 1.0.77 and 1.0.91.`,
+  `A single run is a sample. Two HydraFusion runs on the same release scored ${pct(passRate(hydraRun1))} and ${pct(passRate(hydraRun2))}. Most results between 69% and 75% sit inside each other's 95% ranges, so read the top of the table as a group, not a ranking. The ranges treat the task, not the attempt, as the unit, because attempts on one task are correlated.`,
+  `These runs don't isolate harness releases from run-to-run variation: Luna scored ${pct(passRate(luna))} and ${pct(passRate(lunaNext))} on Copilot ${luna.version} and ${lunaNext.version}, a gap whose 95% range (${range(lunaGap)} points) includes zero.`,
   `Cost is missing for some attempts — ${Math.round((1 - opus55.costCoverage) * 100)}% of the Opus 5.5 run and all of the Muse Spark run. Missing costs are excluded from averages, never counted as zero.`,
   "Regression counts cover attempts where existing tests could be measured. Unmeasured is unknown, not clean.",
-  `Models and harnesses ship monthly. This is a ${wharfDate} snapshot.`,
+  `Models and harnesses ship monthly. This is a snapshot from ${wharfDate}.`,
 ];
 
 export default function WharfResearchPage() {
@@ -118,16 +114,10 @@ export default function WharfResearchPage() {
       <section className="border-t border-line bg-surface">
         <Container className="flex flex-col gap-12 py-26">
           <div className="flex flex-col gap-4">
-            <Eyebrow>Key findings</Eyebrow>
-            <H2>Three things a leaderboard doesn&apos;t show.</H2>
+            <Eyebrow>At a glance</Eyebrow>
+            <H2>Six things a leaderboard doesn&apos;t show.</H2>
           </div>
-          <HairlineGrid min={300}>
-            {findings.map((f) => (
-              <FeatureCard key={f.tag} tag={f.tag} title={f.title} tone="surface">
-                {f.body}
-              </FeatureCard>
-            ))}
-          </HairlineGrid>
+          <Glance />
         </Container>
       </section>
 
@@ -148,8 +138,11 @@ export default function WharfResearchPage() {
                 runs={runs}
                 pair={[opusCopilot.id, opusClaudeCode.id]}
                 labels={[
-                  { id: luna.id, text: "GPT-5.6 Luna · 1.0.77" },
-                  { id: "copilot-gpt-5.6-luna-max-1.0.91", text: "GPT-5.6 Luna · 1.0.91", dy: 12 },
+                  { id: luna.id, text: "GPT-5.6 Luna · 1.0.77", anchor: "end" },
+                  { id: lunaNext.id, text: "GPT-5.6 Luna · 1.0.91", dy: 12 },
+                  { id: hydra.id, text: `HydraFusion · ${hydra.version}` },
+                  { id: "copilot-gpt-6-luna-max-1.0.91", text: "GPT-6 Luna · 1.0.91", anchor: "end" },
+                  { id: "copilot-gpt-6-luna-default-1.0.105", text: "GPT-6 Luna · 1.0.105", dy: 14 },
                   { id: opusCopilot.id, text: "Opus 5 · Copilot", anchor: "end" },
                   { id: opusClaudeCode.id, text: "Opus 5 · Claude Code", anchor: "end" },
                 ]}
@@ -157,18 +150,122 @@ export default function WharfResearchPage() {
             </div>
             <figcaption className="font-mono text-xs text-muted">
               Muse Spark appears in the Duration view because no cost was recorded. Hover or tab
-              through the dots for details.
+              through the dots for details and each run&apos;s 95% range.
             </figcaption>
           </figure>
-          <DeepSweTable />
-          <p className="m-0 font-mono text-xs text-muted">
-            pass@1 = passing attempts ÷ planned attempts. Broke tests = attempts where at least one
-            pre-existing test failed. $/attempt = mean over attempts with cost data. Select a column
-            header to sort. Source:{" "}
-            <a href={wharfSource} className="underline hover:text-ink">
-              Wharf @ {wharfCommit}
-            </a>
-            .
+          <DeepSweTable
+            definitions={
+              <>
+                pass@1 = passing attempts ÷ planned attempts. 95% range = ±1.96 task-clustered
+                standard errors, in points. Broke tests = attempts where at least one pre-existing
+                test failed. $/attempt = mean over attempts with cost data. Runs with an added
+                guidance pack are reported separately below. Select a column header to sort.
+              </>
+            }
+            source={
+              <>
+                Source:{" "}
+                <a href={wharfSource} className="underline hover:text-ink">
+                  Wharf @ {wharfCommit}
+                </a>
+              </>
+            }
+          />
+        </Container>
+      </section>
+
+      <section id="consistency" className="border-t border-line bg-surface">
+        <Container className="flex flex-col gap-10 py-26">
+          <div className="flex max-w-[64ch] flex-col gap-4">
+            <Eyebrow>Consistency</Eyebrow>
+            <H2>Same score, different behaviour.</H2>
+            <p className="m-0 text-ink-2">
+              A pass rate averages over every attempt. Split it by task and runs with the same score
+              look different. {hydra.model} on {hydra.version} and GPT-5.6 Luna on {luna.version} both
+              pass about 74%. HydraFusion solves {hydra.tasksAllPass} tasks on every attempt and never
+              solves {hydra.tasksNoPass}. Luna solves only {luna.tasksAllPass} every time, but misses
+              just {luna.tasksNoPass} completely.
+            </p>
+            <p className="m-0 text-ink-2">
+              For unattended automation, the dark segment is what you can rely on. With a person who
+              can retry, the lightest segment is what&apos;s left out of reach.
+            </p>
+          </div>
+          <ConsistencyChart highlight={glanceConsistencyPair} />
+        </Container>
+      </section>
+
+      <section id="meta" className="border-t border-line">
+        <Container className="flex flex-col gap-10 py-26">
+          <div className="flex max-w-[64ch] flex-col gap-4">
+            <Eyebrow>External check</Eyebrow>
+            <H2>Our numbers match Meta&apos;s.</H2>
+            <p className="m-0 text-ink-2">
+              Meta published DeepSWE 1.1 results with its Muse Spark 1.2 launch. Like us, it runs
+              each model in that model&apos;s own agent product, five attempts per task, on its own
+              infrastructure. On both configurations we share, our pass rate is within{" "}
+              {maxSameGap.toFixed(1)} points of Meta&apos;s, or three to four passes in 565 attempts.
+            </p>
+            <p className="m-0 text-ink-2">
+              That&apos;s well inside the run-to-run variation either evaluation would show, and it
+              means the harness gaps on this page aren&apos;t artefacts of how we run or grade tasks.
+            </p>
+            <div>
+              <ArrowLink href={metaSource}>Meta&apos;s published results</ArrowLink>
+            </div>
+          </div>
+          <div className="flex flex-col gap-4">
+            <DataTable
+              head={["configuration", "Wharf", "Meta", "difference", "Wharf 95% range"]}
+              rows={metaComparisons.map((c) => [
+                `${c.run.model} · ${c.run.harness === c.metaHarness ? c.run.harness : `${c.run.harness} (Meta: ${c.metaHarness})`}`,
+                pct(passRate(c.run)),
+                pct(c.meta),
+                `${signed(metaGap(c))} pts`,
+                `${pct(passRate(c.run) - range95(c.run) / 100)}–${pct(passRate(c.run) + range95(c.run) / 100)}`,
+              ])}
+            />
+            <p className="m-0 font-mono text-xs text-muted">
+              Meta publishes overall rates only, with no per-task results, so this is an unpaired
+              check rather than a replication. GPT-5.6 Terra ran in Copilot for us and in Codex for
+              Meta, so that row also compares two harnesses. Meta&apos;s figure falls inside our 95%
+              range on all three.
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      <section id="guidance" className="border-t border-line">
+        <Container className="flex flex-col gap-10 py-26">
+          <div className="flex max-w-[64ch] flex-col gap-4">
+            <Eyebrow>Added guidance</Eyebrow>
+            <H2>A guidance pack made all three models worse.</H2>
+            <p className="m-0 text-ink-2">
+              We reran three Copilot configurations with Microsoft&apos;s open-source{" "}
+              <a href="https://github.com/microsoft/hve-core" className="underline hover:text-ink">
+                HVE Core
+              </a>{" "}
+              instructions and skills copied into the agent&apos;s configuration, with nothing else
+              changed. Pass rates fell for all three. Each drop&apos;s 95% range stays below zero,
+              though only just for Claude Opus 5.
+            </p>
+          </div>
+          <DataTable
+            head={["model", "without", "with HVE Core", "change (95% range)", "agent time", "$/attempt"]}
+            rows={guidance.map(({ base, guided, change }) => [
+              `${base.model} · ${base.harness} ${base.version}`,
+              pct(passRate(base)),
+              pct(passRate(guided)),
+              `${signed(change.diff)} pts (${range(change)})`,
+              `${Math.round(base.agentSeconds / 60)} → ${Math.round(guided.agentSeconds / 60)} min`,
+              `${usd(base.costPerAttempt)} → ${usd(guided.costPerAttempt)}`,
+            ])}
+          />
+          <p className="m-0 max-w-[80ch] font-mono text-xs text-muted">
+            Change compares each task&apos;s pass rate with and without guidance, so tasks that are hard
+            either way cancel out. GPT-5.6 Terra&apos;s plain run had five attempts per task and its HVE
+            run four. This is one guidance pack on one benchmark: it says to measure guidance before
+            rolling it out, not that guidance can&apos;t help.
           </p>
         </Container>
       </section>
@@ -303,5 +400,34 @@ export default function WharfResearchPage() {
         label="Request a discovery call"
       />
     </>
+  );
+}
+
+function DataTable({ head, rows }: { head: string[]; rows: string[][] }) {
+  return (
+    <div className="overflow-x-auto border border-line bg-paper">
+      <table className="w-full border-collapse font-mono text-[13px] tabular-nums">
+        <thead>
+          <tr className="text-left text-muted">
+            {head.map((h, i) => (
+              <th key={h} scope="col" className={`border-b border-line px-3 py-2.5 font-normal whitespace-nowrap ${i > 0 ? "text-right" : ""}`}>
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="text-ink-2">
+          {rows.map((cells) => (
+            <tr key={cells[0]}>
+              {cells.map((c, i) => (
+                <td key={i} className={`border-b border-line px-3 py-2.5 whitespace-nowrap ${i === 0 ? "text-ink" : "text-right"}`}>
+                  {c}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

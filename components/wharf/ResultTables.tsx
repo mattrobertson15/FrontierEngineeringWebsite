@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { passRate, pct, runs, usd, type WharfRun } from "@/content/wharf";
+import { useMemo, useState, type MouseEvent, type ReactNode } from "react";
+import { passRate, pct, range95, runNotes, runs, usd, type WharfRun } from "@/content/wharf";
 import { harnessLabel, revision, sweRate, type HarnessKey, type SweRun } from "@/content/wharf-swe";
 import { SortableTable, type Column } from "./SortableTable";
 
@@ -9,8 +9,38 @@ const usd4 = (x: number) => `$${x.toFixed(x < 0.1 ? 4 : 2)}`;
 
 /* ---------- DeepSWE ---------- */
 
+const byPassRate = (a: WharfRun, b: WharfRun) => passRate(b) - passRate(a);
+
+// Footnotes are numbered once, in the default (pass-rate) order, so a row keeps its numbers
+// when the table is re-sorted. Identical caveats share a number.
+const noteText = [...new Set([...runs].sort(byPassRate).flatMap(runNotes))];
+const noteNumbers = (r: WharfRun) => runNotes(r).map((n) => noteText.indexOf(n) + 1);
+
 const deepColumns: Column<WharfRun>[] = [
-  { key: "model", label: "model", sort: (r) => r.model, render: (r) => r.model, emphasis: true },
+  {
+    key: "model",
+    label: "model",
+    sort: (r) => r.model,
+    render: (r) => {
+      const refs = noteNumbers(r);
+      return (
+        <>
+          {r.model}
+          {refs.length > 0 && (
+            <sup className="ml-0.5 text-[10px] text-muted">
+              {refs.map((n, i) => (
+                <a key={n} href={`#deepswe-note-${n}`} className="hover:text-ink">
+                  {i > 0 && ","}
+                  {n}
+                </a>
+              ))}
+            </sup>
+          )}
+        </>
+      );
+    },
+    emphasis: true,
+  },
   { key: "harness", label: "harness", sort: (r) => r.harness, render: (r) => `${r.harness} ${r.version}` },
   { key: "effort", label: "effort", render: (r) => r.effort },
   {
@@ -32,13 +62,19 @@ const deepColumns: Column<WharfRun>[] = [
     emphasis: true,
   },
   {
+    key: "range",
+    label: "95% range",
+    align: "right",
+    render: (r) => <span className="text-muted">±{range95(r).toFixed(1)}</span>,
+  },
+  {
     key: "broke",
     label: "broke tests",
     align: "right",
     sort: (r) => r.regressions / r.planned,
     render: (r) => String(r.regressions),
-    // Scaled to a 10% ceiling — the worst run (GPT-6 Astra) is 9.5%; the count is the value.
-    bar: (r) => r.regressions / r.planned / 0.1,
+    // Scaled to a 15% ceiling — the worst run (GPT-6 Luna, 1.0.105) is 13.1%; the count is the value.
+    bar: (r) => r.regressions / r.planned / 0.15,
     barClass: "bg-warn-soft",
   },
   { key: "cost", label: "$/attempt", align: "right", sort: (r) => r.costPerAttempt, render: (r) => usd(r.costPerAttempt) },
@@ -51,14 +87,59 @@ const deepColumns: Column<WharfRun>[] = [
   },
 ];
 
-export function DeepSweTable() {
+/**
+ * The table, then its footnotes and definitions folded into one disclosure so scrolling readers
+ * aren't met by a wall of small print. Selecting a footnote mark in the table opens it at that note.
+ */
+export function DeepSweTable({ definitions, source }: { definitions: ReactNode; source: ReactNode }) {
+  const [open, setOpen] = useState(false);
+
+  const openNote = (event: MouseEvent<HTMLDivElement>) => {
+    const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#deepswe-note-"]');
+    if (!link) return;
+    event.preventDefault();
+    const id = link.getAttribute("href")!.slice(1);
+    setOpen(true);
+    // Scroll once the disclosure has rendered open.
+    requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
+      history.replaceState(null, "", `#${id}`);
+    });
+  };
+
   return (
-    <SortableTable
-      rows={runs}
-      columns={deepColumns}
-      initial={(a, b) => passRate(b) - passRate(a)}
-      caption="DeepSWE results for every configuration. Select a column header to sort."
-    />
+    <div className="flex flex-col gap-4" onClick={openNote}>
+      <SortableTable
+        rows={runs}
+        columns={deepColumns}
+        initial={byPassRate}
+        caption="DeepSWE results for every configuration. Select a column header to sort."
+      />
+      <div className="relative font-mono text-xs text-muted">
+        {/* Kept outside <summary> so following the link doesn't also toggle the notes. */}
+        <span className="mb-1 block sm:absolute sm:top-0 sm:right-0 sm:mb-0 sm:inline-flex sm:min-h-8 sm:items-center sm:gap-1">{source}</span>
+        <details
+          open={open}
+          onToggle={(event) => setOpen(event.currentTarget.open)}
+          className="group"
+        >
+          <summary className="inline-flex min-h-8 cursor-pointer list-none items-center gap-2 text-ink-2 sm:pr-40 hover:text-ink [&::-webkit-details-marker]:hidden">
+            <span aria-hidden className="inline-block transition-transform group-open:rotate-90">›</span>
+            Notes on {runs.filter((r) => runNotes(r).length).length} runs and how to read this table
+          </summary>
+          <div className="mt-3 flex flex-col gap-4 border-t border-line pt-4">
+            <ol className="m-0 flex list-none flex-col gap-1 p-0">
+              {noteText.map((note, i) => (
+                <li key={note} id={`deepswe-note-${i + 1}`} className="scroll-mt-24">
+                  <sup>{i + 1}</sup> {note}
+                </li>
+              ))}
+            </ol>
+            <p className="m-0">{definitions}</p>
+          </div>
+        </details>
+      </div>
+    </div>
   );
 }
 

@@ -239,7 +239,11 @@ export default function Home() {
                 runs={runs}
                 pair={[opusCopilot.id, opusClaudeCode.id]}
                 labels={[
-                  { id: luna.id, text: "GPT-5.6 Luna" },
+                  { id: luna.id, text: "GPT-5.6 Luna · 1.0.77", anchor: "end" },
+                  { id: "copilot-gpt-5.6-luna-max-1.0.91", text: "GPT-5.6 Luna · 1.0.91", dy: 12 },
+                  { id: "copilot-hydrafusion-default-1.0.105", text: "HydraFusion · 1.0.105" },
+                  { id: "copilot-gpt-6-luna-max-1.0.91", text: "GPT-6 Luna · 1.0.91", anchor: "end" },
+                  { id: "copilot-gpt-6-luna-default-1.0.105", text: "GPT-6 Luna · 1.0.105", dy: 14 },
                   { id: opusCopilot.id, text: "Opus 5 · Copilot", anchor: "end" },
                   { id: opusClaudeCode.id, text: "Opus 5 · Claude Code", anchor: "end" },
                   { id: auto.id, text: "Copilot Auto" },

@@ -34,7 +34,7 @@ const report = [
 
 const findings = [
   { tag: "harness", title: "Same model, different harness, different result.", body: "Claude Opus 5 passed 71.2% of attempts inside GitHub Copilot and 64.4% inside Claude Code — and cost 58% less per attempt ($5.66 vs $13.49)." },
-  { tag: "cost", title: "A low-cost configuration tied for the highest pass rate.", body: "GPT-5.6 Luna passed 74.1% at $0.37 per attempt — about 1/32 the cost of Claude Opus 5.5, which scored 70.8%." },
+  { tag: "cost", title: "A low-cost configuration matched the leaders.", body: "GPT-5.6 Luna passed 74.1% at $0.37 per attempt — one pass behind the top result, and about 1/32 the cost of Claude Opus 5.5, which scored 70.8%." },
   { tag: "upgrade", title: "One run isn't a verdict.", body: "Luna scored 74.1% on one Copilot CLI release and 69.9% on the next, same model. These runs do not isolate the effect of the harness upgrade from run-to-run variation. Upgrade decisions need repeated trials, not a single score." },
 ];
 

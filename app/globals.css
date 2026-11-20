@@ -31,6 +31,12 @@
   --color-series-4: #a04db8; /* purple */
   --color-series-5: #8a8f14; /* olive */
 
+  /* Ordinal ramp in Midnight's hue, light → dark (e.g. never / sometimes / always solved).
+     Validated as an ordinal ramp against bg-surface: one hue, monotone, light end ≥ 2:1. */
+  --color-seq-1: #98abb9;
+  --color-seq-2: #4a6a80;
+  --color-seq-3: #071c29;
+
   --font-sans: var(--font-geist-sans), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-display: var(--font-newsreader), Georgia, serif; /* H1/H2 only */

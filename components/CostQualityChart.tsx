@@ -1,18 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { passRate, pct, usd, type WharfRun } from "@/content/wharf";
+import { passRate, pct, range95, usd, type WharfRun } from "@/content/wharf";
 
-/* Pass rate against cost or agent time. Hover or focus a dot for its run. */
+/* Pass rate against cost or agent time. Hover or focus a dot for its run and its 95% range. */
 
 const W = 720;
 const H = 440;
 const pad = { top: 24, right: 28, bottom: 52, left: 56 };
-const xMin = 0.15;
+const xMin = 0.06;
 const xMax = 16;
 const yMin = 0.3;
-const yMax = 0.8;
-const xTicks = [0.2, 0.5, 1, 2, 5, 10];
+const yMax = 0.85;
+const xTicks = [0.1, 0.2, 0.5, 1, 2, 5, 10];
 const yTicks = [0.3, 0.4, 0.5, 0.6, 0.7, 0.8];
 
 const costX = (cost: number) =>
@@ -129,6 +129,20 @@ export function CostQualityChart({
               <line x1={at(a).cx} y1={at(a).cy} x2={at(b).cx} y2={at(b).cy} className="stroke-ink-2" strokeDasharray="5 4" />
             )}
 
+            {hovered && (() => {
+              const { cx } = at(hovered);
+              const half = range95(hovered) / 100;
+              const top = y(Math.min(yMax, passRate(hovered) + half));
+              const bottom = y(Math.max(yMin, passRate(hovered) - half));
+              return (
+                <g className="pointer-events-none stroke-ink-2" aria-hidden="true">
+                  <line x1={cx} x2={cx} y1={top} y2={bottom} strokeWidth={1.5} />
+                  <line x1={cx - 5} x2={cx + 5} y1={top} y2={top} strokeWidth={1.5} />
+                  <line x1={cx - 5} x2={cx + 5} y1={bottom} y2={bottom} strokeWidth={1.5} />
+                </g>
+              );
+            })()}
+
             {plotted.map((r) => {
               const { cx, cy } = at(r);
               const leading = frontierIds.has(r.id);
@@ -141,7 +155,7 @@ export function CostQualityChart({
                   key={r.id}
                   tabIndex={0}
                   role="img"
-                  aria-label={`${r.model}, ${r.harness} ${r.version}: ${pct(passRate(r))} pass rate, ${duration ? `${(r.agentSeconds / 60).toFixed(1)} minutes` : `${usd(r.costPerAttempt)} per costed attempt`}`}
+                  aria-label={`${r.model}, ${r.harness} ${r.version}: ${pct(passRate(r))} pass rate (95% range ±${range95(r).toFixed(1)} points), ${duration ? `${(r.agentSeconds / 60).toFixed(1)} minutes` : `${usd(r.costPerAttempt)} per costed attempt`}`}
                   onPointerEnter={focus}
                   onPointerLeave={blur}
                   onClick={focus}
@@ -198,6 +212,7 @@ export function CostQualityChart({
               <p className="m-0 mt-1">
                 {hovered.passing}/{hovered.planned} passed · {pct(passRate(hovered))}
               </p>
+              <p className="m-0">95% range ±{range95(hovered).toFixed(1)} points</p>
               <p className="m-0">
                 {duration
                   ? `${(hovered.agentSeconds / 60).toFixed(1)} min mean agent time`
