@@ -24,12 +24,15 @@ export function SortableTable<T extends { id: string }>({
   columns,
   initial,
   caption,
+  limit,
 }: {
   rows: T[];
   columns: Column<T>[];
   /** Default order, used until a header is clicked. */
   initial: (a: T, b: T) => number;
   caption: string;
+  /** Show only the first rows of the current sort order (a preview); omit to show all. */
+  limit?: number;
 }) {
   const [sort, setSort] = useState<{ key: string; dir: "asc" | "desc" } | null>(null);
 
@@ -93,7 +96,7 @@ export function SortableTable<T extends { id: string }>({
           </tr>
         </thead>
         <tbody className="text-ink-2">
-          {sorted.map((row) => (
+          {sorted.slice(0, limit ?? sorted.length).map((row) => (
             <tr key={row.id} className="hover:bg-paper">
               {columns.map((c) => {
                 const share = c.bar?.(row) ?? null;

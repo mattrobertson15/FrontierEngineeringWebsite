@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type MouseEvent, type ReactNode } from "react";
+import { useMemo, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { passRate, pct, range95, runNotes, runs, usd, type WharfRun } from "@/content/wharf";
 import { harnessLabel, revision, sweRate, type HarnessKey, type SweRun } from "@/content/wharf-swe";
 import { SortableTable, type Column } from "./SortableTable";
@@ -91,8 +91,19 @@ const deepColumns: Column<WharfRun>[] = [
  * The table, then its footnotes and definitions folded into one disclosure so scrolling readers
  * aren't met by a wall of small print. Selecting a footnote mark in the table opens it at that note.
  */
+/** Rows shown before "Show all": enough to see who leads under the current sort. */
+const deepPreviewRows = 5;
+
 export function DeepSweTable({ definitions, source }: { definitions: ReactNode; source: ReactNode }) {
   const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const tableRef = useRef<HTMLDivElement>(null);
+
+  const toggleRows = () => {
+    setExpanded((cur) => !cur);
+    // Collapsing from the bottom of a long table would strand the reader below it.
+    if (expanded) requestAnimationFrame(() => tableRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }));
+  };
 
   const openNote = (event: MouseEvent<HTMLDivElement>) => {
     const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#deepswe-note-"]');
@@ -109,12 +120,24 @@ export function DeepSweTable({ definitions, source }: { definitions: ReactNode; 
 
   return (
     <div className="flex flex-col gap-4" onClick={openNote}>
-      <SortableTable
-        rows={runs}
-        columns={deepColumns}
-        initial={byPassRate}
-        caption="DeepSWE results for every configuration. Select a column header to sort."
-      />
+      <div ref={tableRef} className="scroll-mt-24">
+        <SortableTable
+          rows={runs}
+          columns={deepColumns}
+          initial={byPassRate}
+          limit={expanded ? undefined : deepPreviewRows}
+          caption={`DeepSWE results${expanded ? " for every configuration" : `, top ${deepPreviewRows} of ${runs.length} in the current sort`}. Select a column header to sort.`}
+        />
+        <button
+          type="button"
+          aria-expanded={expanded}
+          onClick={toggleRows}
+          className="flex min-h-11 w-full items-center justify-center gap-2 border border-t-0 border-line bg-surface font-mono text-xs text-ink-2 transition-colors hover:bg-paper hover:text-ink"
+        >
+          {expanded ? "Show top 5 only" : `Show all ${runs.length} configurations`}
+          <span aria-hidden className={`inline-block transition-transform ${expanded ? "rotate-180" : ""}`}>↓</span>
+        </button>
+      </div>
       <div className="relative font-mono text-xs text-muted">
         {/* Kept outside <summary> so following the link doesn't also toggle the notes. */}
         <span className="mb-1 block sm:absolute sm:top-0 sm:right-0 sm:mb-0 sm:inline-flex sm:min-h-8 sm:items-center sm:gap-1">{source}</span>
