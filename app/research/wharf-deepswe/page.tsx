@@ -234,11 +234,9 @@ export default function WharfResearchPage() {
         <Aside title="Adding to the harness can make it worse.">
           <AutoGrid min={320} className="items-center gap-10">
             <p className="m-0 max-w-[60ch] text-ink-2">
-              We reran three Copilot configurations with Microsoft&apos;s open-source{" "}
-              <a href="https://github.com/microsoft/hve-core" className="underline hover:text-ink">
-                HVE Core
-              </a>{" "}
-              instructions and skills copied into the agent&apos;s configuration, with nothing else changed.
+              We reran three Copilot configurations with an open-source guidance pack — a published
+              set of agent instructions and skills — copied into the agent&apos;s configuration, with nothing
+              else changed.
               All three got worse, by {Math.min(...drops).toFixed(0)} to {Math.max(...drops).toFixed(0)} points.
               It&apos;s one guidance pack on one benchmark — a reason to measure guidance before rolling it
               out, not proof that guidance can&apos;t help.
@@ -258,14 +256,14 @@ export default function WharfResearchPage() {
                     { v: passRate(guided), kind: "accent" as const },
                   ],
                 }))}
-                title="Pass rate without and with HVE Core guidance"
+                title="Pass rate without and with the guidance pack"
               />
-              <p className="m-0 font-mono text-xs text-muted">Ring: without. Copper: with HVE Core.</p>
+              <p className="m-0 font-mono text-xs text-muted">Ring: without. Copper: with the guidance pack.</p>
             </div>
           </AutoGrid>
           <More summary="The three guidance runs in detail">
             <DataTable
-              head={["model", "without", "with HVE Core", "change (95% range)", "agent time", "$/attempt"]}
+              head={["model", "without", "with guidance", "change (95% range)", "agent time", "$/attempt"]}
               rows={guidance.map(({ base, guided, change }) => [
                 `${base.model} · ${base.harness} ${base.version}`,
                 pct(passRate(base)),
@@ -278,7 +276,7 @@ export default function WharfResearchPage() {
             <p className="m-0 font-mono text-xs text-muted">
               Change compares each task&apos;s pass rate with and without guidance, so tasks that are hard
               either way cancel out. Each drop&apos;s 95% range stays below zero, though only just for Claude
-              Opus 5. GPT-5.6 Terra&apos;s plain run had five attempts per task and its HVE run four.
+              Opus 5. GPT-5.6 Terra&apos;s plain run had five attempts per task and its guidance run four.
             </p>
           </More>
         </Aside>
