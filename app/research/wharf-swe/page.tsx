@@ -19,7 +19,10 @@ import {
   type HarnessKey,
   type SweRun,
 } from "@/content/wharf-swe";
+import { SectionNav } from "@/components/SectionNav";
 import { HarnessDumbbell } from "@/components/wharf/HarnessDumbbell";
+import { Strip } from "@/components/wharf/MiniCharts";
+import { Finding, FindingsIndex, More, Aside } from "@/components/wharf/Story";
 import { RevisionChart, type Series } from "@/components/wharf/RevisionChart";
 import taskResults from "@/content/wharf-swe-task-results.json";
 import { TaskHeatmap } from "@/components/wharf/TaskHeatmap";
@@ -32,11 +35,9 @@ import {
   Container,
   CtaStrip,
   Eyebrow,
-  FeatureCard,
   H2,
   HairlineGrid,
   PageHero,
-  StatGrid,
 } from "@/components/ui";
 
 export const metadata: Metadata = {
@@ -118,34 +119,23 @@ const slowdown = trackedModels.flatMap((model) => {
 const slowed = slowdown.filter((s) => s.after.agentSeconds > s.before.agentSeconds);
 const mmss = (s: number) => `${Math.floor(Math.round(s) / 60)}:${String(Math.round(s) % 60).padStart(2, "0")}`;
 
-const findings = [
-  {
-    tag: "01 · harness",
-    title: "The best harness depends on the model.",
-    body: `${widest.model} passed ${widestHigh.passes} of ${widestHigh.trials} trials on ${harnessLabel[widestHigh.harness]} and ${widestLow.passes} on ${harnessLabel[widestLow.harness]}, with ${widestHigh.p2pErrors} and ${widestLow.p2pErrors} broken-test trials.${
-      opusRow && opusOn("claude") && opusOn("copilot-cli")
-        ? ` Claude Opus 5.5 went the other way: ${opusOn("claude")!.passes}/56 on Claude Code against ${opusOn("copilot-cli")!.passes}/56 on Copilot.`
-        : ""
-    }`,
-  },
-  {
-    tag: "02 · variance",
-    title: "One run is not a ranking.",
-    body: `HydraFusion ran on ${hydra.runs} Copilot releases against the same ${wharfSweTaskCount} task IDs and scored anywhere from ${hydra.lo} to ${hydra.hi} of 56. A comparison that rests on a single run can be read off the noise.`,
-  },
-  {
-    tag: "03 · cost",
-    title: "The last few points are expensive.",
-    body: `On Copilot, GPT-6 Astra averaged ${pct(meanRate("GPT-6 Astra"))} at about $${meanCost("GPT-6 Astra").toFixed(2)} a trial. GPT-6 Luna averaged ${pct(meanRate("GPT-6 Luna"))} at about $${meanCost("GPT-6 Luna").toFixed(3)}: roughly ${costRatio}× cheaper. Whether that gap is worth paying for depends on the work.`,
-  },
-  {
-    tag: "04 · releases",
-    title: `${slowed.length === slowdown.length ? "Every model" : `${slowed.length} of ${slowdown.length} models`} slowed down at Copilot 1.0.${slowdownRev}.`,
-    body: `Mean agent time per trial against each model's previous tested release: ${slowdown
-      .map((s) => `${s.model} ${mmss(s.before.agentSeconds)} → ${mmss(s.after.agentSeconds)}`)
-      .join(", ")}. Several models moving together points at the harness release more than any one model. Host and parallelism settings also changed across these runs, so treat it as an observation to retest, not a proven cause.`,
-  },
-];
+// Claude Opus 5.5 is the counter-example only while it actually does better off Copilot.
+const opusFlips = Boolean(
+  opusOn("claude") && opusOn("copilot-cli") && opusOn("claude")!.passes > opusOn("copilot-cli")!.passes,
+);
+const harnessGapPts = Math.round((sweRate(widestHigh) - sweRate(widestLow)) * 100);
+const astraLeadPts = Math.round((meanRate("GPT-6 Astra") - meanRate("GPT-6 Luna")) * 100);
+
+// Each tracked model's mean cost and pass rate across its Copilot runs, for the cost finding.
+const copilotByModel = trackedModels
+  .filter((model) => copilotRuns.some((r) => r.model === model && r.costPerTrial !== null))
+  .map((model) => ({
+    model,
+    cost: meanCost(model),
+    rate: meanRate(model),
+    highlight: model === "GPT-6 Astra" || model === "GPT-6 Luna",
+  }))
+  .sort((a, b) => b.cost - a.cost);
 
 const limitations = [
   `${wharfSweTaskCount} tasks from one C# codebase — Wharf's own. Small and specific by design; treat it as a regression suite, not a general ranking.`,
@@ -157,38 +147,194 @@ const limitations = [
   "Lines across Copilot releases join observed runs only. Host and preparation settings changed over time, so these describe what happened rather than isolate a release's effect.",
 ];
 
+const findingList = [
+  {
+    id: "harness",
+    title: "The best harness depends on the model.",
+    body: `${widest.model} scored ${harnessGapPts} points higher on ${harnessLabel[widestHigh.harness]} than on ${harnessLabel[widestLow.harness]}.${opusFlips ? " Claude Opus 5.5 did better on Claude Code." : ""}`,
+  },
+  {
+    id: "releases",
+    title: "One run is not a ranking.",
+    body: `HydraFusion scored ${hydra.lo} to ${hydra.hi} of 56 across ${hydra.runs} Copilot releases. Watch the trend, not a single point.`,
+  },
+  {
+    id: "cost",
+    title: "The last few points are expensive.",
+    body: `GPT-6 Astra beat GPT-6 Luna on Copilot by about ${astraLeadPts} points, at roughly ${costRatio}× the cost per trial.`,
+  },
+];
+
 export default function WharfSwePage() {
   return (
     <>
       <WharfSwitcher active={wharfSweHref} />
       <PageHero
         eyebrow="Research — Wharf / WharfSWE"
-        title="The same model, run after run, harness by harness."
-        lede={`WharfSWE is built the same way as DeepSWE — same task format, runner and independent verifier — but its ${wharfSweTaskCount} tasks are C# features rebuilt from Wharf's own release history. Every task is attempted four times per run.`}
-        aside={
-          <StatGrid
-            items={[
-              { label: "TASKS", value: String(wharfSweTaskCount) },
-              { label: "COMPLETED RUNS", value: String(sweRuns.length) },
-              { label: "TRIALS", value: sweTotalTrials.toLocaleString("en-US") },
-              { label: "HARNESSES", value: String(harnesses.length) },
-            ]}
-          />
-        }
+        title="A coding-agent regression suite, run on every release."
+        lede={`WharfSWE uses DeepSWE's method — same task format, runner and independent verifier — on ${wharfSweTaskCount} C# tasks rebuilt from Wharf's own release history. It's small and cheap enough to rerun whenever a model or harness ships: ${sweRuns.length} runs and ${sweTotalTrials.toLocaleString("en-US")} trials so far.`}
+        aside={<FindingsIndex findings={findingList} />}
       />
 
-      <section className="border-t border-line bg-surface">
-        <Container className="flex flex-col gap-12 py-26">
+      <SectionNav
+        links={[
+          { id: "harness", label: "1 · The harness" },
+          { id: "releases", label: "2 · Releases" },
+          { id: "cost", label: "3 · Cost" },
+          { id: "task-set", label: "The task set" },
+          { id: "results", label: "All results" },
+          { id: "limitations", label: "Limitations" },
+        ]}
+      />
+
+      {/* ---------- 1 ---------- */}
+      <Finding
+        id="harness"
+        n={1}
+        of={3}
+        tone="surface"
+        title={findingList[0].title}
+        stat={`${harnessGapPts} pts`}
+        statLabel={`${widest.model}: ${harnessLabel[widestHigh.harness]} over ${harnessLabel[widestLow.harness]}.`}
+        intro={
+          <>
+            <p>
+              {widest.model} passed {widestHigh.passes} of {widestHigh.trials} trials on{" "}
+              {harnessLabel[widestHigh.harness]} and {widestLow.passes} on {harnessLabel[widestLow.harness]}, with{" "}
+              {widestHigh.p2pErrors} and {widestLow.p2pErrors} broken-test trials.
+              {opusFlips && (
+                <>
+                  {" "}Claude Opus 5.5 did better away from Copilot: {opusOn("claude")!.passes}/56 on Claude Code against{" "}
+                  {opusOn("copilot-cli")!.passes}/56 on Copilot.
+                </>
+              )}
+            </p>
+            <p>
+              No harness wins for every model, so pick the pair, not the parts. Each row below is one model at
+              its newest run on every harness we tested it on.
+            </p>
+          </>
+        }
+      >
+        <figure className="m-0 flex flex-col gap-3">
+          <div className="overflow-x-auto border border-line bg-paper p-5">
+            <HarnessDumbbell rows={crossHarness} />
+          </div>
+          <figcaption className="font-mono text-xs text-muted">
+            Releases: {crossHarness
+              .flatMap((r) => r.runs)
+              .map((r) => `${harnessLabel[r.harness]} ${r.version}`)
+              .filter((v, i, all) => all.indexOf(v) === i)
+              .join(", ")}
+            . Hover or tab through the dots for details.
+          </figcaption>
+        </figure>
+        {taskPairs.length > 0 && (
+          <More summary="See which tasks each pairing won and lost">
+            <p className="m-0 max-w-[64ch] text-ink-2">
+              Each model&apos;s newest Copilot run beside its run on another harness, on identical task
+              versions. Pick a pairing to see where the attempts were won and lost.
+            </p>
+            <TaskHeatmap comparisons={taskPairs} />
+          </More>
+        )}
+      </Finding>
+
+      {/* ---------- 2 ---------- */}
+      <Finding
+        id="releases"
+        n={2}
+        of={3}
+        title={findingList[1].title}
+        stat={`${hydra.lo}–${hydra.hi}`}
+        statLabel={`of 56 trials passed: HydraFusion across ${hydra.runs} Copilot releases.`}
+        intro={
+          <>
+            <p>
+              The task IDs stayed the same, yet one router&apos;s score moved by {hydra.hi - hydra.lo} trials from
+              run to run. A comparison that rests on a single run can be read off the noise, which is why we
+              rerun on every Copilot release and read the line, not the dot.
+            </p>
+          </>
+        }
+      >
+        <div className="flex flex-col gap-3">
+          <p className="m-0 max-w-[64ch] text-ink-2">
+            Every Copilot CLI release from 1.0.{firstChartedRevision} to 1.0.{latestCopilotRevision} we ran, for
+            the models we track. Use the change view to compare each run with that model&apos;s prior tested
+            release.
+          </p>
+          <div className="border border-line bg-surface p-5">
+            <RevisionChart series={series} />
+          </div>
+        </div>
+
+        <Aside
+          title={`What a release can change: ${slowed.length === slowdown.length ? "every model" : `${slowed.length} of ${slowdown.length} models`} slowed down at 1.0.${slowdownRev}.`}
+        >
+          <p className="m-0 max-w-[64ch] text-ink-2">
+            Mean agent time per trial against each model&apos;s previous tested release:{" "}
+            {slowdown.map((s) => `${s.model} ${mmss(s.before.agentSeconds)} → ${mmss(s.after.agentSeconds)}`).join(", ")}.
+            Several models moving together points at the harness release more than any one model. Host and
+            parallelism settings also changed across these runs, so treat it as an observation to retest, not a
+            proven cause.
+          </p>
+        </Aside>
+      </Finding>
+
+      {/* ---------- 3 ---------- */}
+      <Finding
+        id="cost"
+        n={3}
+        of={3}
+        tone="surface"
+        title={findingList[2].title}
+        stat={`${costRatio}×`}
+        statLabel={`GPT-6 Astra's cost per trial over GPT-6 Luna's, for about ${astraLeadPts} points more.`}
+        intro={
+          <>
+            <p>
+              Averaged across their Copilot runs, GPT-6 Astra passed {pct(meanRate("GPT-6 Astra"))} at about $
+              {meanCost("GPT-6 Astra").toFixed(2)} a trial and GPT-6 Luna {pct(meanRate("GPT-6 Luna"))} at about $
+              {meanCost("GPT-6 Luna").toFixed(3)}. Whether that gap is worth paying for depends on the work: for a
+              check that runs on every commit, the cheaper model may be the right one.
+            </p>
+          </>
+        }
+      >
+        <div className="flex flex-col gap-2">
+          <Strip
+            log
+            min={0.005}
+            max={2}
+            ticks={[0.01, 0.1, 1]}
+            format={(t) => `$${t}`}
+            labelWidth={72}
+            rows={copilotByModel.map((m) => ({
+              label: m.model.replace("Claude ", ""),
+              points: [{ v: m.cost, kind: m.highlight ? ("accent" as const) : ("ink" as const), label: pct(m.rate), anchor: "start" as const }],
+            }))}
+            title="Mean cost per trial on Copilot, by model, labelled with mean pass rate"
+          />
+          <p className="m-0 font-mono text-xs text-muted">
+            Mean cost per trial on Copilot (log scale), labelled with mean pass rate. Copper: GPT-6 Astra and
+            GPT-6 Luna.
+          </p>
+        </div>
+      </Finding>
+
+      {/* ---------- reference ---------- */}
+      <section id="task-set" className="scroll-mt-12 border-t border-line">
+        <Container className="flex flex-col gap-10 py-26">
           <AutoGrid min={340} className="items-start gap-14">
             <div className="flex flex-col gap-4">
               <Eyebrow>The task set</Eyebrow>
               <H2>{wharfSweTaskCount} releases of Wharf, one task each.</H2>
               <p className="m-0 text-ink-2">
-                Each task hands the agent Wharf&apos;s source as it stood at one release and asks for
-                the next release&apos;s feature, matching its exact public API. The agent works with
-                no network access and a 60-minute limit. A separate verifier then applies the patch
-                in a fresh environment: three or four new contract tests must pass, and an existing
-                test must keep passing.
+                Each task hands the agent Wharf&apos;s source as it stood at one release and asks for the next
+                release&apos;s feature, matching its exact public API. The agent works with no network access
+                and a 60-minute limit. A separate verifier then applies the patch in a fresh environment: three
+                or four new contract tests must pass, and an existing test must keep passing.
               </p>
             </div>
             <div className="flex flex-col gap-4">
@@ -197,124 +343,57 @@ export default function WharfSwePage() {
                 <div className="grid grid-cols-[minmax(0,9rem)_1fr] gap-4 border-t border-line py-4">
                   <dt className="font-medium">Coverage</dt>
                   <dd className="m-0 text-ink-2">
-                    Enterprise-style .NET service code — schedulers, recovery, packaging — which
-                    DeepSWE&apos;s {deepSweTaskCount} open-source tasks don&apos;t include.
+                    Enterprise-style .NET service code — schedulers, recovery, packaging — which DeepSWE&apos;s{" "}
+                    {deepSweTaskCount} open-source tasks don&apos;t include.
                   </dd>
                 </div>
                 <div className="grid grid-cols-[minmax(0,9rem)_1fr] gap-4 border-t border-line py-4">
                   <dt className="font-medium">Cost</dt>
                   <dd className="m-0 text-ink-2">
-                    In Wharf&apos;s published HydraFusion comparison, four attempts per task cost
-                    $15.01 and took about 9.5 minutes on WharfSWE. The DeepSWE run on Copilot 1.0.98
-                    recorded $546.71 in known cost and took about six hours.{" "}
-                    <a className="underline" href={`https://github.com/bartr/wharf/blob/${wharfSweCommit}/docs/RETRO.md#wharfswe-benchmark-net-coverage-at-a-fraction-of-the-cost`}>
+                    In Wharf&apos;s published HydraFusion comparison, four attempts per task cost $15.01 and took
+                    about 9.5 minutes on WharfSWE. The DeepSWE run on Copilot 1.0.98 recorded $546.71 in known cost
+                    and took about six hours.{" "}
+                    <a
+                      className="underline"
+                      href={`https://github.com/bartr/wharf/blob/${wharfSweCommit}/docs/RETRO.md#wharfswe-benchmark-net-coverage-at-a-fraction-of-the-cost`}
+                    >
                       See the run comparison
-                    </a>.
+                    </a>
+                    .
                   </dd>
                 </div>
               </dl>
             </div>
           </AutoGrid>
-          <HairlineGrid min={150} as="ol">
-            {sweTasks.map((t) => (
-              <li key={t.id} className="flex flex-col gap-1 bg-paper px-5 py-4">
-                <span className="font-mono text-xs text-accent-ink">
-                  v{t.from} → v0.{Number(t.from.split(".")[1]) + 1}
-                </span>
-                <span className="font-medium">{t.title}</span>
-              </li>
-            ))}
-          </HairlineGrid>
+          <More summary={`All ${wharfSweTaskCount} tasks`}>
+            <HairlineGrid min={150} as="ol">
+              {sweTasks.map((t) => (
+                <li key={t.id} className="flex flex-col gap-1 bg-paper px-5 py-4">
+                  <span className="font-mono text-xs text-accent-ink">
+                    v{t.from} → v0.{Number(t.from.split(".")[1]) + 1}
+                  </span>
+                  <span className="font-medium">{t.title}</span>
+                </li>
+              ))}
+            </HairlineGrid>
+          </More>
         </Container>
       </section>
 
-      <section className="border-t border-line">
-        <Container className="flex flex-col gap-12 py-26">
-          <div className="flex flex-col gap-4">
-            <Eyebrow>Key findings</Eyebrow>
-            <H2>What {sweRuns.length} runs on one codebase show.</H2>
-          </div>
-          <HairlineGrid min={300}>
-            {findings.map((f) => (
-              <FeatureCard key={f.tag} tag={f.tag} title={f.title} tone="surface">
-                {f.body}
-              </FeatureCard>
-            ))}
-          </HairlineGrid>
-        </Container>
-      </section>
-
-      <section className="border-t border-line bg-surface">
-        <Container className="flex flex-col gap-10 py-26">
-          <div className="flex flex-col gap-4">
-            <Eyebrow>Across harnesses</Eyebrow>
-            <H2>Same model, different harness.</H2>
-            <p className="m-0 max-w-[60ch] text-ink-2">
-              Each row is one model at its newest run on every harness we tested it on. The line
-              between the dots shows the observed gap between configurations.
-            </p>
-          </div>
-          <figure className="m-0 flex flex-col gap-3">
-            <div className="overflow-x-auto border border-line bg-paper p-5">
-              <HarnessDumbbell rows={crossHarness} />
-            </div>
-            <figcaption className="font-mono text-xs text-muted">
-              Releases: {crossHarness
-                .flatMap((r) => r.runs)
-                .map((r) => `${harnessLabel[r.harness]} ${r.version}`)
-                .filter((v, i, all) => all.indexOf(v) === i)
-                .join(", ")}
-              . Hover or tab through the dots for details.
-            </figcaption>
-          </figure>
-        </Container>
-      </section>
-
-      {taskPairs.length > 0 && (
-        <section className="border-t border-line">
-          <Container className="flex flex-col gap-8 py-26">
-            <div className="flex flex-col gap-4">
-              <Eyebrow>By task</Eyebrow>
-              <H2>Which tasks did each configuration solve?</H2>
-              <p className="m-0 max-w-[60ch] text-ink-2">
-                Each model&apos;s newest Copilot run beside its run on another harness, on identical
-                task versions. Pick a pairing to see where the attempts were won and lost.
-              </p>
-            </div>
-            <TaskHeatmap comparisons={taskPairs} />
-          </Container>
-        </section>
-      )}
-
-      <section className="border-t border-line">
-        <Container className="flex flex-col gap-10 py-26">
-          <div className="flex flex-col gap-4">
-            <Eyebrow>Across releases</Eyebrow>
-            <H2>Release by release on Copilot.</H2>
-            <p className="m-0 max-w-[60ch] text-ink-2">
-              Every Copilot CLI release from 1.0.{firstChartedRevision} to 1.0.{latestCopilotRevision} we ran, for the
-              models we track. Use the change view to compare each run with that model&apos;s
-              prior tested release. Hover over a release or use the arrow keys on the chart
-              to see the values and which versions were compared.
-            </p>
-          </div>
-          <div className="border border-line bg-surface p-5">
-            <RevisionChart series={series} />
-          </div>
-        </Container>
-      </section>
-
-      <section id="results" className="border-t border-line bg-surface">
+      <section id="results" className="scroll-mt-12 border-t border-line bg-surface">
         <Container className="flex flex-col gap-8 py-26">
-          <div className="flex flex-col gap-4">
+          <div className="flex max-w-[64ch] flex-col gap-4">
             <Eyebrow>All results</Eyebrow>
             <H2>Every completed run.</H2>
+            <p className="m-0 text-ink-2">
+              The data behind the findings above. Filter by harness or model, or select a column header to sort.
+            </p>
           </div>
           <SweTable runs={sweRuns} />
           <p className="m-0 font-mono text-xs text-muted">
-            pass@1 = passing trials ÷ 56. Broke tests = trials whose patch failed at least one
-            pre-existing test. $/trial = billed cost per trial; ~* marks a Codex API-price estimate.
-            Agent time excludes setup and verification. Source:{" "}
+            pass@1 = passing trials ÷ 56. Broke tests = trials whose patch failed at least one pre-existing test.
+            $/trial = billed cost per trial; ~* marks a Codex API-price estimate. Agent time excludes setup and
+            verification. Source:{" "}
             <a href={wharfSweSource} className="underline hover:text-ink">
               Wharf @ {wharfSweCommit}
             </a>
@@ -323,7 +402,7 @@ export default function WharfSwePage() {
         </Container>
       </section>
 
-      <section className="border-t border-line">
+      <section id="limitations" className="scroll-mt-12 border-t border-line">
         <Container className="py-26">
           <AutoGrid min={320} className="items-start gap-14">
             <div className="flex flex-col gap-4">
@@ -345,11 +424,7 @@ export default function WharfSwePage() {
         </Container>
       </section>
 
-      <CtaStrip
-        title="Run this on your own codebase."
-        href={contactHref}
-        label="Request a discovery call"
-      />
+      <CtaStrip title="Run this on your own codebase." href={contactHref} label="Request a discovery call" />
     </>
   );
 }
